@@ -142,7 +142,7 @@ def require_auth(user: dict = Depends(get_current_user)) -> dict:
     return user
 
 # --- Configuration ---
-APP_VERSION = "1.9.9"  # Fix case sensitivity issues - normalize all case IDs to lowercase
+APP_VERSION = "1.9.10"  # Fix NY_FCRA.json location - moved to Tiger resources directory
 
 # Global session manager
 session_manager = SessionManager()
