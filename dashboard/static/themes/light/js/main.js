@@ -443,7 +443,7 @@ window.handleManualRefresh = handleManualRefresh;
 // DOM ready initialization
 document.addEventListener('DOMContentLoaded', () => {
     // Version and path verification console logs (v1.9.12)
-    console.log('🔍 DASHBOARD VERSION: 1.9.13 - Extended animation timing to 60 seconds per file');
+    console.log('🔍 DASHBOARD VERSION: 1.9.13 - Animation timing optimized to 15 seconds per file');
     console.log('🔍 TIGER RESOURCES PATH: tiger/app/resources/legal-spec/NY_FCRA.json');
     console.log('📄 DOM loaded, starting initialization...');
     initialize();

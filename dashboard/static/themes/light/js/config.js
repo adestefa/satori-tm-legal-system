@@ -3,17 +3,17 @@
 
 export const ANIMATION_CONFIG = {
     // File processing timing (in seconds)
-    PROCESSING_TIME: 20,     // Time showing ⏳ hourglass 
+    PROCESSING_TIME: 10,     // Time showing ⏳ hourglass 
     TRANSITION_TIME: 5,      // Time for transition to next file
     
     // Calculated totals
     get TOTAL_PER_FILE() {
-        return this.PROCESSING_TIME + this.TRANSITION_TIME; // 25 seconds
+        return this.PROCESSING_TIME + this.TRANSITION_TIME; // 15 seconds
     },
     
     // Convert to milliseconds for setTimeout
     get PROCESSING_MS() {
-        return this.PROCESSING_TIME * 1000; // 55000ms
+        return this.PROCESSING_TIME * 1000; // 10000ms
     },
     
     get TRANSITION_MS() {
