@@ -381,9 +381,10 @@ class HydratedJSONConsolidator:
     def _suggest_legal_claims(self, consolidated_case: ConsolidatedCase) -> Dict[str, List[Dict[str, Any]]]:
         """Suggests legal claims based on the consolidated case data."""
         try:
-            ny_fcra_path = Path("/Users/corelogic/satori-dev/TM/project_memories/legal-spec/NY_FCRA.json")
+            # Use relative path from Tiger app resources directory
+            ny_fcra_path = Path(__file__).parent.parent.parent / "resources" / "legal-spec" / "NY_FCRA.json"
             if not ny_fcra_path.exists():
-                self.logger.warning("NY_FCRA.json not found, cannot suggest legal claims.")
+                self.logger.warning(f"NY_FCRA.json not found at {ny_fcra_path}, cannot suggest legal claims.")
                 return {}
 
             with open(ny_fcra_path, 'r', encoding='utf-8') as f:
@@ -489,7 +490,7 @@ class HydratedJSONConsolidator:
         """Build legal violations reference section from NY FCRA template"""
         # Load the NY FCRA legal violations template
         try:
-            ny_fcra_path = Path(__file__).parent.parent.parent.parent / "prd" / "beaver" / "legal-spec" / "NY_FCRA.json"
+            ny_fcra_path = Path(__file__).parent.parent.parent / "resources" / "legal-spec" / "NY_FCRA.json"
             if ny_fcra_path.exists():
                 with open(ny_fcra_path, 'r', encoding='utf-8') as f:
                     ny_fcra_data = json.load(f)

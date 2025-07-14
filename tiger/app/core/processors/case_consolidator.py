@@ -322,8 +322,9 @@ class CaseConsolidator:
         import json
         import os
         
-        # Load legal corpus
-        legal_corpus_path = '/Users/corelogic/satori-dev/TM/project_memories/legal-spec/NY_FCRA.json'
+        # Load legal corpus from Tiger resources directory
+        from pathlib import Path
+        legal_corpus_path = Path(__file__).parent.parent.parent / "resources" / "legal-spec" / "NY_FCRA.json"
         
         try:
             with open(legal_corpus_path, 'r') as f:
