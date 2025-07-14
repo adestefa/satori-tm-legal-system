@@ -66,7 +66,10 @@ async function fetchCaseData(caseId) {
         }
         const rawResponse = await response.text();
         console.log("Raw response:", rawResponse);
-        return JSON.parse(rawResponse);
+        const parsedData = JSON.parse(rawResponse);
+        console.log("🔍 FETCH: Parsed data:", parsedData);
+        console.log("🔍 FETCH: Parsed data has causes_of_action?", !!parsedData.causes_of_action);
+        return parsedData;
     } catch (error) {
         console.error("Failed to fetch or parse case data:", error);
         const container = document.getElementById('review-data-section');
@@ -299,15 +302,35 @@ function renderDamagesSection(damages) {
 }
 
 function renderCausesOfAction(data) {
+    console.log('🔍 renderCausesOfAction called with data:', data);
+    console.log('🔍 Is data an array?', Array.isArray(data));
+    console.log('🔍 Data length:', data ? data.length : 'undefined');
+    
     const container = document.getElementById('cause-of-action-section');
+    console.log('🔍 Container found:', container ? 'YES' : 'NO');
+    
     if (!data || !Array.isArray(data)) {
+        console.log('❌ No causes of action data or not an array');
         container.innerHTML = '<p>No causes of action found.</p>';
         return;
     }
 
     let html = '<div class="space-y-6">';
     data.forEach((cause, causeIndex) => {
+        console.log(`🔍 Processing cause ${causeIndex}:`, cause);
+        console.log(`🔍 Cause title:`, cause.title);
+        console.log(`🔍 Legal claims:`, cause.legal_claims);
+        console.log(`🔍 Legal claims count:`, cause.legal_claims ? cause.legal_claims.length : 'undefined');
+        
+        if (!cause.legal_claims || !Array.isArray(cause.legal_claims)) {
+            console.log(`❌ No legal_claims array found for cause ${causeIndex}`);
+            return;
+        }
+        
         const claimsHtml = cause.legal_claims.map((claim, claimIndex) => {
+            console.log(`🔍 Processing claim ${claimIndex} for cause ${causeIndex}:`, claim);
+            console.log(`🔍 Claim selected:`, claim.selected);
+            console.log(`🔍 Claim confidence:`, claim.confidence);
             const claimId = `claim-${causeIndex}-${claimIndex}`;
             const confidenceColor = claim.confidence >= 0.5 ? 'text-green-600' : 'text-yellow-600';
             const defaultSelected = claim.confidence >= 0.5; // Auto-select 50%+ confidence claims
@@ -788,6 +811,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.log("Finished rendering review data.");
 
         console.log("Rendering causes of action...");
+        console.log("🔍 MAIN: caseData.causes_of_action:", caseData.causes_of_action);
+        console.log("🔍 MAIN: Type of causes_of_action:", typeof caseData.causes_of_action);
+        console.log("🔍 MAIN: Is array?", Array.isArray(caseData.causes_of_action));
         renderCausesOfAction(caseData.causes_of_action);
         console.log("Finished rendering causes of action.");
 

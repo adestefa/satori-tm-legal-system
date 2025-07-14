@@ -142,7 +142,7 @@ def require_auth(user: dict = Depends(get_current_user)) -> dict:
     return user
 
 # --- Configuration ---
-APP_VERSION = "1.9.7"  # Fixed PDF generation and serving with standardized naming
+APP_VERSION = "1.9.8"  # Debug legal claims display issue
 
 # Global session manager
 session_manager = SessionManager()
