@@ -142,7 +142,7 @@ def require_auth(user: dict = Depends(get_current_user)) -> dict:
     return user
 
 # --- Configuration ---
-APP_VERSION = "1.9.10"  # Fix NY_FCRA.json location - moved to Tiger resources directory
+APP_VERSION = "1.9.11"  # Extended animation timing by 10 seconds per file for server processing
 
 # Global session manager
 session_manager = SessionManager()

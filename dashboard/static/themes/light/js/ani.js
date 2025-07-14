@@ -37,7 +37,7 @@ export function startHybridFileAnimation(caseId) {
     animateNextFile(caseId);
 }
 
-// Animate files one by one with 7-second intervals
+// Animate files one by one with 17-second intervals (extended for server processing time)
 function animateNextFile(caseId) {
     const state = hybridAnimationStates.get(caseId);
     if (!state || state.manifestOverride || state.completed) {
@@ -70,7 +70,7 @@ function animateNextFile(caseId) {
     iconElement.textContent = '⏳';
     iconElement.style.animation = 'hourglass-sand 3s ease-in-out infinite';
     
-    // Step 2: After 5 seconds, show completion (checkmark)
+    // Step 2: After 15 seconds, show completion (checkmark) - extended for server processing time
     setTimeout(() => {
         if (hybridAnimationStates.get(caseId)?.manifestOverride) {
             console.log(`🎭 HYBRID: Manifest override detected, stopping spoof animation for ${fileName}`);
@@ -81,7 +81,7 @@ function animateNextFile(caseId) {
         iconElement.style.animation = 'none';
         console.log(`🎭 HYBRID: File ${fileName} completed`);
         
-        // Step 3: After 2 more seconds, move to next file (total 7 seconds per file)
+        // Step 3: After 2 more seconds, move to next file (total 17 seconds per file)
         setTimeout(() => {
             if (hybridAnimationStates.get(caseId)?.manifestOverride) {
                 return;
@@ -90,7 +90,7 @@ function animateNextFile(caseId) {
             state.currentIndex++;
             animateNextFile(caseId);
         }, 2000);
-    }, 5000);
+    }, 15000);
 }
 
 // Complete hybrid animation and update case status
