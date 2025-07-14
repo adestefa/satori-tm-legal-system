@@ -382,6 +382,8 @@ function renderCausesOfAction(data) {
     });
     html += '</div>';
     
+    console.log('🔍 Final HTML being inserted into container:', html);
+    
     // Enhanced action buttons
     html += `
         <div class="mt-8 bg-gray-50 p-6 rounded-lg border border-gray-200">
@@ -406,6 +408,7 @@ function renderCausesOfAction(data) {
     `;
     
     container.innerHTML = html;
+    console.log('🔍 HTML has been inserted into container. Container content:', container.innerHTML);
     
     // Add event listeners for helper buttons
     document.getElementById('select-all-btn').addEventListener('click', () => {
