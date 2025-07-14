@@ -79,7 +79,7 @@ async function fetchCaseData(caseId) {
         const container = document.getElementById('review-data-section');
         container.innerHTML = `<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
             <strong class="font-bold">Error:</strong>
-            <span class="block sm:inline">Failed to load case data. Check the console for details.</span>
+            <span class="block sm:inline">Data still processing please try again in a few mins</span>
         </div>`;
         return null;
     }
@@ -953,7 +953,7 @@ async function loadSummonsInterface(caseId) {
         // Load case data to get defendants list
         const response = await fetch(`/api/cases/${caseId}/data`);
         if (!response.ok) {
-            throw new Error('Failed to load case data');
+            throw new Error('Data still processing please try again in a few mins');
         }
         
         const caseData = await response.json();

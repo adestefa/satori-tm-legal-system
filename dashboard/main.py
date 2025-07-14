@@ -142,7 +142,7 @@ def require_auth(user: dict = Depends(get_current_user)) -> dict:
     return user
 
 # --- Configuration ---
-APP_VERSION = "1.9.11"  # Extended animation timing by 10 seconds per file for server processing
+APP_VERSION = "1.9.12"  # Extended animation timing to 35 seconds per file for server processing
 
 # Global session manager
 session_manager = SessionManager()
@@ -493,7 +493,7 @@ async def update_legal_claims(case_id: str, request: Request):
         # Load existing hydrated JSON
         case = data_manager.get_case_by_id(case_id)
         if not case or not case.hydrated_json_path:
-            raise HTTPException(status_code=404, detail="Case data not found or not processed yet")
+            raise HTTPException(status_code=404, detail="Data still processing please try again in a few mins")
         
         if not os.path.exists(case.hydrated_json_path):
             raise HTTPException(status_code=404, detail="Hydrated JSON file not found")
@@ -549,7 +549,7 @@ async def update_damage_selections(case_id: str, request: Request):
         # Load existing hydrated JSON
         case = data_manager.get_case_by_id(case_id)
         if not case or not case.hydrated_json_path:
-            raise HTTPException(status_code=404, detail="Case data not found or not processed yet")
+            raise HTTPException(status_code=404, detail="Data still processing please try again in a few mins")
         
         if not os.path.exists(case.hydrated_json_path):
             raise HTTPException(status_code=404, detail="Hydrated JSON file not found")
@@ -680,7 +680,7 @@ async def get_case_manifest(case_id: str):
 async def get_case_data(case_id: str):
     case = data_manager.get_case_by_id(case_id)
     if not case or not case.hydrated_json_path:
-        raise HTTPException(status_code=404, detail="Case data not found or not processed yet.")
+        raise HTTPException(status_code=404, detail="Data still processing please try again in a few mins")
     
     if not os.path.exists(case.hydrated_json_path):
         raise HTTPException(status_code=404, detail="Hydrated JSON file not found at path.")
@@ -695,7 +695,7 @@ async def get_case_review_data(case_id: str):
     case_id = case_id.lower()
     case = data_manager.get_case_by_id(case_id)
     if not case or not case.hydrated_json_path:
-        raise HTTPException(status_code=404, detail="Case data not found or not processed yet.")
+        raise HTTPException(status_code=404, detail="Data still processing please try again in a few mins")
     
     if not os.path.exists(case.hydrated_json_path):
         raise HTTPException(status_code=404, detail="Hydrated JSON file not found at path.")
@@ -719,7 +719,7 @@ async def get_case_review_data(case_id: str):
 async def save_legal_claims(case_id: str, data: dict):
     case = data_manager.get_case_by_id(case_id)
     if not case or not case.hydrated_json_path:
-        raise HTTPException(status_code=404, detail="Case data not found or not processed yet.")
+        raise HTTPException(status_code=404, detail="Data still processing please try again in a few mins")
     
     if not os.path.exists(case.hydrated_json_path):
         raise HTTPException(status_code=404, detail="Hydrated JSON file not found at path.")
@@ -1022,7 +1022,7 @@ async def get_case_actions_html(case_id: str):
 async def generate_complaint_html(case_id: str):
     case = data_manager.get_case_by_id(case_id)
     if not case or not case.hydrated_json_path:
-        raise HTTPException(status_code=404, detail="Case data not found or not processed yet.")
+        raise HTTPException(status_code=404, detail="Data still processing please try again in a few mins")
     
     if not os.path.exists(case.hydrated_json_path):
         raise HTTPException(status_code=404, detail="Hydrated JSON file not found at path.")
@@ -1054,7 +1054,7 @@ async def generate_summons_documents(case_id: str):
     """Generate individual summons documents for each defendant in the case"""
     case = data_manager.get_case_by_id(case_id)
     if not case or not case.hydrated_json_path:
-        raise HTTPException(status_code=404, detail="Case data not found or not processed yet.")
+        raise HTTPException(status_code=404, detail="Data still processing please try again in a few mins")
     
     if not os.path.exists(case.hydrated_json_path):
         raise HTTPException(status_code=404, detail="Hydrated JSON file not found at path.")
