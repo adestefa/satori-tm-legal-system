@@ -442,6 +442,9 @@ window.handleManualRefresh = handleManualRefresh;
 
 // DOM ready initialization
 document.addEventListener('DOMContentLoaded', () => {
+    // Version and path verification console logs (v1.9.10)
+    console.log('🔍 DASHBOARD VERSION: 1.9.10 - NY_FCRA.json fix');
+    console.log('🔍 TIGER RESOURCES PATH: tiger/app/resources/legal-spec/NY_FCRA.json');
     console.log('📄 DOM loaded, starting initialization...');
     initialize();
 });

@@ -383,6 +383,12 @@ class HydratedJSONConsolidator:
         try:
             # Use relative path from Tiger app resources directory
             ny_fcra_path = Path(__file__).parent.parent.parent / "resources" / "legal-spec" / "NY_FCRA.json"
+            
+            # Console logging for version and path verification (v1.9.10)
+            print(f"🔍 TIGER VERSION: 1.9.10 - NY_FCRA.json fix")
+            print(f"🔍 NY_FCRA.json PATH: {ny_fcra_path}")
+            print(f"🔍 FILE EXISTS: {ny_fcra_path.exists()}")
+            
             if not ny_fcra_path.exists():
                 self.logger.warning(f"NY_FCRA.json not found at {ny_fcra_path}, cannot suggest legal claims.")
                 return {}
