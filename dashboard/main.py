@@ -142,7 +142,7 @@ def require_auth(user: dict = Depends(get_current_user)) -> dict:
     return user
 
 # --- Configuration ---
-APP_VERSION = "1.9.8"  # Debug legal claims display issue
+APP_VERSION = "1.9.9"  # Fix case sensitivity issues - normalize all case IDs to lowercase
 
 # Global session manager
 session_manager = SessionManager()
@@ -691,6 +691,8 @@ async def get_case_data(case_id: str):
 
 @app.get("/api/cases/{case_id}/review_data")
 async def get_case_review_data(case_id: str):
+    # Normalize case ID to lowercase for consistency
+    case_id = case_id.lower()
     case = data_manager.get_case_by_id(case_id)
     if not case or not case.hydrated_json_path:
         raise HTTPException(status_code=404, detail="Case data not found or not processed yet.")

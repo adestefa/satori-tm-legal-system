@@ -135,8 +135,10 @@ class DataManager:
         return self.cases
 
     def get_case_by_id(self, case_id: str) -> Case | None:
+        # Normalize case ID to lowercase for consistent lookup
+        case_id = case_id.lower()
         for case in self.cases:
-            if case.id == case_id:
+            if case.id.lower() == case_id:
                 return case
         return None
 

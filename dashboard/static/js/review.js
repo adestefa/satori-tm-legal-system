@@ -2,7 +2,8 @@
 
 function getCaseId() {
     const params = new URLSearchParams(window.location.search);
-    return params.get('case_id');
+    const caseId = params.get('case_id');
+    return caseId ? caseId.toLowerCase() : caseId;
 }
 
 function checkAndShowValidationAlert(caseId, caseData) {
