@@ -1,10 +1,6 @@
 // dashboard/static/themes/light/js/ui.js
 
-// Animation timing constants - easy to adjust later
-const SPOOF_ANIMATION_SECONDS_PER_FILE = 6;  // Total seconds per file (conservative)
-const SPOOF_PROCESSING_SECONDS = 4;           // Time showing ⏳ hourglass
-const SPOOF_COMPLETE_SECONDS = 2;             // Time showing ✅ checkmark
-const SPOOF_FINAL_PADDING_SECONDS = 3;       // Extra time before reload
+import { ANIMATION_CONFIG } from './config.js';
 
 const caseGrid = document.getElementById('case-grid');
 
@@ -184,7 +180,7 @@ function startSimpleSpoof(caseId) {
     
     // Sequential file animation using constants
     let currentFileIndex = 0;
-    const totalAnimationTime = fileCount * SPOOF_ANIMATION_SECONDS_PER_FILE;
+    const totalAnimationTime = fileCount * ANIMATION_CONFIG.TOTAL_PER_FILE;
     
     console.log(`🎬 SPOOF: Starting ${totalAnimationTime}s animation for ${fileCount} files`);
     
@@ -213,8 +209,8 @@ function startSimpleSpoof(caseId) {
             setTimeout(() => {
                 currentFileIndex++;
                 animateNextFile();
-            }, SPOOF_COMPLETE_SECONDS * 1000);
-        }, SPOOF_PROCESSING_SECONDS * 1000);
+            }, ANIMATION_CONFIG.TRANSITION_MS);
+        }, ANIMATION_CONFIG.PROCESSING_MS);
     }
     
     function updateToFinalState() {

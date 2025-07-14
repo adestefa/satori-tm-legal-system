@@ -142,7 +142,7 @@ def require_auth(user: dict = Depends(get_current_user)) -> dict:
     return user
 
 # --- Configuration ---
-APP_VERSION = "1.9.12"  # Extended animation timing to 35 seconds per file for server processing
+APP_VERSION = "1.9.13"  # Extended animation timing to 60 seconds per file (55s processing + 5s transition)
 
 # Global session manager
 session_manager = SessionManager()

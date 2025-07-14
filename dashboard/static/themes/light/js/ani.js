@@ -1,5 +1,7 @@
 // dashboard/static/js/ani.js - File Processing Animation System
 
+import { ANIMATION_CONFIG } from './config.js';
+
 console.log(`🎬 ANI: Loading animation module...`);
 
 // Animation state management
@@ -47,7 +49,8 @@ function animateNextFile(caseId) {
     
     if (state.currentIndex >= state.fileList.length) {
         // All files complete
-        console.log(`🎭 HYBRID: All files animated for case ${caseId}`);
+        const totalElapsed = (Date.now() - state.startTime) / 1000;
+        console.log(`✅ COMPLETED: Case ${caseId} finished - Total time: ${totalElapsed.toFixed(1)} seconds`);
         completeHybridAnimation(caseId);
         return;
     }
@@ -64,13 +67,19 @@ function animateNextFile(caseId) {
         return;
     }
     
+    // Initialize timing for case if first file
+    if (state.currentIndex === 0) {
+        state.startTime = Date.now();
+        console.log(`⏰ START: Case ${caseId} animation started - will wait ${ANIMATION_CONFIG.TOTAL_PER_FILE} seconds per file (${state.fileList.length} files total)`);
+    }
+    
     console.log(`🎭 HYBRID: Animating file ${fileName} (${state.currentIndex + 1}/${state.fileList.length})`);
     
     // Step 1: Start processing animation (hourglass with sand animation)
     iconElement.textContent = '⏳';
     iconElement.style.animation = 'hourglass-sand 3s ease-in-out infinite';
     
-    // Step 2: After 30 seconds, show completion (checkmark) - extended for server processing time
+    // Step 2: After processing time, show completion (checkmark)
     setTimeout(() => {
         if (hybridAnimationStates.get(caseId)?.manifestOverride) {
             console.log(`🎭 HYBRID: Manifest override detected, stopping spoof animation for ${fileName}`);
@@ -79,9 +88,8 @@ function animateNextFile(caseId) {
         
         iconElement.textContent = '✅';
         iconElement.style.animation = 'none';
-        console.log(`🎭 HYBRID: File ${fileName} completed`);
         
-        // Step 3: After 5 more seconds, move to next file (total 35 seconds per file)
+        // Step 3: After transition time, move to next file
         setTimeout(() => {
             if (hybridAnimationStates.get(caseId)?.manifestOverride) {
                 return;
@@ -89,8 +97,8 @@ function animateNextFile(caseId) {
             
             state.currentIndex++;
             animateNextFile(caseId);
-        }, 5000);
-    }, 30000);
+        }, ANIMATION_CONFIG.TRANSITION_MS);
+    }, ANIMATION_CONFIG.PROCESSING_MS);
 }
 
 // Complete hybrid animation and update case status

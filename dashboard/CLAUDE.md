@@ -4,8 +4,8 @@ This file provides guidance to Claude Code when working with the TM Dashboard se
 
 ## Current System Status
 
-**Date:** 2025-07-11  
-**Version:** v1.8.27 - Production Ready Legal Document Processing Platform  
+**Date:** 2025-07-14  
+**Version:** v1.9.13 - Production Ready Legal Document Processing Platform with Centralized Animation Config  
 **Status:** ✅ FULLY OPERATIONAL - All major features implemented and tested
 
 ### System Overview
@@ -33,7 +33,7 @@ The Dashboard is a standalone web application that provides a user-friendly inte
 
 ### Technology Stack
 
-**Backend (FastAPI v1.8.27):**
+**Backend (FastAPI v1.9.13):**
 - **Framework:** FastAPI with comprehensive API (40+ endpoints)
 - **WebSocket Support:** Real-time bidirectional communication
 - **Authentication:** Session-based security with user management
@@ -44,7 +44,7 @@ The Dashboard is a standalone web application that provides a user-friendly inte
 
 **Frontend (Multi-theme Professional Interface):**
 - **Styling:** Tailwind CSS 4.1.11 with custom animations
-- **JavaScript:** Vanilla ES6+ modular architecture
+- **JavaScript:** Vanilla ES6+ modular architecture with centralized configuration system
 - **Themes:** Three professional themes (light, dark, lexigen)
 - **Real-time:** WebSocket connectivity with automatic reconnection
 - **Responsive:** Fixed-width cards with flexbox layout system
@@ -64,13 +64,50 @@ The Dashboard is a standalone web application that provides a user-friendly inte
 
 **Frontend Architecture:**
 - `static/themes/`: Multi-theme assets with professional styling
-- `static/js/`: Modular JavaScript with `api.js`, `ui.js`, `eventHandlers.js`, `main.js`, `websocket.js`
+- `static/js/`: Modular JavaScript with centralized configuration system:
+  - `config.js`: **Centralized animation timing configuration** (25s per file)
+  - `api.js`, `ui.js`, `ani.js`: Core functionality modules
+  - `eventHandlers.js`, `main.js`, `websocket.js`: Application logic
 - `static/review/`: Interactive case review interface with damage selection
 - `static/settings/`: Centralized firm configuration management
 - `static/templates/`: Template upload and management interface
 - `static/help/`: Comprehensive help system with attorney notes guidance
 
 ## Key Features
+
+### Centralized Animation Configuration System (v1.9.13)
+
+**Implementation:** Single source of truth for all animation timing across the entire application.
+
+**Key Benefits:**
+- **Unified Configuration:** All animation timing controlled from `static/js/config.js`
+- **Easy Maintenance:** Change timing in one place, updates all systems automatically
+- **Consistent Experience:** Both `ani.js` and `ui.js` use identical timing values
+- **Production Ready:** 25 seconds per file (20s processing + 5s transition)
+
+**Configuration Structure:**
+```javascript
+export const ANIMATION_CONFIG = {
+    PROCESSING_TIME: 20,     // Time showing ⏳ hourglass (20 seconds)
+    TRANSITION_TIME: 5,      // Time for transition to next file (5 seconds)
+    TOTAL_PER_FILE: 25,      // Total animation time per file (25 seconds)
+    
+    // Millisecond conversions for setTimeout
+    PROCESSING_MS: 20000,    // 20 seconds in milliseconds
+    TRANSITION_MS: 5000      // 5 seconds in milliseconds
+}
+```
+
+**Usage Across Components:**
+- **`ani.js`:** Hybrid animation system uses `ANIMATION_CONFIG.PROCESSING_MS` and `ANIMATION_CONFIG.TRANSITION_MS`
+- **`ui.js`:** SPOOF animation system uses same configuration values
+- **Console Logging:** Displays current timing: `⚙️ CONFIG: Animation timing - 25s per file (20s + 5s)`
+
+**Development Workflow:**
+1. **Single Point of Change:** Modify timing values in `config.js` only
+2. **Automatic Propagation:** All animation systems update immediately
+3. **Consistent Behavior:** No more timing discrepancies between systems
+4. **Easy Testing:** Simple configuration changes for testing different timing scenarios
 
 ### Advanced Case Management
 - **Real-time Monitoring:** WebSocket-based live updates with dual file watching
