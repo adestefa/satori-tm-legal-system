@@ -1,0 +1,124 @@
+{
+    "case_information": {
+        "court_type": "United States District Court",
+        "court_district": "Northern District of California",
+        "case_number": "3:25-cv-00789",
+        "case_type": "Complaint", 
+        "jury_demand": true
+    },
+    "plaintiffs": [
+        {
+            "name": "Jennifer Martinez",
+            "address": {
+                "street": "789 Oak Avenue",
+                "city": "San Francisco",
+                "state": "CA",
+                "zip_code": "94115",
+                "country": "USA"
+            },
+            "residency": "State of California, and San Francisco County",
+            "consumer_status": "Individual 'consumer' within the meaning of the FCRA",
+            "phone": "(415) 555-0199",
+            "email": "j.martinez@email.com",
+            "role": "Primary Plaintiff"
+        },
+        {
+            "name": "Carlos Martinez", 
+            "address": {
+                "street": "789 Oak Avenue",
+                "city": "San Francisco", 
+                "state": "CA",
+                "zip_code": "94115",
+                "country": "USA"
+            },
+            "residency": "State of California, and San Francisco County",
+            "consumer_status": "Individual 'consumer' within the meaning of the FCRA",
+            "phone": "(415) 555-0199",
+            "email": "c.martinez@email.com",
+            "role": "Joint Plaintiff (Spouse)"
+        }
+    ],
+    "plaintiff_counsel": {
+        "name": "Sarah Thompson",
+        "firm": "Bay Area Consumer Rights LLC",
+        "address": {
+            "street": "1234 Market Street, Suite 500",
+            "city": "San Francisco",
+            "state": "CA",
+            "zip_code": "94102"
+        },
+        "phone": "(415) 555-7890",
+        "email": "sthompson@bayareaconsumer.com"
+    },
+    "defendants": [
+        {
+            "name": "BANK OF AMERICA, N.A.",
+            "short_name": "Bank of America",
+            "type": "Furnisher of Information",
+            "state_of_incorporation": "North Carolina", 
+            "business_status": "Duly authorized and qualified to do business in the State of California",
+            "address": {
+                "street": "100 North Tryon Street",
+                "city": "Charlotte",
+                "state": "NC",
+                "zip_code": "28255"
+            }
+        },
+        {
+            "name": "EQUIFAX INFORMATION SERVICES, LLC",
+            "short_name": "Equifax",
+            "type": "Consumer Reporting Agency",
+            "state_of_incorporation": "Georgia",
+            "address": {
+                "street": "1550 Peachtree Street NW",
+                "city": "Atlanta",
+                "state": "GA",
+                "zip_code": "30309"
+            }
+        }
+    ],
+    "factual_background": {
+        "summary": "Married couple disputing erroneous joint account information reported after identity theft incident affecting both spouses.",
+        "events": [
+            { "date": "December 2023", "description": "Plaintiffs opened joint checking account with Bank of America." },
+            { "date": "June 2024", "description": "Identity thieves compromised joint account information." },
+            { "date": "July 2024", "description": "Fraudulent overdraft fees created negative account status." },
+            { "date": "August 2024", "description": "Both plaintiffs disputed the erroneous reporting with bank and credit agencies." },
+            { "date": "October 2024", "description": "Bank of America verified the fraudulent information as accurate to Equifax." }
+        ],
+        "additional_notes": [
+            "Both plaintiffs were victims of the same identity theft incident",
+            "Police report filed jointly (Report #SF-2024-087654)",
+            "Bank acknowledged fraud but continued negative reporting",
+            "Both plaintiffs' credit scores negatively impacted"
+        ]
+    },
+    "causes_of_action": [
+        {
+            "title": "VIOLATION OF THE FCRA",
+            "against_defendants": ["All Defendants"],
+            "allegations": [
+                "Defendants violated FCRA § 1681i and § 1681s-2(b) by failing to conduct reasonable investigations regarding both plaintiffs' joint account disputes."
+            ]
+        }
+    ],
+    "damages": {
+        "summary": "Both plaintiffs suffered damage to their credit profiles, emotional distress, and were jointly denied for a mortgage application.",
+        "denials": [
+            {
+                "creditor": "Golden Gate Mortgage Company",
+                "application_for": "Home Mortgage (Joint Application)",
+                "date": "November 15, 2024",
+                "reasons": [
+                    "Negative banking history on both applicants",
+                    "Recent derogatory account information",
+                    "Insufficient credit stability"
+                ],
+                "credit_score_used": "Jennifer: 640, Carlos: 635"
+            }
+        ]
+    },
+    "filing_details": {
+        "date": "February 10, 2025"
+    }
+}

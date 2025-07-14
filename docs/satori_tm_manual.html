@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satori Tiger-Monkey Document Processing System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* GitHub Dark Theme */
+        body {
+            background-color: #0d1117;
+            color: #c9d1d9;
+        }
+        .bg-gray-800 { background-color: #161b22; }
+        .bg-gray-900 { background-color: #0d1117; }
+        .border-gray-700 { border-color: #30363d; }
+        .text-gray-300 { color: #8b949e; }
+        .text-gray-400 { color: #6e7681; }
+        .tab {
+            cursor: pointer;
+            padding: 1rem;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        .tab.active {
+            color: #58a6ff;
+            border-bottom-color: #58a6ff;
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        code {
+            background-color: #161b22;
+            color: #c9d1d9;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        }
+        pre {
+            background-color: #161b22;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body class="font-sans">
+
+    <div class="container mx-auto p-8">
+        <header class="mb-8">
+            <h1 class="text-4xl font-bold text-white">Satori Tiger-Monkey Document Processing System</h1>
+            <p class="text-gray-300 mt-2">A comprehensive guide to manually running the document processing pipeline.</p>
+        </header>
+
+        <div class="bg-gray-800 rounded-lg shadow-lg">
+            <!-- Tabs -->
+            <div class="border-b border-gray-700">
+                <nav class="flex" aria-label="Tabs">
+                    <div id="tab-landing" class="tab active" onclick="switchTab('landing')">System Overview</div>
+                    <div id="tab-tiger" class="tab" onclick="switchTab('tiger')">Tiger Service</div>
+                    <div id="tab-monkey" class="tab" onclick="switchTab('monkey')">Monkey Service</div>
+                    <div id="tab-testing" class="tab" onclick="switchTab('testing')">End-to-End Testing</div>
+                </nav>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="p-8">
+                <!-- Landing Tab -->
+                <div id="content-landing" class="tab-content active">
+                    <h2 class="text-2xl font-bold text-white mb-4">Welcome to the Satori Tiger-Monkey System</h2>
+                    <p class="text-gray-300 mb-6">This system is a powerful, dual-service pipeline designed to streamline the processing of legal documents for consumer protection law cases. It consists of two main services: Tiger and Monkey.</p>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <h3 class="text-xl font-semibold text-white">🐅 Tiger Service</h3>
+                            <p class="text-gray-300">Tiger is the extraction and analysis engine. It takes raw legal documents (PDFs, DOCX, etc.) as input and uses advanced OCR and natural language processing to extract key legal entities, facts, and case information. The output is a highly structured, consolidated JSON file.</p>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-white">🐒 Monkey Service</h3>
+                            <p class="text-gray-300">Monkey is the document generation engine. It consumes the JSON file produced by Tiger and uses a sophisticated templating system to generate court-ready legal documents in HTML format. These documents can then be printed to PDF for filing.</p>
+                        </div>
+                    </div>
+
+                    <h3 class="text-2xl font-bold text-white mt-8 mb-4">The Process Flow</h3>
+                    <div class="flex items-center justify-center space-x-4 text-gray-300">
+                        <div class="text-center">
+                            <p class="text-4xl">📄</p>
+                            <p>Case Documents</p>
+                        </div>
+                        <p class="text-2xl">→</p>
+                        <div class="text-center">
+                            <p class="text-4xl">🐅</p>
+                            <p>Tiger Service</p>
+                        </div>
+                        <p class="text-2xl">→</p>
+                        <div class="text-center">
+                            <p class="text-4xl">📄</p>
+                            <p>JSON Data</p>
+                        </div>
+                        <p class="text-2xl">→</p>
+                        <div class="text-center">
+                            <p class="text-4xl">🐒</p>
+                            <p>Monkey Service</p>
+                        </div>
+                        <p class="text-2xl">→</p>
+                        <div class="text-center">
+                            <p class="text-4xl">📄</p>
+                            <p>HTML Documents</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tiger Tab -->
+                <div id="content-tiger" class="tab-content">
+                    <h2 class="text-2xl font-bold text-white mb-4">🐅 Tiger: Data Extraction and Consolidation</h2>
+                    <p class="text-gray-300 mb-6">The Tiger service is responsible for processing raw legal documents (PDFs, DOCX, etc.) from a case folder, extracting key information, and consolidating it into a single structured JSON file.</p>
+                    
+                    <h3 class="text-xl font-semibold text-white mb-2">Command</h3>
+                    <p class="text-gray-300 mb-4">To run the Tiger service on a case directory, use the `hydrated-json` command:</p>
+                    <pre><code>/Users/corelogic/satori-dev/TM/tiger/run.sh hydrated-json &lt;path_to_case_directory&gt; -o &lt;path_to_output_directory&gt;</code></pre>
+
+                    <h3 class="text-xl font-semibold text-white mt-6 mb-2">Example</h3>
+                    <p class="text-gray-300 mb-4">This example processes the `youssef` case and saves the consolidated JSON file to the `outputs/tests` directory.</p>
+                    <pre><code>/Users/corelogic/satori-dev/TM/tiger/run.sh hydrated-json /Users/corelogic/satori-dev/TM/test-data/cases/youssef -o /Users/corelogic/satori-dev/TM/outputs/tests/</code></pre>
+
+                    <h3 class="text-xl font-semibold text-white mt-6 mb-2">Expected Output</h3>
+                    <p class="text-gray-300">Tiger will create a new JSON file in the specified output directory. The filename will be based on the case name and date, for example:</p>
+                    <code>/Users/corelogic/satori-dev/TM/outputs/tests/hydrated_FCRA_Youssef_Eman_20250704.json</code>
+                </div>
+
+                <!-- Monkey Tab -->
+                <div id="content-monkey" class="tab-content">
+                    <h2 class="text-2xl font-bold text-white mb-4">🐒 Monkey: Document Generation</h2>
+                    <p class="text-gray-300 mb-6">The Monkey service takes the structured JSON file generated by Tiger and uses it to create formatted HTML documents.</p>
+
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold text-white mb-2">Generate Case Review Document</h3>
+                        <p class="text-gray-300 mb-4">Use the `review` command to generate a `case_review.html` file.</p>
+                        <pre><code>/Users/corelogic/satori-dev/TM/monkey/run.sh review &lt;path_to_generated.json&gt; -o &lt;path_to_output_review.html&gt;</code></pre>
+                        <h4 class="text-lg font-semibold text-white mt-4 mb-2">Example</h4>
+                        <pre><code>/Users/corelogic/satori-dev/TM/monkey/run.sh review /Users/corelogic/satori-dev/TM/outputs/tests/hydrated_FCRA_Youssef_Eman_20250704.json -o /Users/corelogic/satori-dev/TM/outputs/tests/review_youssef.html</code></pre>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-semibold text-white mb-2">Generate Complaint Document</h3>
+                        <p class="text-gray-300 mb-4">Use the `build-complaint` command with a specific template to generate the complaint document.</p>
+                        <pre><code>/Users/corelogic/satori-dev/TM/monkey/run.sh build-complaint &lt;path_to_generated.json&gt; --template &lt;template_name.html&gt; -o &lt;path_to_output_directory&gt;</code></pre>
+                        <h4 class="text-lg font-semibold text-white mt-4 mb-2">Example</h4>
+                        <pre><code>/Users/corelogic/satori-dev/TM/monkey/run.sh build-complaint /Users/corelogic/satori-dev/TM/outputs/tests/hydrated_FCRA_Youssef_Eman_20250704.json --template ground_truth_complaint.html -o /Users/corelogic/satori-dev/TM/outputs/tests/</code></pre>
+                        <p class="text-gray-300 mt-4">This will create a `complaint.html` file inside a dated subfolder within the `processed` directory of your output path.</p>
+                    </div>
+                </div>
+
+                <!-- Testing Tab -->
+                <div id="content-testing" class="tab-content">
+                    <h2 class="text-2xl font-bold text-white mb-4">🔬 End-to-End Testing</h2>
+                    <p class="text-gray-300 mb-6">This section provides a step-by-step guide to running a full end-to-end test of the Tiger-Monkey pipeline using the `youssef` case as an example.</p>
+
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="text-xl font-semibold text-white mb-2">Step 1: Run Tiger</h3>
+                            <p class="text-gray-300 mb-4">Generate the consolidated JSON file from the `youssef` case files.</p>
+                            <pre><code>/Users/corelogic/satori-dev/TM/tiger/run.sh hydrated-json /Users/corelogic/satori-dev/TM/test-data/cases/youssef -o /Users/corelogic/satori-dev/TM/outputs/tests/</code></pre>
+                        </div>
+
+                        <div>
+                            <h3 class="text-xl font-semibold text-white mb-2">Step 2: Run Monkey (Review)</h3>
+                            <p class="text-gray-300 mb-4">Generate the case review document.</p>
+                            <pre><code>/Users/corelogic/satori-dev/TM/monkey/run.sh review /Users/corelogic/satori-dev/TM/outputs/tests/hydrated_FCRA_Youssef_Eman_20250704.json -o /Users/corelogic/satori-dev/TM/outputs/tests/review_youssef.html</code></pre>
+                        </div>
+
+                        <div>
+                            <h3 class="text-xl font-semibold text-white mb-2">Step 3: Run Monkey (Complaint)</h3>
+                            <p class="text-gray-300 mb-4">Generate the complaint document.</p>
+                            <pre><code>/Users/corelogic/satori-dev/TM/monkey/run.sh build-complaint /Users/corelogic/satori-dev/TM/outputs/tests/hydrated_FCRA_Youssef_Eman_20250704.json --template ground_truth_complaint.html -o /Users/corelogic/satori-dev/TM/outputs/tests/</code></pre>
+                        </div>
+
+                        <div>
+                            <h3 class="text-xl font-semibold text-white mb-2">Step 4: Verify</h3>
+                            <p class="text-gray-300">Check the `outputs/tests` directory for the generated `review_youssef.html` and `complaint.html` files.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="text-center text-gray-400 mt-8">
+            <p>&copy; 2025 Satori AI Tech Solutions Agency. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        function switchTab(tabName) {
+            // Deactivate all tabs and content
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+            // Activate the selected tab and content
+            document.getElementById('tab-' + tabName).classList.add('active');
+            document.getElementById('content-' + tabName).classList.add('active');
+        }
+    </script>
+
+</body>
+</html>

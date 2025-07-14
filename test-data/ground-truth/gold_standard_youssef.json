@@ -1,0 +1,234 @@
+{
+  "case_information": {
+    "court_name": "UNITED STATES DISTRICT COURT",
+    "court_district": "EASTERN DISTRICT OF NEW YORK",
+    "case_number": "1:25-cv-01987",
+    "document_title": "COMPLAINT",
+    "document_type": "FCRA"
+  },
+  "parties": {
+    "plaintiff": {
+      "name": "EMAN YOUSSEF",
+      "residency": "State of New York, borough of Manhattan",
+      "consumer_status": "Individual 'consumer' under FCRA and NY FCRA",
+      "legal_citations": ["15 U.S.C. § 1681a(c)", "N.Y. GBL § 380-a(b)"]
+    },
+    "defendants": [
+      {
+        "name": "TD BANK, N.A.",
+        "short_name": "TD Bank",
+        "type": "Furnisher of Information",
+        "state_of_incorporation": "Delaware",
+        "business_status": "Authorized to do business in New York",
+        "legal_citations": ["15 U.S.C. §§ 1681s-2(a) and (b)"]
+      },
+      {
+        "name": "EQUIFAX INFORMATION SERVICES, LLC",
+        "short_name": "Equifax",
+        "type": "Consumer Reporting Agency",
+        "state_of_incorporation": "Georgia",
+        "business_status": "Authorized to do business in New York",
+        "legal_citations": ["15 U.S.C. § 1681a(f)", "N.Y. GBL § 380-a(e)"]
+      },
+      {
+        "name": "EXPERIAN INFORMATION SOLUTIONS, INC.",
+        "short_name": "Experian",
+        "type": "Consumer Reporting Agency",
+        "state_of_incorporation": "Ohio",
+        "business_status": "Authorized to do business in New York",
+        "legal_citations": ["15 U.S.C. § 1681a(f)", "N.Y. GBL § 380-a(e)"]
+      },
+      {
+        "name": "TRANS UNION, LLC",
+        "short_name": "TransUnion",
+        "type": "Consumer Reporting Agency",
+        "state_of_incorporation": "Delaware",
+        "business_status": "Authorized to do business in New York",
+        "legal_citations": ["15 U.S.C. § 1681a(f)", "N.Y. GBL § 380-a(e)"]
+      }
+    ]
+  },
+  "jurisdiction_and_venue": {
+    "federal_jurisdiction": {
+      "basis": "Federal Question",
+      "citation": "15 U.S.C. § 1681p"
+    },
+    "diversity_jurisdiction": {
+      "basis": "Diversity Jurisdiction",
+      "citation": "28 U.S.C. § 1332"
+    },
+    "supplemental_jurisdiction": {
+      "basis": "Supplemental Jurisdiction",
+      "citation": "28 U.S.C. § 1367(a)"
+    },
+    "venue": {
+      "basis": "Proper Venue",
+      "citation": "28 U.S.C. § 1391(b)"
+    }
+  },
+  "preliminary_statement": {
+    "overview": "Plaintiff brings this action against Defendants for violating the FCRA and NY FCRA by failing to reasonably investigate fraudulent charges and continuing to report inaccurate information.",
+    "key_claims": [
+      "Identity theft victim while traveling abroad",
+      "TD Bank failed to investigate fraudulent charges after dispute",
+      "Credit reporting agencies failed to conduct reasonable investigations",
+      "Plaintiff suffered damages from inaccurate credit reporting"
+    ]
+  },
+  "factual_background": {
+    "summary": "Plaintiff, a victim of identity theft while traveling abroad, disputed fraudulent charges with defendant TD Bank, who failed to reasonably investigate. The defendant credit reporting agencies subsequently failed to correct her credit reports, leading to significant financial and emotional damages.",
+    "allegations": [
+      "Plaintiff opened a TD Bank credit card on or around July 2023 with an $8,000 credit limit",
+      "Plaintiff travelled to Egypt with her family from June 30, 2024 through July 30, 2024",
+      "Before leaving, Plaintiff informed TD Bank of her trip and verified her cards would work in Egypt",
+      "Plaintiff had two physical cards and brought both to Egypt",
+      "Imposters used her account to make over $7,700 in fraudulent charges between July 15-31, 2024",
+      "Majority of charges were made at three different camera stores on July 17, 23, and 26",
+      "Plaintiff had never made similar significant purchases in the past",
+      "Plaintiff disputed charges with TD Bank five times using multiple methods",
+      "TD Bank wrongly suggested her non-existent son made the charges",
+      "Plaintiff filed a police report and obtained video footage of the thieves",
+      "TD Bank refused to correct charges, insisting they were valid due to chip usage",
+      "Plaintiff sent written disputes to all three credit reporting agencies on December 9, 2024",
+      "Credit reporting agencies forwarded disputes to TD Bank who merely verified the amounts",
+      "Each credit reporting agency failed to conduct reasonable investigation",
+      "All defendant credit reporting agencies continue to inaccurately report the fraudulent charges"
+    ]
+  },
+  "causes_of_action": [
+    {
+      "count_number": 1,
+      "title": "FIRST CAUSE OF ACTION: Violation of the FCRA",
+      "against_defendants": ["Equifax", "Experian", "TransUnion", "TD Bank"],
+      "legal_claims": [
+        {
+          "citation": "15 U.S.C. § 1681i",
+          "description": "Failure to conduct reasonable reinvestigations of the plaintiff's disputes of erroneous and derogatory payment information",
+          "against_defendants": ["Equifax", "Experian", "TransUnion"],
+          "selected": false,
+          "confidence": 0.95,
+          "category": "FCRA"
+        },
+        {
+          "citation": "15 U.S.C. § 1681i(a)(4)",
+          "description": "Failure to review and consider all relevant information submitted by the plaintiff regarding her disputes",
+          "against_defendants": ["Equifax", "Experian", "TransUnion"],
+          "selected": false,
+          "confidence": 0.90,
+          "category": "FCRA"
+        },
+        {
+          "citation": "15 U.S.C. § 1681i(a)(5)",
+          "description": "Failure to delete or modify disputed erroneous and derogatory payment information after failing to verify completeness and accuracy",
+          "against_defendants": ["Equifax", "Experian", "TransUnion"],
+          "selected": false,
+          "confidence": 0.88,
+          "category": "FCRA"
+        },
+        {
+          "citation": "15 U.S.C. § 1681s-2(b)",
+          "description": "Failure to conduct reasonable reinvestigations of plaintiff's disputes of erroneous and derogatory information",
+          "against_defendants": ["TD Bank"],
+          "selected": false,
+          "confidence": 0.92,
+          "category": "FCRA"
+        },
+        {
+          "citation": "15 U.S.C. § 1681s-2(b)(1)(B)",
+          "description": "Failure to review all relevant information provided by the consumer reporting agencies in conducting reinvestigations",
+          "against_defendants": ["TD Bank"],
+          "selected": false,
+          "confidence": 0.85,
+          "category": "FCRA"
+        }
+      ]
+    },
+    {
+      "count_number": 2,
+      "title": "SECOND CAUSE OF ACTION: Violation of the NY FCRA",
+      "against_defendants": ["Equifax", "Experian", "TransUnion"],
+      "legal_claims": [
+        {
+          "citation": "N.Y. GBL § 380–j(a)(3)",
+          "description": "Including known erroneous information in consumer reports",
+          "against_defendants": ["Equifax", "Experian", "TransUnion"],
+          "selected": false,
+          "confidence": 0.80,
+          "category": "NY_FCRA"
+        },
+        {
+          "citation": "N.Y. GBL § 380-f",
+          "description": "Failure to conduct reasonable reinvestigations of plaintiff's disputes of erroneous and derogatory payment information",
+          "against_defendants": ["Equifax", "Experian", "TransUnion"],
+          "selected": false,
+          "confidence": 0.88,
+          "category": "NY_FCRA"
+        },
+        {
+          "citation": "N.Y. GBL §§ 380-f(b) and (d)",
+          "description": "Failure to delete or modify disputed information after failing to verify completeness and accuracy",
+          "against_defendants": ["Equifax", "Experian", "TransUnion"],
+          "selected": false,
+          "confidence": 0.85,
+          "category": "NY_FCRA"
+        }
+      ]
+    }
+  ],
+  "damages": {
+    "financial_harm": [
+      "Being denied credit",
+      "Having current credit limits reduced",
+      "Limiting opportunities for credit"
+    ],
+    "reputational_harm": [
+      "Damage to reputation",
+      "Adverse impact on credit rating"
+    ],
+    "emotional_harm": [
+      "Emotional distress",
+      "Annoyance",
+      "Aggravation",
+      "Frustration"
+    ],
+    "personal_costs": [
+      "Expenditure of time and resources"
+    ]
+  },
+  "prayer_for_relief": {
+    "monetary_damages": [
+      "Actual damages",
+      "Statutory damages", 
+      "Punitive damages"
+    ],
+    "costs_and_fees": [
+      "Litigation costs",
+      "Reasonable attorney's fees"
+    ],
+    "injunctive_relief": [
+      "An injunction requiring CRA defendants to remove erroneous information",
+      "Implementation of policies to ensure future compliance with NY FCRA",
+      "Prevention of similar errors in the future"
+    ],
+    "jury_trial": true
+  },
+  "filing_details": {
+    "date": "April 9, 2025",
+    "signature_date": "April 9, 2025"
+  },
+  "attorney_information": {
+    "name": "Kevin C. Mallon",
+    "firm": "Mallon Consumer Law Group, PLLC",
+    "address": "238 Merritt Drive, Oradell, NJ 07649",
+    "phone": "(917) 734-6815",
+    "email": "kmallon@consmerprotectionfirm.com",
+    "role": "Attorneys for the Plaintiff"
+  },
+  "metadata": {
+    "tiger_case_id": "youssef",
+    "format_version": "3.0",
+    "schema_compliance": "logical_plan_ready",
+    "total_data_points": 58,
+    "checklist_coverage": "100%"
+  }
+}

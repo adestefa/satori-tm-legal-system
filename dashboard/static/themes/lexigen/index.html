@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-gray-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kevin Mallon, Esq - Satori AI</title>
+    <link href="/themes/lexigen/css/style.css?v=1.9.7&t=20250714-110443" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js?v=1.9.7&t=20250714-110443"></script>
+    <script>
+        const SATORI_VERSION = "1.9.7";  // Updated for iCloud sync session-based auth fix
+    </script>
+</head>
+<body class="text-gray-800">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-white border-r border-gray-200 flex flex-col hidden md:flex">
+            <div class="p-4 border-b border-gray-200">
+                <h1 class="text-2xl font-bold text-blue-600 flex items-center">
+                    <svg class="w-8 h-8 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    LexiGen AI
+                </h1>
+            </div>
+            <nav class="flex-1 p-4">
+                <h2 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Cases Folder</h2>
+                <ul>
+                    <li><a href="#" class="block px-4 py-2 text-sm font-medium text-gray-700 bg-blue-100 rounded-lg">All Cases</a></li>
+                </ul>
+            </nav>
+            <div class="p-4 border-t border-gray-200">
+                <a href="#" class="flex items-center text-sm font-medium text-gray-600 hover:text-gray-900">
+                    <i data-feather="settings" class="w-4 h-4 mr-2"></i>
+                    Settings
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col">
+            <header class="bg-white border-b border-gray-200">
+                <div class="flex items-center justify-between p-4">
+                    <div class="relative w-full max-w-md">
+                        <i data-feather="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                        <input type="search" id="search-bar" placeholder="Search cases by name, defendant, or case number..." class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="flex items-center text-sm text-green-600">
+                            <i data-feather="check-circle" class="w-4 h-4 mr-1"></i>
+                            <span>iCloud Synced</span>
+                        </div>
+                        <div class="text-sm font-medium">Kevin Mallon, Esq.</div>
+                        <div id="app-version" class="text-xs text-gray-400">v1.9.0</div>
+                    </div>
+                </div>
+            </header>
+            <div class="flex-1 p-10 overflow-y-auto">
+                <h1 class="text-3xl font-extrabold text-gray-900 mb-8">All Cases</h1>
+                <div id="case-list" class="space-y-6">
+                    <!-- Case cards will be injected here -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        feather.replace();
+    </script>
+    <script src="/themes/lexigen/js/api.js?v=1.9.7&t=20250714-110443" type="module"></script>
+    <script src="/themes/lexigen/js/ui.js?v=1.9.7&t=20250714-110443" type="module"></script>
+    <script src="/themes/lexigen/js/eventHandlers.js?v=1.9.7&t=20250714-110443" type="module"></script>
+    <script src="/themes/lexigen/js/main.js?v=1.9.7&t=20250714-110443" type="module"></script>
+</body>
+</html>

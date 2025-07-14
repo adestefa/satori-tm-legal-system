@@ -1,0 +1,101 @@
+{
+    "case_information": {
+      "court_type": "UNITED STATES DISTRICT COURT",
+      "court_district": "Eastern District of New York",
+      "case_number": "1:25-cv-01987",
+      "case_type": "Complaint",
+      "jury_demand": true
+    },
+    "plaintiff": {
+      "name": "Eman Youssef",
+      "address": {
+        "street": "123 Main St",
+        "city_state_zip": "Queens, NY 11367",
+        "country": "USA"
+      },
+      "phone": "555-555-5555",
+      "email": null,
+      "residency_details": "Client lives in Queens",
+      "consumer_status": "Individual 'consumer' within the meaning of both the FCRA and applicable state FCRA"
+    },
+    "plaintiff_counsel": {
+      "name": "John Doe",
+      "firm": "Doe & Associates",
+      "address": "123 Main St, New York, NY 10001",
+      "phone": "555-555-5555",
+      "email": "john.doe@example.com"
+    },
+    "defendants": [
+      { "name": "EQUIFAX INFORMATION SERVICES LLC", "type": "Consumer Reporting Agency" },
+      { "name": "TRANS UNION LLC", "type": "Consumer Reporting Agency" },
+      { "name": "EXPERIAN INFORMATION SOLUTIONS, INC.", "type": "Consumer Reporting Agency" },
+      { "name": "TD BANK, N.A.", "type": "Furnisher of Information" }
+    ],
+    "factual_background": {
+      "summary": "Plaintiff, a victim of identity theft while traveling abroad, disputed fraudulent charges with defendant TD Bank, who failed to reasonably investigate. The defendant credit reporting agencies subsequently failed to correct her credit reports, leading to significant financial and emotional damages.",
+      "events": [
+        { "date": null, "description": "Had zero balance before fraud" },
+        { "date": null, "description": "Took them to Egypt with her" },
+        { "date": "July 15, 2024", "description": "$7,500 in fraudulent charges in one week" },
+        { "date": null, "description": "Filed a police report" },
+        { "date": null, "description": "First called TD Bank" },
+        { "date": null, "description": "Second time went into TD Bank, they told her to file a police report..." },
+        { "date": null, "description": "An employee of TD Bank told client that her son used the card" },
+        { "date": null, "description": "Details of multiple visits and calls to TD Bank" }
+      ]
+    },
+    "causes_of_action": [
+      {
+        "title": "FIRST CAUSE OF ACTION - VIOLATION OF THE FCRA",
+        "against_defendant_types": ["Consumer Reporting Agency", "Furnisher of Information"],
+        "allegations": [
+          { "statute": "15 U.S.C. § 1681i", "description": "Failure to conduct reasonable reinvestigations of the Plaintiff’s multiple disputes.", "applies_to_type": "Consumer Reporting Agency" },
+          { "statute": "15 U.S.C. § 1681i(a)(4)", "description": "Failure to review and consider all relevant information submitted by the Plaintiff.", "applies_to_type": "Consumer Reporting Agency" },
+          { "statute": "15 U.S.C. § 1681i(a)(5)", "description": "Failure to delete or modify disputed erroneous information after failing to verify its accuracy.", "applies_to_type": "Consumer Reporting Agency" },
+          { "statute": "15 U.S.C. § 1681s-2(b)", "description": "Failure to conduct reasonable reinvestigations of Plaintiff’s multiple disputes after receiving notice from CRAs.", "applies_to_type": "Furnisher of Information" }
+        ]
+      },
+      {
+        "title": "SECOND CAUSE OF ACTION - VIOLATION OF THE NY FCRA",
+        "against_defendant_types": ["Consumer Reporting Agency"],
+        "allegations": [
+          { "statute": "N.Y. GBL § 380–j(a)(3)", "description": "Reporting erroneous information when they knew, or should have known, it was inaccurate." },
+          { "statute": "N.Y. GBL § 380-f", "description": "Failure to conduct reasonable reinvestigations of the Plaintiff’s multiple disputes." },
+          { "statute": "N.Y. GBL §§ 380-f(b) and (d)", "description": "Failure to delete or modify disputed information after failing to verify its completeness and accuracy." }
+        ]
+      }
+    ],
+    "damages": {
+      "summary": "The erroneous derogatory payment information wrongfully listed on Plaintiff's consumer reports caused damages including, but not limited to, damage to reputation, adverse impact on credit rating, being denied credit, in addition to emotional distress, expenditure of time and resources, annoyance, aggravation, and frustration.",
+      "injunctive_relief_sought": true,
+      "denials": [
+        {
+          "creditor": "Capital One",
+          "application_for": "Credit Card",
+          "date": "August 1, 2024",
+          "reasons": ["Delinquent account"],
+          "reported_by_cra": "Experian",
+          "credit_score": "580"
+        },
+        {
+          "creditor": "Barclays",
+          "application_for": "Capital Vacations® Credit Card",
+          "date": "August 15, 2024",
+          "reasons": ["Delinquent account"],
+          "reported_by_cra": "TransUnion",
+          "credit_score": "590"
+        },
+        {
+          "creditor": "Barclays",
+          "application_for": "Gap Good Rewards Credit Card",
+          "date": "August 20, 2024",
+          "reasons": ["Delinquent account"],
+          "reported_by_cra": "TransUnion",
+          "credit_score": "590"
+        }
+      ]
+    },
+    "filing_details": {
+      "date": "September 1, 2024"
+    }
+  }

@@ -1,0 +1,85 @@
+NAME: John Chen
+ADDRESS: 
+150 West 56th Street
+New York, NY 10019
+PHONE: 646-555-8899
+RESIDENCY: State of New York, borough of Manhattan
+
+CASE_NUMBER: 1:25-cv-02101
+COURT_NAME: UNITED STATES DISTRICT COURT
+COURT_DISTRICT: EASTERN DISTRICT OF NEW YORK
+FILING_DATE: June 20, 2025
+
+DEFENDANTS:
+- EXPERIAN INFORMATION SOLUTIONS, INC. (Ohio corporation, authorized to do business in New York)
+- CITIBANK, N.A. (Delaware corporation, authorized to do business in New York)
+
+BACKGROUND:
+1. Plaintiff John Chen is an individual consumer under the FCRA and NY FCRA, residing in Manhattan, NY.
+2. Plaintiff has maintained excellent credit history and financial standing throughout his adult life.
+3. Plaintiff was in the process of purchasing a condominium and had a purchase agreement in place.
+4. Plaintiff's credit reports incorrectly included information for a different person, "Jonathan Chen" from Flushing, NY.
+5. The erroneous information included a Citibank credit card account with a $15,000 balance.
+6. The erroneous information also included a bankruptcy filing from 2022 that does not belong to Plaintiff.
+7. Plaintiff has never had a Citibank credit card account or filed for bankruptcy.
+8. The incorrect address on the credit report was 40-10 Main Street, Flushing, NY 11354.
+9. Plaintiff's actual address is 150 West 56th Street, New York, NY 10019.
+10. Plaintiff was denied for a mortgage by Chase Bank on May 15, 2025 due to the erroneous information on his Experian report.
+11. Plaintiff sent a dispute to Experian on May 20, 2025 with clear supporting documentation.
+12. Plaintiff's dispute included his driver's license, social security card, and ConEd utility bill as identity verification.
+13. Experian and Citibank both "verified" the erroneous information without conducting reasonable investigations.
+14. Defendants failed to follow reasonable procedures despite clear evidence of the error.
+15. The seller of the condominium backed out of the purchase agreement due to the mortgage delay.
+16. Plaintiff lost the condominium opportunity due to Defendants' failure to correct the erroneous information.
+
+KEY_DATES:
+- Condo Purchase Agreement: April 2025
+- Mortgage Denial: May 15, 2025
+- Dispute Date: May 20, 2025
+- Seller Withdrawal: May 30, 2025
+- Filing Date: June 20, 2025
+
+DAMAGES:
+Financial Harm:
+- Lost condominium purchase opportunity due to mortgage denial
+- Lost earnest money deposit on condominium purchase
+- Continued rental expenses due to inability to purchase
+- Potential property appreciation lost on condominium
+- Additional costs for new housing search
+
+Reputational Harm:
+- Damage to credit reputation due to false bankruptcy and charge-off reporting
+- Made to appear as a credit risk and someone with poor financial judgment
+- Adverse impact on creditworthiness and future lending opportunities
+
+Emotional Harm:
+- Extreme upset and stress from losing desired condominium
+- Frustration with credit reporting system failures
+- Anxiety about future credit applications and opportunities
+- Feelings of helplessness in correcting false information
+
+Personal Costs:
+- Substantial time spent dealing with credit reporting errors
+- Administrative burden of gathering documentation and making disputes
+- Lost work time for phone calls and correspondence
+- Emotional energy expended on resolving credit issues
+
+LEGAL_CLAIMS:
+Count 1 - FCRA Violations:
+- 15 U.S.C. § 1681i: Failure to conduct reasonable reinvestigations (Experian)
+- 15 U.S.C. § 1681i(a)(5): Failure to delete disputed erroneous information (Experian)
+- 15 U.S.C. § 1681s-2(b): Failure to conduct reasonable reinvestigations (Citibank)
+
+Count 2 - NY FCRA Violations:
+- N.Y. GBL § 380–j(a)(3): Including known erroneous information in consumer reports (Experian)
+- N.Y. GBL § 380-f: Failure to conduct reasonable reinvestigations (Experian)
+
+RELIEF_SOUGHT:
+- Actual damages for lost housing opportunity and financial losses
+- Statutory damages under FCRA and NY FCRA
+- Punitive damages for willful violations
+- Litigation costs and expenses
+- Reasonable attorney's fees
+- Injunctive relief requiring removal of erroneous information
+- Implementation of policies to prevent future mixed file errors
+- Jury trial demanded

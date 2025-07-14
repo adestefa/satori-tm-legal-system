@@ -1,0 +1,38 @@
+NAME: Carlos Rodriguez
+CONTACT: 929-555-1234
+LOCATION: Brooklyn, NY
+ISSUE: Mixed credit file. Information for a different person, "Carlos J. Rodriguez," is appearing on his reports.
+
+CASE_NUMBER: 1:25-cv-02100
+COURT_NAME: UNITED STATES DISTRICT COURT
+COURT_DISTRICT: EASTERN DISTRICT OF NEW YORK
+FILING_DATE: June 15, 2025
+
+PLAINTIFF_COUNSEL_NAME: Kevin C. Mallon
+
+FURNISHER: Chase Bank, N.A.
+INACCURATE_ACCOUNT: Chase Sapphire credit card, showing as a charge-off. Client has never had this card or any account with Chase. Balance is approx. $8,200.
+
+DEFENDANTS:
+- EQUIFAX INFORMATION SERVICES LLC
+- EXPERIAN INFORMATION SOLUTIONS, INC.
+- TRANS UNION LLC
+- CHASE BANK, N.A.
+
+BACKGROUND:
+1. Client has a very good credit history otherwise.
+2. Discovered the issue when applying for a car loan in April 2025.
+3. Sent written disputes to Experian, Equifax, and TransUnion around Feb 15, 2025.
+4. Dispute letters included a copy of his driver's license (showing middle initial 'M') and social security card to prove his identity.
+5. Also called Chase directly, was told they would investigate but nothing happened.
+6. All three CRAs and Chase verified the debt as his. They failed to notice the different middle initial or address history associated with the fraudulent account.
+
+DAMAGES:
+- Denied Auto Loan: Wells Fargo Dealer Services, April 20, 2025. Have denial letter.
+- Denied Credit Card: Citibank for a Home Depot card, May 5, 2025. Have denial letter.
+- Credit Limit Reduction: Capital One card, May 12, 2025. Reduced from $5000 to $2000.
+- Interest Rate Increase: Discover card, May 15, 2025. Rate increased from 15.9% to 22.9%.
+- Rental Application Denial: Brooklyn Heights Apartments, June 1, 2025. Have denial notice.
+- Employment Background Check: Tech Solutions Inc, May 30, 2025. Job offer withdrawn.
+- Emotional Distress: Significant stress, anxiety, and frustration from dealing with this issue for months.
+- Time and Resources: Over 40 hours spent on phone calls, writing letters, gathering documents, and travel to bank branches.

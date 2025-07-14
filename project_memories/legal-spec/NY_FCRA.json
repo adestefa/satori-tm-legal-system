@@ -1,0 +1,168 @@
+{
+  "causes_of_action": [
+    {
+      "category": "Claims Against Credit Reporting Agencies (CRAs)",
+      "claims": [
+        {
+          "title": "Negligent Non-Compliance with FCRA - Inaccurate Reporting",
+          "description": "The CRA failed to follow reasonable procedures to ensure the maximum possible accuracy of the information in a consumer's credit report, resulting in the reporting of inaccurate information. [cite: 47, 51]",
+          "statutory_basis": "15 U.S.C. § 1681e(b)",
+          "elements": [
+            "The CRA reported inaccurate information about the plaintiff.",
+            "The CRA failed to follow reasonable procedures to assure accuracy.",
+            "The plaintiff suffered actual damages as a result.",
+            "The CRA's failure was negligent."
+          ]
+        },
+        {
+          "title": "Willful Non-Compliance with FCRA - Inaccurate Reporting",
+          "description": "The CRA willfully failed to follow reasonable procedures to ensure the maximum possible accuracy of the information in a consumer's credit report. This implies a knowing or reckless disregard for the law.",
+          "statutory_basis": "15 U.S.C. § 1681e(b)",
+          "elements": [
+            "The CRA reported inaccurate information about the plaintiff.",
+            "The CRA willfully failed to follow reasonable procedures or had a pattern of such failures.",
+            "The failure was a conscious disregard of the consumer's rights or a reckless action.",
+            "The plaintiff suffered damages (actual, statutory, and potentially punitive)."
+          ]
+        },
+        {
+          "title": "Negligent Failure to Conduct a Reasonable Reinvestigation",
+          "description": "After receiving a dispute from a consumer, the CRA negligently failed to conduct a reasonable reinvestigation to determine whether the disputed information was inaccurate. [cite: 48]",
+          "statutory_basis": "15 U.S.C. § 1681i(a)",
+          "elements": [
+            "The plaintiff disputed the accuracy of an item in their file with the CRA.",
+            "The CRA failed to conduct a reasonable reinvestigation of the disputed item.",
+            "The failure to reinvestigate was negligent.",
+            "The plaintiff suffered actual damages due to the continued inaccurate reporting."
+          ]
+        },
+        {
+          "title": "Willful Failure to Conduct a Reasonable Reinvestigation",
+          "description": "After receiving a dispute from a consumer, the CRA willfully failed to conduct a reasonable reinvestigation, demonstrating a knowing or reckless disregard for its obligations. [cite: 48]",
+          "statutory_basis": "15 U.S.C. § 1681i(a)",
+          "elements": [
+            "The plaintiff disputed an item with the CRA.",
+            "The CRA's failure to conduct a reasonable reinvestigation was willful (done knowingly or with reckless disregard).",
+            "The plaintiff suffered damages (actual, statutory, and potentially punitive)."
+          ]
+        },
+        {
+          "title": "Violation of NY FCRA - Failure to Conduct Reasonable Reinvestigation",
+          "description": "The CRA violated the New York Fair Credit Reporting Act by failing to conduct a reasonable reinvestigation after the consumer disputed erroneous information. [cite: 62]",
+          "statutory_basis": "N.Y. GBL § 380-f",
+          "elements": [
+            "The CRA prepared a consumer report with erroneous information. [cite: 60]",
+            "The plaintiff disputed the information. [cite: 39]",
+            "The CRA failed to conduct a reasonable reinvestigation.",
+            "The plaintiff suffered damages."
+          ]
+        },
+        {
+          "title": "Violation of NY FCRA - Failure to Delete Inaccurate Information",
+          "description": "The CRA violated the New York Fair Credit Reporting Act by failing to delete or modify disputed information after it could not be verified. [cite: 63, 64]",
+          "statutory_basis": "N.Y. GBL § 380-f(b), (d)",
+          "elements": [
+            "A reinvestigation did not or could not verify the accuracy of disputed information.",
+            "The CRA failed to delete or modify the information from the plaintiff's file.",
+            "The plaintiff suffered damages as a result."
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Claims Against Furnishers of Information (e.g., Banks)",
+      "claims": [
+        {
+          "title": "Negligent Failure to Conduct a Reasonable Investigation (Furnisher)",
+          "description": "After receiving notice of a dispute from a CRA, the furnisher of information (e.g., a bank) negligently failed to conduct its own reasonable investigation into the disputed information. [cite: 54]",
+          "statutory_basis": "15 U.S.C. § 1681s-2(b)",
+          "elements": [
+            "The plaintiff disputed information with a CRA. [cite: 39]",
+            "The CRA notified the furnisher of the dispute. [cite: 40]",
+            "The furnisher failed to conduct a reasonable investigation.",
+            "The furnisher's failure was negligent.",
+            "The plaintiff suffered actual damages."
+          ]
+        },
+        {
+          "title": "Willful Failure to Conduct a Reasonable Investigation (Furnisher)",
+          "description": "After receiving notice of a dispute from a CRA, the furnisher of information willfully failed to conduct a reasonable investigation, demonstrating a knowing or reckless disregard for its duties. [cite: 54]",
+          "statutory_basis": "15 U.S.C. § 1681s-2(b)",
+          "elements": [
+            "The plaintiff disputed information with a CRA. [cite: 39]",
+            "The CRA notified the furnisher of the dispute. [cite: 40]",
+            "The furnisher's failure to conduct a reasonable investigation was willful.",
+            "The plaintiff suffered damages (actual, statutory, and potentially punitive)."
+          ]
+        }
+      ]
+    }
+  ],
+  "legal_violations": [
+    {
+      "statute": "Fair Credit Reporting Act (FCRA)",
+      "violations": [
+        {
+          "citation": "15 U.S.C. § 1681e(b)",
+          "title": "Failure to Assure Maximum Possible Accuracy",
+          "description": "A CRA must follow reasonable procedures to assure maximum possible accuracy of the information concerning the individual about whom the report relates."
+        },
+        {
+          "citation": "15 U.S.C. § 1681i(a)",
+          "title": "Failure in Reinvestigation Duties",
+          "description": "Requires CRAs to conduct a free, reasonable reinvestigation of disputed information within 30 days of receiving a consumer's dispute."
+        },
+        {
+          "citation": "15 U.S.C. § 1681i(a)(4)",
+          "title": "Failure to Consider Consumer-Submitted Information",
+          "description": "During a reinvestigation, a CRA must review and consider all relevant information submitted by the consumer."
+        },
+        {
+          "citation": "15 U.S.C. § 1681i(a)(5)",
+          "title": "Failure to Delete or Modify Inaccurate Information",
+          "description": "If a reinvestigation finds information to be inaccurate, incomplete, or unverifiable, the CRA must promptly delete or modify the item from the consumer's file."
+        },
+        {
+          "citation": "15 U.S.C. § 1681s-2(b)",
+          "title": "Furnisher's Failure to Reasonably Investigate",
+          "description": "After receiving a notice of dispute from a CRA, a furnisher must conduct an investigation, review all relevant information, and report results to the CRA."
+        },
+        {
+          "citation": "15 U.S.C. § 1681s-2(b)(1)(B)",
+          "title": "Furnisher's Failure to Review All Relevant Information",
+          "description": "A furnisher, in conducting its investigation, must review all relevant information provided to it by the CRA."
+        },
+        {
+          "citation": "15 U.S.C. §§ 1681n, 1681o",
+          "title": "Civil Liability for Non-Compliance",
+          "description": "These sections establish civil liability for willful (§ 1681n) and negligent (§ 1681o) non-compliance with the FCRA, allowing for actual, statutory, and punitive damages, as well as attorney's fees and costs. [cite: 57]"
+        }
+      ]
+    },
+    {
+      "statute": "New York Fair Credit Reporting Act (NY FCRA)",
+      "violations": [
+        {
+          "citation": "N.Y. GBL § 380-j(a)",
+          "title": "Prohibition of Inaccurate Information",
+          "description": "Prohibits a CRA from reporting information it knows or has reason to believe is inaccurate."
+        },
+        {
+          "citation": "N.Y. GBL § 380-f",
+          "title": "Failure to Reinvestigate and Correct",
+          "description": "Mandates that CRAs reinvestigate disputed items and correct any inaccuracies found."
+        },
+        {
+          "citation": "N.Y. GBL §§ 380-f(b), (d)",
+          "title": "Failure to Delete After Failed Verification",
+          "description": "Requires CRAs to delete or modify information that cannot be verified after a reinvestigation."
+        },
+        {
+          "citation": "N.Y. GBL §§ 380-l, 380-m",
+          "title": "Civil Liability for Non-Compliance (NY)",
+          "description": "Establishes civil liability for violations of the NY FCRA, allowing for actual and punitive damages, as well as costs and reasonable attorney's fees."
+        }
+      ]
+    }
+  ]
+}

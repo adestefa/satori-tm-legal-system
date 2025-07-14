@@ -1,0 +1,20 @@
+# Tiger Service Dependencies
+# Document processing and analysis engine
+
+# Core document processing (heavy ML/OCR stack)
+docling>=1.0.0
+python-docx>=0.8.11
+Pillow>=10.0.0
+
+# Data processing & ML
+pandas>=2.1.0
+numpy>=1.24.0
+
+# Web framework (for future API)
+fastapi>=0.104.0
+uvicorn>=0.24.0
+
+# Validation and data structures
+pydantic>=2.5.0
+
+# Shared schema package

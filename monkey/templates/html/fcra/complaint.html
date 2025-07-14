@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Complaint</title>
+    <style>
+        /* Import Inter font to match review data page */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            margin: 1in 1.25in; /* top/bottom: 1in, left/right: 1.25in */
+            line-height: 1.6;
+            color: #374151;
+        }
+        .caption { text-align: center; font-weight: bold; }
+        .case-number { text-align: right; }
+        .section-title { font-weight: bold; text-align: center; margin-top: 20px; }
+        p { margin-bottom: 10px; line-height: 1.5; }
+    </style>
+</head>
+<body>
+    <div class="caption">
+        UNITED STATES DISTRICT COURT<br>
+        {{ hydratedjson.case_information.court_district }}
+    </div>
+
+    <div class="case-number">
+        Case No. {{ hydratedjson.case_information.case_number }}
+    </div>
+
+    <!-- ASCII Art Header Line -->
+    <div style="font-family: monospace; font-size: 14px; margin: 10px 0;">
+        --------------------------------------------------------x
+    </div>
+
+    <p>
+        {{ hydratedjson.parties.plaintiff.name }},<br>
+        Plaintiff,<br>
+        vs.<br>
+        {% for defendant in hydratedjson.parties.defendants %}
+            {{ defendant.name }}{% if not loop.last %},<br>{% endif %}
+        {% endfor %}<br>
+        Defendants.
+    </p>
+
+    <!-- ASCII Art Footer Line -->
+    <div style="font-family: monospace; font-size: 14px; margin: 10px 0;">
+        --------------------------------------------------------x
+    </div>
+
+    <div class="section-title">COMPLAINT</div>
+
+    <div class="section-title">PRELIMINARY STATEMENT</div>
+    <p>{{ hydratedjson.preliminary_statement }}</p>
+
+    <div class="section-title">PARTIES</div>
+    <p>1. Plaintiff {{ hydratedjson.parties.plaintiff.name }} is an individual residing in {{ hydratedjson.parties.plaintiff.address.street }}, {{ hydratedjson.parties.plaintiff.address.city }}, {{ hydratedjson.parties.plaintiff.address.state }} {{ hydratedjson.parties.plaintiff.address.zip_code }}.</p>
+    {% for defendant in hydratedjson.parties.defendants %}
+    <p>{{ loop.index + 1 }}. Defendant {{ defendant.name }} is a {{ defendant.type }}.</p>
+    {% endfor %}
+
+    <!-- Factual Background Section -->
+    <div class="section-title">FACTUAL BACKGROUND</div>
+    {% if hydratedjson.factual_background.allegations %}
+    <div class="numbered-paragraphs">
+        {% for allegation in hydratedjson.factual_background.allegations %}
+        {% set allegation_text = allegation | string | trim %}
+        {% set prefix_pattern = loop.index | string + '.' %}
+        {% set prefix_pattern_space = loop.index | string + '. ' %}
+        {% if allegation_text.startswith(prefix_pattern_space) %}
+        {# Remove existing numbering with space (e.g., "10. text") #}
+        {% set clean_text = allegation_text[prefix_pattern_space|length:] %}
+        <p>{{ loop.index + 13 }}. {{ clean_text.lstrip() }}</p>
+        {% elif allegation_text.startswith(prefix_pattern) %}
+        {# Remove existing numbering without space (e.g., "10.text") #}
+        {% set clean_text = allegation_text[prefix_pattern|length:] %}
+        <p>{{ loop.index + 13 }}. {{ clean_text.lstrip() }}</p>
+        {% else %}
+        <p>{{ loop.index + 13 }}. {{ allegation }}</p>
+        {% endif %}
+        {% endfor %}
+    </div>
+    {% elif hydratedjson.factual_background.summary %}
+    <p>{{ hydratedjson.factual_background.summary }}</p>
+    {% endif %}
+
+    <!-- Causes of Action Section -->
+    <div class="section-title">CAUSES OF ACTION</div>
+    {% for cause in hydratedjson.causes_of_action %}
+    <div class="cause-of-action">
+        <h3>{{ cause.title }}</h3>
+        
+        <!-- Only render selected claims -->
+        {% set selected_claims = cause.legal_claims | selectattr('selected', 'equalto', true) | list %}
+        
+        {% if selected_claims %}
+            {% for claim in selected_claims %}
+            <div class="legal-claim">
+                <p><strong>{{ claim.citation }}:</strong> {{ claim.description }}</p>
+                {% if claim.against_defendants %}
+                <p style="margin-left: 20px; font-size: 0.9em; color: #666;">
+                    Against: {{ claim.against_defendants | join(", ") }}
+                </p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        {% else %}
+            <div style="border: 1px solid #ffa500; background-color: #fff3cd; padding: 10px; margin: 10px 0;">
+                <p style="color: #856404;"><strong>⚠️ No legal claims selected for this cause of action.</strong></p>
+                <p style="color: #856404; font-size: 0.9em;">Please review and select applicable claims in the dashboard.</p>
+            </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+
+    <!-- Prayer for Relief Section -->
+    <div class="section-title">PRAYER FOR RELIEF</div>
+    <p>WHEREFORE, Plaintiff respectfully requests that this Court:</p>
+    {% if hydratedjson.prayer_for_relief.damages %}
+    {% for damage in hydratedjson.prayer_for_relief.damages %}
+    <p>{{ loop.index }}. Grant Plaintiff {{ damage }};</p>
+    {% endfor %}
+    {% endif %}
+    {% if hydratedjson.prayer_for_relief.injunctive_relief %}
+    {% for relief in hydratedjson.prayer_for_relief.injunctive_relief %}
+    <p>{{ loop.index + 3 }}. {{ relief }};</p>
+    {% endfor %}
+    {% endif %}
+    {% if hydratedjson.prayer_for_relief.costs_and_fees %}
+    {% for cost in hydratedjson.prayer_for_relief.costs_and_fees %}
+    <p>{{ loop.index + 5 }}. Grant Plaintiff {{ cost }};</p>
+    {% endfor %}
+    {% endif %}
+    <p>7. Grant Plaintiff such other and further relief as this Court deems just and proper.</p>
+
+    <!-- Jury Demand -->
+    {% if hydratedjson.jury_demand %}
+    <div style="margin-top: 40px;">
+        <p><strong>THE PLAINTIFF DEMANDS A JURY TRIAL ON ALL CAUSES OF ACTION ASSERTED HEREIN.</strong></p>
+    </div>
+    {% endif %}
+
+
+    <!-- Attorney Signature Block -->
+    <div style="margin-top: 60px;">
+        <table style="width: 100%; border-collapse: collapse;">
+            <tr>
+                <td style="width: 50%; vertical-align: top;">
+                    <p>Dated: {{ hydratedjson.filing_details.date }}</p>
+                </td>
+                <td style="width: 50%; vertical-align: top; text-align: left;">
+                    <p>Respectfully submitted,</p>
+                    <br><br><br>
+                    {% if hydratedjson.plaintiff_counsel %}
+                    <p>{{ hydratedjson.plaintiff_counsel.firm }}<br>
+                    {{ hydratedjson.plaintiff_counsel.address.street }}<br>
+                    {{ hydratedjson.plaintiff_counsel.address.city }}, {{ hydratedjson.plaintiff_counsel.address.state }} {{ hydratedjson.plaintiff_counsel.address.zip_code }}<br>
+                    {{ hydratedjson.plaintiff_counsel.phone }}<br>
+                    {{ hydratedjson.plaintiff_counsel.email }}<br>
+                    {{ hydratedjson.plaintiff_counsel.bar_admission }}</p>
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</body>
+</html>

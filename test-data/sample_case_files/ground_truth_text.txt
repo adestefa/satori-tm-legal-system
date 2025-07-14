@@ -1,0 +1,2 @@
+This is a test of a ground truth file content.
+If you see this, the ground truth text file format parsing is working.

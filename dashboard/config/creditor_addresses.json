@@ -1,0 +1,58 @@
+{
+  "creditor_addresses": {
+    "experian_information_solutions_inc": {
+      "legal_name": "Experian Information Solutions, Inc.",
+      "short_name": "EXPERIAN",
+      "address": {
+        "street": "475 Anton Blvd",
+        "city": "Costa Mesa",
+        "state": "CA",
+        "zip_code": "92626"
+      },
+      "entity_type": "Ohio corporation, authorized to do business in New York",
+      "cra_type": "Consumer Reporting Agency"
+    },
+    "td_bank_na": {
+      "legal_name": "TD Bank, N.A.",
+      "short_name": "TD",
+      "address": {
+        "street": "1701 Route 70 East",
+        "city": "Cherry Hill",
+        "state": "NJ",
+        "zip_code": "08003"
+      },
+      "entity_type": "Delaware corporation, authorized to do business in New York",
+      "cra_type": "Furnisher of Information"
+    },
+    "trans_union_llc": {
+      "legal_name": "Trans Union, LLC",
+      "short_name": "TRANS",
+      "address": {
+        "street": "555 W. Adams St.",
+        "city": "Chicago",
+        "state": "IL",
+        "zip_code": "60661"
+      },
+      "entity_type": "Delaware corporation, authorized to do business in New York",
+      "cra_type": "Consumer Reporting Agency"
+    },
+    "equifax_information_services_llc": {
+      "legal_name": "Equifax Information Services, LLC",
+      "short_name": "EQUIFAX",
+      "address": {
+        "street": "1550 Peachtree Street N.W.",
+        "city": "Atlanta",
+        "state": "GA",
+        "zip_code": "30309"
+      },
+      "entity_type": "Georgia corporation, authorized to do business in New York",
+      "cra_type": "Consumer Reporting Agency"
+    }
+  },
+  "metadata": {
+    "version": "1.0",
+    "created_date": "2025-07-11",
+    "description": "Predefined creditor addresses for major credit bureaus and common defendants",
+    "last_updated": "2025-07-11"
+  }
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-gray-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Review - Data</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/themes/light/css/style.css"> <!-- Re-use main theme styles -->
+    <link rel="stylesheet" href="/static/css/damages.css"> <!-- Damages interface styling -->
+</head>
+<body class="p-8">
+
+    <div class="max-w-6xl mx-auto">
+        <div class="flex justify-between items-center">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">Step 3: Review Extracted Data</h1>
+                <p class="text-gray-600 mb-8">Review the information extracted from your documents before generating the final complaint.</p>
+            </div>
+            <a href="/" class="text-sm font-medium text-blue-600 hover:underline">&larr; Back to Dashboard</a>
+        </div>
+
+        <!-- Tabs -->
+        <div class="mb-8">
+            <div class="border-b border-gray-200">
+                <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+                    <a href="data.html" class="tab-link border-blue-500 text-blue-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm" aria-current="page">
+                        Review Data
+                    </a>
+                    <a href="timeline.html" class="tab-link border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                        Timeline Validation
+                    </a>
+                    <a href="preview.html" class="tab-link border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                        Preview Document
+                    </a>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Review Data Content -->
+        <div id="tab-content-review">
+            <!-- Review Data Section -->
+            <div id="review-data-section">
+                <!-- Content will be dynamically injected here -->
+            </div>
+
+            <!-- Damages Section -->
+            <div id="damages-section" class="mt-12">
+                <!-- Content will be dynamically injected here -->
+            </div>
+
+            <!-- Cause of Action Section -->
+            <div id="cause-of-action-section" class="mt-12">
+                 <h2 class="text-2xl font-bold text-gray-800 mb-6">Cause of Action</h2>
+                <!-- Content will be dynamically injected here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/damages-review.js?v=1.6.2"></script>
+    <script src="/static/js/review-data.js?v=1.6.2"></script>
+</body>
+</html>

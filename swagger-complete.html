@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiger-Monkey API Documentation</title>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/swagger-ui-dist@5.9.0/swagger-ui.css" />
+    <style>
+        html {
+            box-sizing: border-box;
+            overflow: -moz-scrollbars-vertical;
+            overflow-y: scroll;
+        }
+        *, *:before, *:after {
+            box-sizing: inherit;
+        }
+        body {
+            margin:0;
+            background: #fafafa;
+        }
+        .swagger-ui .topbar {
+            background-color: #1e3a8a;
+        }
+        .swagger-ui .topbar .download-url-wrapper {
+            display: none;
+        }
+        .swagger-ui .info .title {
+            color: #1e3a8a;
+        }
+    </style>
+</head>
+<body>
+    <div id="swagger-ui"></div>
+    <script src="https://unpkg.com/swagger-ui-dist@5.9.0/swagger-ui-bundle.js"></script>
+    <script src="https://unpkg.com/swagger-ui-dist@5.9.0/swagger-ui-standalone-preset.js"></script>
+    <script>
+        const spec = {
+            "openapi": "3.0.3",
+            "info": {
+                "title": "Tiger-Monkey Legal Document Processing Platform API",
+                "description": "The Tiger-Monkey platform is a comprehensive legal document processing system designed specifically for consumer protection law practices. The platform combines machine learning-powered document analysis with template-driven document generation to streamline FCRA (Fair Credit Reporting Act) case workflows.<br><br><strong>Core Services:</strong><br><br><strong>Tiger Service</strong> - Advanced document analysis engine that processes legal documents using ML-powered OCR and entity extraction. Handles PDF, DOCX, and text files to generate structured case data with quality scoring and confidence metrics.<br><br><strong>Monkey Service</strong> - Template-driven document generation engine that transforms structured case data into court-ready legal documents. Uses Jinja2 templating for flexible HTML and PDF document creation.<br><br><strong>Dashboard Service</strong> - Professional web-based interface providing case management, real-time processing monitoring, legal claim selection, and document review capabilities. Features session-based authentication, iCloud synchronization, and responsive multi-theme design.<br><br><strong>Key Features:</strong><br>• Automated legal entity extraction and validation<br>• Interactive legal claim selection and case review<br>• Real-time WebSocket communication for live status updates<br>• Attorney template tools and firm settings management<br>• Timeline validation and chronological error detection<br>• Comprehensive case progress tracking and quality assurance<br>• Enterprise-grade security with session management<br><br>The platform is optimized for federal court filings and maintains strict compliance with legal document formatting standards.",
+                "version": "1.8.31",
+                "contact": {
+                    "name": "Tiger-Monkey Platform",
+                    "email": "support@tiger-monkey.com"
+                },
+                "license": {
+                    "name": "Proprietary",
+                    "url": "https://tiger-monkey.com/license"
+                }
+            },
+            "servers": [
+                {
+                    "url": "http://127.0.0.1:8000",
+                    "description": "Development Server"
+                },
+                {
+                    "url": "https://api.tiger-monkey.com",
+                    "description": "Production Server"
+                }
+            ],
+            "security": [
+                {
+                    "sessionAuth": []
+                }
+            ],
+            "paths": {
+                "/ws": {
+                    "get": {
+                        "tags": ["WebSocket"],
+                        "summary": "WebSocket Connection for Real-time Events",
+                        "description": "Establish WebSocket connection for real-time event broadcasting",
+                        "responses": {
+                            "101": {
+                                "description": "WebSocket connection established"
+                            }
+                        }
+                    }
+                },
+                "/api/auth/login": {
+                    "post": {
+                        "tags": ["Authentication"],
+                        "summary": "User Login",
+                        "description": "Authenticate user and create session with HTTP cookie",
+                        "security": [],
+                        "requestBody": {
+                            "required": true,
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "username": {"type": "string", "example": "Admin"},
+                                            "password": {"type": "string", "example": "admin"}
+                                        },
+                                        "required": ["username", "password"]
+                                    }
+                                }
+                            }
+                        },
+                        "responses": {
+                            "200": {
+                                "description": "Login successful",
+                                "content": {
+                                    "application/json": {
+                                        "schema": {
+                                            "type": "object",
+                                            "properties": {
+                                                "message": {"type": "string"}
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "/api/auth/logout": {
+                    "post": {
+                        "tags": ["Authentication"],
+                        "summary": "User Logout",
+                        "description": "Logout user and clear session",
+                        "responses": {
+                            "200": {
+                                "description": "Logout successful"
+                            }
+                        }
+                    }
+                },
+                "/api/auth/verify": {
+                    "get": {
+                        "tags": ["Authentication"],
+                        "summary": "Verify Session",
+                        "description": "Verify current session validity",
+                        "responses": {
+                            "200": {
+                                "description": "Session valid",
+                                "content": {
+                                    "application/json": {
+                                        "schema": {
+                                            "type": "object",
+                                            "properties": {
+                                                "valid": {"type": "boolean"},
+                                                "username": {"type": "string"}
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "/api/cases": {
+                    "get": {
+                        "tags": ["Case Management"],
+                        "summary": "List All Cases",
+                        "description": "Retrieve all detected cases with status and progress",
+                        "responses": {
+                            "200": {
+                                "description": "List of cases",
+                                "content": {
+                                    "application/json": {
+                                        "schema": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {"type": "string"},
+                                                    "status": {"type": "string"},
+                                                    "progress": {"type": "object"},
+                                                    "files": {"type": "array"}
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "/api/cases/{case_id}/process": {
+                    "post": {
+                        "tags": ["Case Management"],
+                        "summary": "Process Case Files",
+                        "description": "Trigger Tiger service processing for case files",
+                        "parameters": [
+                            {
+                                "name": "case_id",
+                                "in": "path",
+                                "required": true,
+                                "schema": {"type": "string"}
+                            }
+                        ],
+                        "responses": {
+                            "200": {
+                                "description": "Processing started successfully"
+                            },
+                            "400": {
+                                "description": "Data quality validation failed"
+                            }
+                        }
+                    }
+                },
+                "/api/cases/{case_id}/data": {
+                    "get": {
+                        "tags": ["Case Management"],
+                        "summary": "Get Case Hydrated JSON",
+                        "description": "Retrieve case hydrated JSON data",
+                        "parameters": [
+                            {
+                                "name": "case_id",
+                                "in": "path",
+                                "required": true,
+                                "schema": {"type": "string"}
+                            }
+                        ],
+                        "responses": {
+                            "200": {
+                                "description": "Case data retrieved successfully"
+                            }
+                        }
+                    }
+                },
+                "/api/refresh": {
+                    "post": {
+                        "tags": ["Case Management"],
+                        "summary": "Refresh All Cases",
+                        "description": "Force manual refresh of case data and progress states",
+                        "responses": {
+                            "200": {
+                                "description": "Cases refreshed successfully",
+                                "content": {
+                                    "application/json": {
+                                        "schema": {
+                                            "type": "object",
+                                            "properties": {
+                                                "message": {"type": "string"},
+                                                "timestamp": {"type": "string"}
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "500": {
+                                "description": "Failed to refresh cases"
+                            }
+                        }
+                    }
+                },
+                "/api/cases/{case_id}/review_data": {
+                    "get": {
+                        "tags": ["Case Management"],
+                        "summary": "Get Case Review Data",
+                        "description": "Retrieve formatted data for review interface",
+                        "parameters": [
+                            {
+                                "name": "case_id",
+                                "in": "path",
+                                "required": true,
+                                "schema": {"type": "string"}
+                            }
+                        ],
+                        "responses": {
+                            "200": {
+                                "description": "Review data retrieved successfully"
+                            }
+                        }
+                    }
+                },
+                "/api/cases/{case_id}/generate-complaint": {
+                    "post": {
+                        "tags": ["Document Generation"],
+                        "summary": "Generate Complaint Document",
+                        "description": "Generate complaint HTML using Monkey service",
+                        "parameters": [
+                            {
+                                "name": "case_id",
+                                "in": "path",
+                                "required": true,
+                                "schema": {"type": "string"}
+                            }
+                        ],
+                        "responses": {
+                            "200": {
+                                "description": "Complaint generated successfully"
+                            }
+                        }
+                    }
+                },
+                "/api/cases/{case_id}/generate-summons": {
+                    "post": {
+                        "tags": ["Document Generation"],
+                        "summary": "Generate Summons Documents",
+                        "description": "Generate summons HTML for all defendants",
+                        "parameters": [
+                            {
+                                "name": "case_id",
+                                "in": "path",
+                                "required": true,
+                                "schema": {"type": "string"}
+                            }
+                        ],
+                        "responses": {
+                            "200": {
+                                "description": "Summons generated successfully"
+                            }
+                        }
+                    }
+                },
+                "/api/settings": {
+                    "get": {
+                        "tags": ["Settings"],
+                        "summary": "Get Firm Settings",
+                        "description": "Retrieve current firm configuration",
+                        "responses": {
+                            "200": {
+                                "description": "Settings retrieved successfully"
+                            }
+                        }
+                    },
+                    "post": {
+                        "tags": ["Settings"],
+                        "summary": "Save Firm Settings",
+                        "description": "Save firm configuration with validation",
+                        "requestBody": {
+                            "required": true,
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "name": {"type": "string"},
+                                            "address": {"type": "string"},
+                                            "phone": {"type": "string"},
+                                            "email": {"type": "string"}
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "responses": {
+                            "200": {
+                                "description": "Settings saved successfully"
+                            }
+                        }
+                    }
+                },
+                "/api/icloud/test-connection": {
+                    "post": {
+                        "tags": ["iCloud Integration"],
+                        "summary": "Test iCloud Connection",
+                        "description": "Test iCloud connectivity and authentication",
+                        "responses": {
+                            "200": {
+                                "description": "Connection test completed"
+                            }
+                        }
+                    }
+                },
+                "/api/icloud/status": {
+                    "get": {
+                        "tags": ["iCloud Integration"],
+                        "summary": "Get iCloud Status",
+                        "description": "Get current iCloud synchronization status",
+                        "responses": {
+                            "200": {
+                                "description": "Status retrieved successfully"
+                            }
+                        }
+                    }
+                },
+                "/api/icloud/cases": {
+                    "get": {
+                        "tags": ["iCloud Integration"],
+                        "summary": "List iCloud Cases",
+                        "description": "List available cases in iCloud",
+                        "responses": {
+                            "200": {
+                                "description": "Cases retrieved successfully"
+                            }
+                        }
+                    }
+                },
+                "/api/icloud/sync": {
+                    "post": {
+                        "tags": ["iCloud Integration"],
+                        "summary": "Sync All Cases",
+                        "description": "Synchronize all cases with iCloud",
+                        "responses": {
+                            "200": {
+                                "description": "Sync completed successfully"
+                            }
+                        }
+                    }
+                },
+                "/api/icloud/sync/{case_name}": {
+                    "post": {
+                        "tags": ["iCloud Integration"],
+                        "summary": "Sync Specific Case",
+                        "description": "Synchronize specific case with iCloud",
+                        "parameters": [
+                            {
+                                "name": "case_name",
+                                "in": "path",
+                                "required": true,
+                                "schema": {"type": "string"}
+                            }
+                        ],
+                        "responses": {
+                            "200": {
+                                "description": "Case sync completed successfully"
+                            }
+                        }
+                    }
+                },
+                "/": {
+                    "get": {
+                        "tags": ["Static Routes"],
+                        "summary": "Dashboard Homepage",
+                        "description": "Main dashboard interface",
+                        "security": [],
+                        "responses": {
+                            "200": {
+                                "description": "Dashboard page"
+                            }
+                        }
+                    }
+                },
+                "/review": {
+                    "get": {
+                        "tags": ["Static Routes"],
+                        "summary": "Review Interface",
+                        "description": "Case review and legal claim selection interface",
+                        "responses": {
+                            "200": {
+                                "description": "Review page"
+                            }
+                        }
+                    }
+                },
+                "/settings": {
+                    "get": {
+                        "tags": ["Static Routes"],
+                        "summary": "Settings Page",
+                        "description": "Firm settings management interface",
+                        "responses": {
+                            "200": {
+                                "description": "Settings page"
+                            }
+                        }
+                    }
+                },
+                "/help": {
+                    "get": {
+                        "tags": ["Static Routes"],
+                        "summary": "Help Documentation",
+                        "description": "System help and documentation",
+                        "responses": {
+                            "200": {
+                                "description": "Help page"
+                            }
+                        }
+                    }
+                },
+                "/login": {
+                    "get": {
+                        "tags": ["Static Routes"],
+                        "summary": "Login Page",
+                        "description": "User authentication interface",
+                        "security": [],
+                        "responses": {
+                            "200": {
+                                "description": "Login page"
+                            }
+                        }
+                    }
+                }
+            },
+            "components": {
+                "securitySchemes": {
+                    "sessionAuth": {
+                        "type": "apiKey",
+                        "in": "cookie",
+                        "name": "session_id",
+                        "description": "Session-based authentication using HTTP cookies"
+                    }
+                },
+                "schemas": {
+                    "Case": {
+                        "type": "object",
+                        "properties": {
+                            "id": {"type": "string"},
+                            "status": {"type": "string", "enum": ["NEW", "PROCESSING", "PENDING_REVIEW", "COMPLETE", "ERROR"]},
+                            "progress": {
+                                "type": "object",
+                                "properties": {
+                                    "synced": {"type": "boolean"},
+                                    "classified": {"type": "boolean"},
+                                    "extracted": {"type": "boolean"},
+                                    "reviewed": {"type": "boolean"},
+                                    "generated": {"type": "boolean"}
+                                }
+                            },
+                            "files": {
+                                "type": "array",
+                                "items": {"type": "string"}
+                            }
+                        }
+                    },
+                    "Settings": {
+                        "type": "object",
+                        "properties": {
+                            "name": {"type": "string", "example": "Mallon Consumer Law Group, PLLC"},
+                            "address": {"type": "string", "example": "238 Merritt Drive\\nOradell, NJ. 07649"},
+                            "phone": {"type": "string", "example": "(917) 734-6815"},
+                            "email": {"type": "string", "example": "kmallon@consmerprotectionfirm.com"}
+                        }
+                    },
+                    "ErrorResponse": {
+                        "type": "object",
+                        "properties": {
+                            "detail": {"type": "string"},
+                            "error": {"type": "string"},
+                            "issues": {"type": "array", "items": {"type": "string"}},
+                            "recommendations": {"type": "array", "items": {"type": "string"}}
+                        }
+                    }
+                }
+            }
+        };
+
+        window.onload = function() {
+            SwaggerUIBundle({
+                url: '',
+                spec: spec,
+                dom_id: '#swagger-ui',
+                deepLinking: true,
+                presets: [
+                    SwaggerUIBundle.presets.apis,
+                    SwaggerUIStandalonePreset
+                ],
+                plugins: [
+                    SwaggerUIBundle.plugins.DownloadUrl
+                ],
+                layout: "StandaloneLayout",
+                validatorUrl: null,
+                onComplete: function() {
+                    // Documentation loaded successfully
+                }
+            });
+        };
+    </script>
+</body>
+</html>

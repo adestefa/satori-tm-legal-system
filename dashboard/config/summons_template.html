@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summons in a Civil Action</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Using a common serif font to match the legal document style */
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            background-color: #f0f0f0; /* Light gray background for contrast */
+        }
+        /* A4 paper size aspect ratio for printing */
+        .paper {
+            width: 21cm;
+            min-height: 29.7cm;
+            padding: 1.5cm;
+            margin: 1rem auto;
+            background: white;
+            box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+        }
+        /* Styles for replaced data - yellow highlight for editing, normal text for print */
+        .replaced-data {
+            background-color: #fef3c7; /* Light yellow highlight */
+            color: #000000; /* Black text for readability */
+            font-style: normal;
+            font-weight: normal;
+            padding: 2px 4px;
+            border-radius: 2px;
+        }
+        /* Print-specific styles */
+        @media print {
+            body {
+                background-color: #fff;
+                margin: 0;
+            }
+            .paper {
+                margin: 0;
+                box-shadow: none;
+                border: none;
+                padding: 1in; /* Standard print margin */
+            }
+            .replaced-data {
+                background-color: transparent !important;
+                color: #000 !important;
+                font-style: normal !important;
+                font-weight: normal !important;
+                padding: 0 !important;
+                border-radius: 0 !important;
+            }
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- This button is for demonstration and will not be printed -->
+    <div class="text-center p-4 no-print">
+        <button onclick="window.print()" class="bg-blue-600 text-white px-6 py-2 rounded-lg shadow-md hover:bg-blue-700 transition">Print Summons</button>
+    </div>
+
+    <!-- Main container simulating a sheet of paper -->
+    <div class="paper bg-white shadow-lg mx-auto">
+        
+        <!-- PAGE 1 of the Summons -->
+        <div class="page-1">
+            <!-- Header Section -->
+            <div class="flex justify-between items-start mb-4">
+                <div class="text-xs">AO 440 (Rev. 06/12) Summons in a Civil Action</div>
+                <div class="text-center">
+                    <h1 class="font-bold text-sm">UNITED STATES DISTRICT COURT</h1>
+                    <p class="text-sm">for the</p>
+                    <!-- District Court - populated from case data -->
+                    <p class="text-sm replaced-data">EASTERN DISTRICT OF NEW YORK</p>
+                </div>
+                <div class="w-1/6"></div> <!-- Spacer -->
+            </div>
+
+            <!-- Case Caption Box -->
+            <div class="border border-black grid grid-cols-3">
+                <!-- Left side: Plaintiff and Defendant Info -->
+                <div class="col-span-2 p-2">
+                    <div class="flex justify-between">
+                        <div>
+                            <!-- Plaintiff name - populated from case data -->
+                            <p class="mb-2 replaced-data">EMAN YOUSSEF</p>
+                            <p class="text-xs italic">Plaintiff(s)</p>
+                        </div>
+                        <span class="font-bold">)</span>
+                    </div>
+                    
+                    <p class="my-2 ml-4">v.</p>
+
+                    <div class="flex justify-between">
+                        <div>
+                             <!-- Defendants - populated from case data -->
+                            <div class="replaced-data text-sm leading-tight">
+                                TD BANK, N.A. (Delaware corporation, authorized to do business in New York)<br>
+                                EQUIFAX INFORMATION SERVICES, LLC (Georgia corporation, authorized to do business in New York)<br>
+                                TRANS UNION, LLC (Delaware corporation, authorized to do business in New York)<br>
+                                EXPERIAN INFORMATION SOLUTIONS, INC. (Ohio corporation, authorized to do business in New York)
+                            </div>
+                            <p class="text-xs italic">Defendant(s)</p>
+                        </div>
+                         <span class="font-bold">)</span>
+                    </div>
+                </div>
+
+                <!-- Right side: Civil Action Number -->
+                <div class="border-l border-black p-2">
+                    <p class="text-xs">Civil Action No.</p>
+                     <!-- Case number - populated from case data -->
+                    <p class="replaced-data">1:25-cv-01987</p>
+                </div>
+            </div>
+
+            <!-- Title -->
+            <h2 class="text-center font-bold my-6">SUMMONS IN A CIVIL ACTION</h2>
+
+            <!-- To: Defendant Section -->
+            <div class="border border-black p-2 mb-4">
+                <p class="text-xs">To: (Defendant's name and address)</p>
+                <!-- Specific defendant address - populated from creditor config -->
+                <div class="pl-4 pt-2 replaced-data">
+                    EXPERIAN INFORMATION SOLUTIONS, INC. (Ohio corporation, authorized to do business in New York)<br>
+                    475 Anton Blvd<br>
+                    Costa Mesa, CA 92626
+                </div>
+            </div>
+
+            <!-- Main Body Text -->
+            <p class="mb-4">A lawsuit has been filed against you.</p>
+            <p class="mb-4 text-sm leading-relaxed">
+                Within 21 days after service of this summons on you (not counting the day you received it) — or 60 days if you are the United States or a United States agency, or an officer or employee of the United States described in Fed. R. Civ. P. 12 (a)(2) or (3) — you must serve on the plaintiff an answer to the attached complaint or a motion under Rule 12 of the Federal Rules of Civil Procedure. The answer or motion must be served on the plaintiff or plaintiff's attorney, whose name and address are:
+            </p>
+
+            <!-- Plaintiff's Attorney Information -->
+            <div class="pl-10 my-4">
+                <!-- Attorney information - populated from firm settings -->
+                <p class="replaced-data">Kevin C. Mallon</p>
+                <p class="replaced-data">Mallon Consumer Law Group, PLLC</p>
+                <p class="replaced-data">238 Merritt Drive</p>
+                <p class="replaced-data">Oradell, NJ. 07649</p>
+                <p class="replaced-data">(917) 734-6815</p>
+                <p class="replaced-data">kmallon@consmerprotectionfirm.com</p>
+            </div>
+
+            <p class="mb-4">
+                If you fail to respond, judgment by default will be entered against you for the relief demanded in the complaint. You also must file your answer or motion with the court.
+            </p>
+
+            <!-- Clerk Signature Section -->
+            <div class="flex justify-between items-end mt-12">
+                <div>
+                     <!-- Clerk name - populated from court data -->
+                    <p class="font-bold replaced-data">BRENNA B. MAHONEY</p>
+                    <p>CLERK OF COURT</p>
+                </div>
+                <div>
+                    <p>Date: <span class="replaced-data">July 11, 2025</span></p>
+                </div>
+                <div class="border-t border-black w-2/5 text-center pt-1">
+                    <p>Signature of Clerk or Deputy Clerk</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="page-break-before: always;"></div>
+
+        <!-- PAGE 2 of the Summons: Proof of Service -->
+        <div class="page-2 mt-8">
+            <div class="flex justify-between items-start text-xs mb-4">
+                <div>AO 440 (Rev. 06/12) Summons in a Civil Action (Page 2)</div>
+                <div>Civil Action No. <span class="replaced-data">1:25-cv-01987</span></div>
+            </div>
+
+            <h3 class="text-center font-bold text-lg my-6">PROOF OF SERVICE</h3>
+            <p class="text-center text-xs italic mb-4">(This section should not be filed with the court unless required by Fed. R. Civ. P. 4 (l))</p>
+
+            <p class="mb-4">This summons for (name of individual and title, if any) <span class="border-b border-dotted border-black flex-grow"></span> was received by me on (date) <span class="border-b border-dotted border-black flex-grow"></span>.</p>
+
+            <div class="space-y-4 text-sm">
+                <p>☐ I personally served the summons on the individual at (place) <span class="border-b border-dotted border-black flex-grow"></span> on (date) <span class="border-b border-dotted border-black flex-grow"></span>;</p>
+                <p>☐ I left the summons at the individual’s residence or usual place of abode with (name) <span class="border-b border-dotted border-black flex-grow"></span>, a person of suitable age and discretion who resides there, on (date) <span class="border-b border-dotted border-black flex-grow"></span>, and mailed a copy to the individual’s last known address;</p>
+                <p>☐ I served the summons on (name of individual) <span class="border-b border-dotted border-black flex-grow"></span>, who is designated by law to accept service of process on behalf of (name of organization) <span class="border-b border-dotted border-black flex-grow"></span> on (date) <span class="border-b border-dotted border-black flex-grow"></span>;</p>
+                <p>☐ I returned the summons unexecuted because <span class="border-b border-dotted border-black flex-grow"></span>;</p>
+                <p>☐ Other (specify): <span class="border-b border-dotted border-black flex-grow"></span></p>
+            </div>
+
+            <div class="my-6">
+                <p>My fees are $ <span class="border-b border-dotted border-black px-8"></span> for travel and $ <span class="border-b border-dotted border-black px-8"></span> for services, for a total of $ <span class="border-b border-dotted border-black px-8">0.00</span>.</p>
+            </div>
+
+            <p class="mb-6">I declare under penalty of perjury that this information is true.</p>
+
+            <div class="grid grid-cols-3 gap-8 mt-8">
+                <div>
+                    <p>Date: <span class="border-b border-dotted border-black flex-grow"></span></p>
+                </div>
+                <div class="border-b border-black"></div>
+                <div class="border-b border-black"></div>
+                <div class="col-start-2 text-center text-xs">Server's signature</div>
+                <div class="text-center text-xs">Printed name and title</div>
+            </div>
+            <div class="border-b border-black mt-8"></div>
+            <p class="text-xs text-center mt-1">Server's address</p>
+
+            <p class="mt-8 text-xs">Additional information regarding attempted service, etc:</p>
+            <div class="border-b border-dotted border-black h-12 mt-2"></div>
+
+        </div>
+    </div>
+</body>
+</html>

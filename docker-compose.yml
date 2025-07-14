@@ -1,0 +1,124 @@
+version: '3.8'
+
+services:
+  # Tiger Service - ML Document Processing
+  tiger:
+    build:
+      context: ./tiger
+      dockerfile: Dockerfile
+    container_name: tm-tiger
+    environment:
+      - PYTHONPATH=/app
+      - TIGER_OUTPUT_DIR=/app/data/output
+      - TIGER_INPUT_DIR=/app/data/input
+      - TIGER_LOGS_DIR=/app/data/logs
+    volumes:
+      - tm-shared-data:/app/data
+      - tm-shared-schema:/app/shared-schema
+      - ./tiger/data/logs:/app/data/logs
+    networks:
+      - tm-network
+    healthcheck:
+      test: ["CMD", "python", "-c", "import sys; sys.exit(0)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  # Monkey Service - Document Generation
+  monkey:
+    build:
+      context: ./monkey
+      dockerfile: Dockerfile
+    container_name: tm-monkey
+    environment:
+      - PYTHONPATH=/app
+      - MONKEY_OUTPUT_DIR=/app/data/output
+      - MONKEY_TEMPLATES_DIR=/app/templates
+    volumes:
+      - tm-shared-data:/app/data
+      - tm-shared-schema:/app/shared-schema
+      - ./monkey/templates:/app/templates
+      - ./monkey/outputs:/app/outputs
+    networks:
+      - tm-network
+    depends_on:
+      - tiger
+    healthcheck:
+      test: ["CMD", "python", "-c", "import sys; sys.exit(0)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  # Browser Service - PDF Generation
+  browser:
+    build:
+      context: ./browser
+      dockerfile: Dockerfile
+    container_name: tm-browser
+    environment:
+      - NODE_ENV=production
+      - BROWSER_OUTPUT_DIR=/app/outputs
+    volumes:
+      - tm-shared-data:/app/data
+      - ./browser/test-outputs:/app/outputs
+    networks:
+      - tm-network
+    ports:
+      - "8003:8003"
+    healthcheck:
+      test: ["CMD", "node", "-e", "process.exit(0)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  # Dashboard Service - Web Interface (Main Entry Point)
+  dashboard:
+    build:
+      context: ./dashboard
+      dockerfile: Dockerfile
+    container_name: tm-dashboard
+    environment:
+      - PYTHONPATH=/app
+      - CASE_DIRECTORY=/app/data/test-cases
+      - OUTPUT_DIR=/app/data/outputs
+      - UPLOAD_DIR=/app/data/uploads
+      - SESSION_SECRET=tm-production-secret-key-change-me
+      - DEBUG_MODE=false
+      - TIGER_SERVICE_URL=http://tiger:8001
+      - MONKEY_SERVICE_URL=http://monkey:8002
+      - BROWSER_SERVICE_URL=http://browser:8003
+    volumes:
+      - tm-shared-data:/app/data
+      - tm-shared-schema:/app/shared-schema
+      - ./dashboard/config:/app/config
+      - ./dashboard/static:/app/static
+      - ./dashboard/outputs:/app/outputs
+      - ./test-data:/app/data/test-cases
+      - ./outputs:/app/data/outputs
+    networks:
+      - tm-network
+    ports:
+      - "7000:7000"
+    depends_on:
+      - tiger
+      - monkey
+      - browser
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+volumes:
+  tm-shared-data:
+    driver: local
+  tm-shared-schema:
+    driver: local
+
+networks:
+  tm-network:
+    driver: bridge

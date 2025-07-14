@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-gray-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Review</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/themes/light/css/style.css?v=1.9.7&t=20250714-110443"> <!-- Re-use main theme styles -->
+    <link rel="stylesheet" href="/static/css/damages.css?v=1.9.7&t=20250714-110443"> <!-- Damages interface styling -->
+</head>
+<body class="p-8">
+
+    <div class="max-w-6xl mx-auto">
+        <div class="flex justify-between items-center">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">Step 3: Review Extracted Data</h1>
+                <div id="case-name-header" class="mb-4">
+                    <!-- Case name will be populated by JavaScript -->
+                </div>
+                <p class="text-gray-600 mb-8">Review the information extracted from your documents before generating the final complaint.</p>
+            </div>
+            <a href="/" class="text-sm font-medium text-blue-600 hover:underline">&larr; Back to Dashboard</a>
+        </div>
+
+        <!-- Validation Alert (will be shown if there are validation issues) -->
+        <div id="validation-alert" class="hidden mb-6">
+            <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+                <div class="flex items-start">
+                    <svg class="h-5 w-5 text-red-600 mr-3 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+                    </svg>
+                    <div class="flex-1">
+                        <h3 class="text-sm font-medium text-red-800">Data Validation Issues Detected</h3>
+                        <div class="mt-2 text-sm text-red-700">
+                            <p id="validation-alert-message">This case has validation issues that need attention. Review the Timeline Validation tab for detailed analysis.</p>
+                        </div>
+                        <div class="mt-3">
+                            <button id="show-timeline-tab" class="bg-red-600 text-white px-3 py-1.5 rounded text-sm font-medium hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+                                View Timeline Validation
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="mb-8">
+            <div class="border-b border-gray-200">
+                <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+                    <a href="#" id="tab-review" class="tab-link border-blue-500 text-blue-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm" aria-current="page">
+                        Review Data
+                    </a>
+                    <a href="#" id="tab-timeline" class="tab-link border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                        Timeline Validation
+                    </a>
+                    <a href="#" id="tab-complaint" class="tab-link border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                        Complaint
+                    </a>
+                    <a href="#" id="tab-summons" class="tab-link border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                        Summons
+                    </a>
+                    <a href="#" id="tab-packet" class="tab-link border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                        Legal Packet
+                    </a>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div id="tab-content-review">
+            <!-- Review Data Section -->
+            <div id="review-data-section">
+                <!-- Content will be dynamically injected here -->
+            </div>
+
+            <!-- Cause of Action Section - moved to follow logical order -->
+            <div id="cause-of-action-section" class="mt-12">
+                 <h2 class="text-2xl font-bold text-gray-800 mb-6">Cause of Action</h2>
+                <!-- Content will be dynamically injected here -->
+            </div>
+
+            <!-- Damages Section - moved to bottom for logical flow -->
+            <div id="damages-section" class="mt-12">
+                <!-- Content will be dynamically injected here -->
+            </div>
+
+            <!-- Legacy Legal Violations section removed - integrated into Causes of Action -->
+        </div>
+
+        <!-- Timeline Validation Tab Content -->
+        <div id="tab-content-timeline" class="hidden">
+            <div class="bg-white p-8 rounded-lg shadow-sm">
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-800">Timeline Validation</h2>
+                        <p class="text-gray-600 mt-1">Review chronological consistency and key dates across all case documents</p>
+                    </div>
+                    <div id="timeline-validation-badge" class="px-4 py-2 rounded-lg font-medium">
+                        <!-- Badge will be populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <!-- Timeline Overview -->
+                <div id="timeline-overview" class="mb-8">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h3 class="font-semibold text-gray-800 mb-2">Key Dates</h3>
+                            <div id="key-dates-summary" class="space-y-2">
+                                <!-- Populated by JavaScript -->
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h3 class="font-semibold text-gray-800 mb-2">Validation Status</h3>
+                            <div id="validation-status-summary" class="space-y-2">
+                                <!-- Populated by JavaScript -->
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h3 class="font-semibold text-gray-800 mb-2">Document Coverage</h3>
+                            <div id="document-coverage-summary" class="space-y-2">
+                                <!-- Populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visual Timeline -->
+                <div id="timeline-visualization" class="mb-8">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Case Timeline</h3>
+                    <div id="timeline-chart" class="bg-gray-50 p-6 rounded-lg">
+                        <!-- Timeline chart will be rendered here -->
+                    </div>
+                </div>
+
+                <!-- Validation Issues -->
+                <div id="timeline-issues" class="mb-8">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Validation Issues</h3>
+                    <div id="timeline-errors" class="space-y-3">
+                        <!-- Error messages will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Document Dates Table -->
+                <div id="timeline-details">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Extracted Document Dates</h3>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-900 w-12">#</th>
+                                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-900">Date</th>
+                                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-900">Context</th>
+                                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-900">Source Document</th>
+                                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-900">Confidence</th>
+                                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-900">Source Line</th>
+                                </tr>
+                            </thead>
+                            <tbody id="document-dates-table">
+                                <!-- Table rows will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Complaint Tab Content -->
+        <div id="tab-content-complaint" class="hidden">
+            <div class="bg-white p-8 rounded-lg shadow-sm">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-2xl font-bold text-gray-800">Complaint Document</h2>
+                    <div class="flex space-x-3">
+                        <button id="edit-complaint" class="hidden px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700">
+                            ✏️ Edit Complaint
+                        </button>
+                        <button id="open-in-new-tab" class="hidden px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+                            📄 View HTML
+                        </button>
+                        <button id="download-pdf" class="hidden px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
+                            📥 Download PDF
+                        </button>
+                        <button id="generate-complaint" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                            Generate Complaint
+                        </button>
+                    </div>
+                </div>
+                <div id="preview-loading" class="hidden text-center py-8">
+                    <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                    <p class="mt-2 text-gray-600">Generating complaint document...</p>
+                </div>
+                <div id="preview-content" class="border rounded-lg" style="height: 800px;">
+                    <p class="text-gray-600 p-4">Click "Generate Complaint" to preview the legal document.</p>
+                </div>
+                <!-- Edit Mode Controls - Initially Hidden -->
+                <div id="edit-controls" class="hidden mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-3 h-3 bg-blue-500 rounded-full animate-pulse"></div>
+                            <span class="text-blue-800 font-medium">EDITING MODE</span>
+                            <span class="text-blue-600 text-sm">Make your changes to the document content</span>
+                        </div>
+                        <div class="flex space-x-3">
+                            <button id="cancel-edit" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600">
+                                Cancel
+                            </button>
+                            <button id="save-edit" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700" disabled>
+                                <span class="save-text">Save Changes</span>
+                                <span class="save-spinner hidden">⏳ Saving...</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Summons Tab Content -->
+        <div id="tab-content-summons" class="hidden">
+            <div class="bg-white p-8 rounded-lg shadow-sm">
+                <div class="mb-6">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-800">Summons Documents</h2>
+                        <p class="text-gray-600 mt-1">Summons are automatically generated when you create the complaint document</p>
+                    </div>
+                </div>
+                
+                <div id="summons-loading" class="hidden text-center py-8">
+                    <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                    <p class="mt-2 text-gray-600">Generating summons documents...</p>
+                </div>
+                
+                <div id="summons-defendants-list">
+                    <p class="text-gray-600 p-4">Summons documents will appear here after generating the complaint.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Legal Packet Tab Content -->
+        <div id="tab-content-packet" class="hidden">
+            <div class="bg-white p-8 rounded-lg shadow-sm">
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-800">Legal Packet</h2>
+                        <p class="text-gray-600 mt-1">Complete case file with all source documents and generated legal documents</p>
+                    </div>
+                    <div class="flex space-x-3">
+                        <button id="download-packet" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 hover:border-gray-400">
+                            📦 Download Packet
+                        </button>
+                        <button id="sync-to-icloud" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                            ☁️ Sync to iCloud
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Case Summary Section (moved to top) -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Case Processing Summary</h3>
+                    <div id="processing-summary" class="bg-gray-50 p-6 rounded-lg">
+                        <!-- Populated by JavaScript with dashboard-style metrics -->
+                    </div>
+                </div>
+
+                <!-- Generated Documents Section -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">📄 Generated Legal Documents</h3>
+                    <div id="generated-documents" class="space-y-3">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Source Documents Section -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">📁 Source Documents</h3>
+                    <div id="source-documents" class="space-y-3">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Detailed Processing Data Section (moved to bottom) -->
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">🔍 Detailed Processing Data</h3>
+                    <div id="processing-data" class="space-y-3">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script src="/static/js/damages-review.js?v=1.9.7&t=20250714-110443"></script>
+    <script src="/static/js/review.js?v=1.9.7&t=20250714-110443"></script>
+    <script src="/static/js/timeline-validation.js?v=1.9.7&t=20250714-110443"></script>
+</body>
+</html>

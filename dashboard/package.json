@@ -1,0 +1,24 @@
+{
+  "name": "dashboard",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:css": "tailwindcss -i ./static/themes/light/css/input.css -o ./static/themes/light/css/style.css",
+    "build:css:lexigen": "tailwindcss -i ./static/themes/lexigen/css/input.css -o ./static/themes/lexigen/css/style.css",
+    "build:css:all": "npm run build:css && npm run build:css:lexigen",
+    "watch:css": "tailwindcss -i ./static/themes/light/css/input.css -o ./static/themes/light/css/style.css --watch",
+    "watch:css:lexigen": "tailwindcss -i ./static/themes/lexigen/css/input.css -o ./static/themes/lexigen/css/style.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "tailwindcss": "^4.1.11"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.2",
+    "playwright": "^1.53.2"
+  }
+}

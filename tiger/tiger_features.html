@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiger Service Features</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'legal-blue': '#1e40af',
+                        'legal-gray': '#374151',
+                        'accent-blue': '#3b82f6'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 font-sans">
+    <div class="max-w-6xl mx-auto px-6 py-12">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <div class="mb-4">
+                <p class="text-lg text-black mb-2">Satori AI</p>
+                <h1 class="text-4xl font-bold text-legal-blue mb-4">Tiger Service</h1>
+            </div>
+            <p class="text-xl text-legal-gray max-w-3xl mx-auto">
+                Professional legal document processing and analysis engine that extracts structured data from legal documents for FCRA cases
+            </p>
+        </div>
+
+        <!-- Core Features -->
+        <div class="mb-16">
+            <h2 class="text-3xl font-semibold text-legal-blue mb-8 text-center">Core Features</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-legal-gray mb-4">Document Processing</h3>
+                    <ul class="space-y-2 text-gray-600">
+                        <li>PDF processing with Docling ML</li>
+                        <li>Native Word document analysis</li>
+                        <li>Plain text extraction</li>
+                        <li>Batch processing capabilities</li>
+                        <li>Multi-format support</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-legal-gray mb-4">Legal Entity Extraction</h3>
+                    <ul class="space-y-2 text-gray-600">
+                        <li>Court and jurisdiction identification</li>
+                        <li>Case number extraction</li>
+                        <li>Party classification</li>
+                        <li>Attorney identification</li>
+                        <li>Timeline analysis</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-legal-gray mb-4">Case Consolidation</h3>
+                    <ul class="space-y-2 text-gray-600">
+                        <li>Multi-document analysis</li>
+                        <li>Information consolidation</li>
+                        <li>Hydrated JSON generation</li>
+                        <li>Quality scoring</li>
+                        <li>Confidence assessment</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Command Line Interface -->
+        <div class="mb-16">
+            <h2 class="text-3xl font-semibold text-legal-blue mb-8 text-center">Command Line Interface</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-legal-gray mb-4">Primary Commands</h3>
+                    <div class="space-y-4">
+                        <div class="border-l-4 border-accent-blue pl-4">
+                            <h4 class="font-semibold text-legal-gray">hydrated-json</h4>
+                            <p class="text-gray-600">Generate NY FCRA-compliant hydrated JSON from case documents</p>
+                        </div>
+                        <div class="border-l-4 border-accent-blue pl-4">
+                            <h4 class="font-semibold text-legal-gray">process</h4>
+                            <p class="text-gray-600">Process single documents or directories with comprehensive extraction</p>
+                        </div>
+                        <div class="border-l-4 border-accent-blue pl-4">
+                            <h4 class="font-semibold text-legal-gray">case-extract</h4>
+                            <p class="text-gray-600">Extract legal case information and generate complaint JSON</p>
+                        </div>
+                        <div class="border-l-4 border-accent-blue pl-4">
+                            <h4 class="font-semibold text-legal-gray">batch</h4>
+                            <p class="text-gray-600">Batch process directories with comprehensive reporting</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-legal-gray mb-4">Utility Commands</h3>
+                    <div class="space-y-4">
+                        <div class="border-l-4 border-accent-blue pl-4">
+                            <h4 class="font-semibold text-legal-gray">validate</h4>
+                            <p class="text-gray-600">Validate document quality without full processing</p>
+                        </div>
+                        <div class="border-l-4 border-accent-blue pl-4">
+                            <h4 class="font-semibold text-legal-gray">info</h4>
+                            <p class="text-gray-600">Display service information and engine status</p>
+                        </div>
+                        <div class="border-l-4 border-accent-blue pl-4">
+                            <h4 class="font-semibold text-legal-gray">test</h4>
+                            <p class="text-gray-600">Run service functionality tests and health checks</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technical Architecture -->
+        <div class="mb-16">
+            <h2 class="text-3xl font-semibold text-legal-blue mb-8 text-center">Technical Architecture</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-legal-gray mb-4">Processing Engines</h3>
+                    <ul class="space-y-3 text-gray-600">
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-accent-blue rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            <span>Docling Engine for advanced PDF OCR processing</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-accent-blue rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            <span>DOCX Engine for native Word document processing</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-accent-blue rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            <span>Text Engine for plain text analysis</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-accent-blue rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            <span>Document Processor orchestrates workflow</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-accent-blue rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            <span>Case Consolidator merges multi-document data</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-legal-gray mb-4">Extraction Pipeline</h3>
+                    <ul class="space-y-3 text-gray-600">
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-accent-blue rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            <span>Document format detection and routing</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-accent-blue rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            <span>Text extraction with OCR capabilities</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-accent-blue rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            <span>Legal entity identification and classification</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-accent-blue rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            <span>Quality assessment and confidence scoring</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-accent-blue rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            <span>Structured JSON output generation</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Output Formats -->
+        <div class="mb-16">
+            <h2 class="text-3xl font-semibold text-legal-blue mb-8 text-center">Output Formats</h2>
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <div class="w-16 h-16 bg-accent-blue rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-white font-bold text-xl">JSON</span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-legal-gray mb-2">Structured JSON</h3>
+                    <p class="text-gray-600">Primary format with legal entities and metadata</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <div class="w-16 h-16 bg-accent-blue rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-white font-bold text-xl">FCRA</span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-legal-gray mb-2">Hydrated JSON</h3>
+                    <p class="text-gray-600">NY FCRA-compliant format for Monkey service</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <div class="w-16 h-16 bg-accent-blue rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-white font-bold text-xl">MD</span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-legal-gray mb-2">Markdown</h3>
+                    <p class="text-gray-600">Human-readable format for review and analysis</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <div class="w-16 h-16 bg-accent-blue rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-white font-bold text-xl">TXT</span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-legal-gray mb-2">Plain Text</h3>
+                    <p class="text-gray-600">Raw extracted text for further processing</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Integration Features -->
+        <div class="mb-16">
+            <h2 class="text-3xl font-semibold text-legal-blue mb-8 text-center">Integration Features</h2>
+            <div class="bg-white p-8 rounded-lg shadow-md">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-semibold text-legal-gray mb-4">Monkey Service Integration</h3>
+                        <ul class="space-y-2 text-gray-600">
+                            <li>Hydrated JSON output for document generation</li>
+                            <li>Shared schema validation</li>
+                            <li>Quality metrics propagation</li>
+                            <li>Seamless workflow integration</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-legal-gray mb-4">Dashboard Integration</h3>
+                        <ul class="space-y-2 text-gray-600">
+                            <li>Real-time event broadcasting</li>
+                            <li>Processing status updates</li>
+                            <li>Case management integration</li>
+                            <li>Interactive review capabilities</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Performance & Quality -->
+        <div class="mb-16">
+            <h2 class="text-3xl font-semibold text-legal-blue mb-8 text-center">Performance & Quality</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-lg font-semibold text-legal-gray mb-4">Quality Thresholds</h3>
+                    <ul class="space-y-2 text-gray-600">
+                        <li>High Quality (80+): Production ready</li>
+                        <li>Medium Quality (50-79): Review recommended</li>
+                        <li>Low Quality (<50): Manual validation required</li>
+                        <li>Comprehensive quality metrics</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-lg font-semibold text-legal-gray mb-4">Legal Compliance</h3>
+                    <ul class="space-y-2 text-gray-600">
+                        <li>FCRA-specific entity extraction</li>
+                        <li>Court jurisdiction validation</li>
+                        <li>Timeline chronological validation</li>
+                        <li>Damage calculation accuracy</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-lg font-semibold text-legal-gray mb-4">Processing Performance</h3>
+                    <ul class="space-y-2 text-gray-600">
+                        <li>ML-powered OCR processing</li>
+                        <li>Batch processing optimization</li>
+                        <li>Memory-efficient operations</li>
+                        <li>Scalable architecture</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center py-8 border-t border-gray-200">
+            <p class="text-gray-600">Tiger Service - Professional Legal Document Processing Engine</p>
+            <p class="text-gray-500 mt-2">Part of the Tiger-Monkey Legal Document Processing System</p>
+            <p class="text-black mt-1">Created by Satori AI</p>
+        </div>
+    </div>
+</body>
+</html>

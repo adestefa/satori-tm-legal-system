@@ -1,0 +1,63 @@
+NAME: [Plaintiff Full Name]
+ADDRESS: 
+[Plaintiff Street Address]
+[City, State ZIP Code]
+PHONE: [Plaintiff Phone Number]
+RESIDENCY: [State of Residency, borough/county of Location]
+
+CASE_NUMBER: [Case Number - e.g., 1:25-cv-02100]
+COURT_NAME: [Court Name - e.g., UNITED STATES DISTRICT COURT]
+COURT_DISTRICT: [Court District - e.g., EASTERN DISTRICT OF NEW YORK]
+FILING_DATE: [Filing Date - e.g., June 15, 2025]
+
+DEFENDANTS:
+- [Defendant 1 Name] ([State] corporation, authorized to do business in [State])
+- [Defendant 2 Name] ([State] corporation, authorized to do business in [State])
+- [Additional defendants as needed]
+
+STRUCTURED_DATA:
+KEY_DATES:
+- [Key Date 1]: [Date]
+- [Key Date 2]: [Date]
+- [Additional key dates as needed]
+
+DAMAGES:
+Financial Harm:
+- [Specific financial damage 1]
+- [Specific financial damage 2]
+- [Additional financial damages]
+
+Reputational Harm:
+- [Specific reputational damage 1]
+- [Specific reputational damage 2]
+- [Additional reputational damages]
+
+Emotional Harm:
+- [Specific emotional damage 1]
+- [Specific emotional damage 2]
+- [Additional emotional damages]
+
+Personal Costs:
+- [Specific cost 1 - time/expense]
+- [Specific cost 2 - time/expense]
+- [Additional personal costs]
+
+LEGAL_CLAIMS:
+Count 1 - FCRA Violations:
+- [FCRA statute citation]: [Description]
+- [Additional FCRA claims]
+
+Count 2 - NY FCRA Violations:
+- [NY FCRA statute citation]: [Description]
+- [Additional NY FCRA claims]
+
+RELIEF_SOUGHT:
+- [Type of relief 1]
+- [Type of relief 2]
+- [Additional relief sought]
+
+BACKGROUND:
+1. [First factual allegation]
+2. [Second factual allegation]
+3. [Continue with numbered factual allegations]
+[Add additional allegations as needed]

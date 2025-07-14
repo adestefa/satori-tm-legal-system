@@ -1,0 +1,52 @@
+ATTORNEY CASE NOTES
+Case: Johnson v. First National Bank et al.
+Case Number: 1:25-cv-02156
+Court: United States District Court for the Southern District of New York
+
+CLIENT INFORMATION:
+Name: Sarah Johnson
+Address: 123 Main Street, Apartment 4B, New York, NY 10001
+Phone: (555) 123-4567
+Email: sarah.johnson@email.com
+
+CASE BACKGROUND:
+Sarah Johnson contacted our office after being denied for a mortgage loan due to inaccurate information on her credit report. The credit report from TransUnion showed a delinquent account with First National Bank that was never hers.
+
+TIMELINE OF EVENTS:
+- March 15, 2025: Client applies for mortgage loan
+- March 20, 2025: Loan denied due to delinquent account on credit report
+- March 25, 2025: Client disputes account with TransUnion
+- April 10, 2025: TransUnion responds claiming account verified
+- April 15, 2025: Client contacts First National Bank directly
+- April 20, 2025: First National Bank confirms no account exists for client
+- May 1, 2025: Client re-disputes with TransUnion providing bank letter
+- May 15, 2025: TransUnion again claims account verified
+- June 1, 2025: Client retains our office
+
+DEFENDANTS:
+1. First National Bank of New York
+   - 456 Financial Plaza, New York, NY 10005
+   - Failed to properly investigate dispute
+   
+2. TransUnion LLC
+   - 555 W. Adams Street, Chicago, IL 60661
+   - Failed to conduct reasonable investigation
+   - Continued reporting inaccurate information
+
+FCRA VIOLATIONS:
+- Section 1681e(b) - Failure to follow reasonable procedures
+- Section 1681i(a) - Failure to conduct reasonable investigation
+- Section 1681n - Willful non-compliance
+
+DAMAGES:
+- Denial of mortgage loan
+- Damage to credit score (dropped from 750 to 620)
+- Emotional distress and frustration
+- Time and effort spent disputing
+- Lost opportunity to purchase home at favorable interest rate
+
+RELIEF SOUGHT:
+- Actual damages
+- Statutory damages up to $1,000 per defendant
+- Attorney fees and costs
+- Injunctive relief requiring correction of credit report

@@ -1,0 +1,70 @@
+NAME: Carlos Rodriguez
+
+ADDRESS: 1234 Bay Ridge Avenue
+Brooklyn, NY 11209
+
+PHONE: (929) 555-1234
+
+CASE_NUMBER: 1:25-cv-02100
+
+COURT_NAME: UNITED STATES DISTRICT COURT
+
+COURT_DISTRICT: EASTERN DISTRICT OF NEW YORK
+
+FILING_DATE: June 15, 2025
+
+PLAINTIFF_COUNSEL_NAME: TBD
+
+DEFENDANTS:
+- EQUIFAX INFORMATION SERVICES, LLC (Georgia corporation, authorized to do business in New York)
+- EXPERIAN INFORMATION SOLUTIONS, INC. (Ohio corporation, authorized to do business in New York)
+- TRANS UNION, LLC (Delaware corporation, authorized to do business in New York)
+- CHASE BANK, N.A. (Delaware corporation, authorized to do business in New York)
+
+BACKGROUND:
+1. Plaintiff Carlos Rodriguez is an individual consumer under the FCRA and NY FCRA, residing in Brooklyn, NY.
+2. Plaintiff has maintained a very good credit history throughout his financial life.
+3. Plaintiff discovered credit reporting errors when applying for a car loan in April 2025.
+4. Plaintiff's credit reports incorrectly included information for a different person, "Carlos J. Rodriguez."
+5. The erroneous information included a Chase Sapphire credit card showing as a charge-off with approximately $8,200 balance.
+6. Plaintiff has never had a Chase Sapphire credit card or any account with Chase Bank, N.A.
+7. Plaintiff sent written disputes to all three credit reporting agencies around February 15, 2025.
+8. Plaintiff's dispute letters included a copy of his driver's license showing middle initial 'M' and social security card to prove his identity.
+9. Plaintiff also called Chase Bank directly and was told they would investigate but no corrective action was taken.
+10. All three credit reporting agencies and Chase Bank verified the erroneous debt as belonging to Plaintiff.
+11. Defendants failed to notice the different middle initial or address history associated with the fraudulent account.
+12. Defendants failed to conduct reasonable investigations of Plaintiff's clearly documented disputes.
+13. The erroneous information continues to appear on Plaintiff's credit reports causing ongoing harm.
+
+DAMAGES:
+
+Financial Harm:
+- Denied auto loan by Wells Fargo Dealer Services on April 20, 2025. Have denial letter.
+- Denied credit card by Citibank for Home Depot card on May 5, 2025. Have denial letter.
+- Credit limit reduction on Capital One card from $5,000 to $2,000 on May 12, 2025. Have statement documentation.
+- Interest rate increase on Discover card from 15.9% to 22.9% on May 15, 2025. Have rate change notice.
+- Unable to secure favorable mortgage rates for home purchase
+- Lost opportunity for 0% APR promotional offers due to damaged credit
+
+Reputational Harm:
+- Damage to credit reputation due to false charge-off reporting
+- Adverse impact on credit rating from excellent (750+) to poor (595)
+- Being labeled as a credit risk and financial deadbeat by prospective lenders
+- Damage to professional reputation when colleagues learned of credit issues
+- Loss of financial credibility with family and friends
+
+Emotional Harm:
+- Significant stress and anxiety from dealing with persistent credit errors
+- Frustration from repeated denials and rejections despite good payment history
+- Helplessness from inability to correct false information despite clear evidence
+- Embarrassment when explaining credit denials to family members
+- Sleep disruption and worry about financial future
+- Anger at being treated as dishonest when providing legitimate documentation
+
+Personal Costs:
+- Over 40 hours spent on phone calls with credit agencies and creditors
+- Time spent writing dispute letters and gathering supporting documentation
+- Travel expenses to bank branches for in-person assistance and notarization
+- Lost work time attending meetings with credit counselors
+- Administrative burden of ongoing disputes and follow-up communications
+- Cost of certified mail and documentation copying for dispute letters

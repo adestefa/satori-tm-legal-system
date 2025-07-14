@@ -1,0 +1,146 @@
+:root {
+    --background-color: #1a1a1a;
+    --card-background: #2a2a2a;
+    --border-color: #444;
+    --text-color: #e0e0e0;
+    --text-secondary-color: #a0a0a0;
+    --accent-color: #007bff;
+    --status-new: #007bff;
+    --status-processed: #28a745;
+    --status-error: #dc3545;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 2rem;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+h1 {
+    font-size: 2rem;
+    margin: 0;
+}
+
+.actions {
+    display: flex;
+    gap: 1rem;
+}
+
+#search-bar {
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+#new-case-btn {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1.5rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.case-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.case-card {
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.case-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.case-name {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.case-status {
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.status-new {
+    background-color: var(--status-new);
+    color: white;
+}
+.status-processed {
+    background-color: var(--status-processed);
+    color: white;
+}
+.status-error {
+    background-color: var(--status-error);
+    color: white;
+}
+.status-processing, .status-generating, .status-review-pending {
+    background-color: #ffc107;
+    color: #1a1a1a;
+}
+.status-done {
+    background-color: #6c757d;
+    color: white;
+}
+
+
+.case-card-body {
+    flex-grow: 1;
+    color: var(--text-secondary-color);
+    font-size: 0.9rem;
+}
+
+.case-card-footer {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.case-action-btn {
+    flex-grow: 1;
+    background-color: #444;
+    color: var(--text-color);
+    border: 1px solid #666;
+    padding: 0.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.case-action-btn:hover {
+    background-color: #555;
+}

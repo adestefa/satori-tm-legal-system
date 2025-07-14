@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaint</title>
+    <style>
+        body {
+            font-family: "Times New Roman", Times, serif;
+            line-height: 1.5;
+            color: #000;
+            max-width: 8.5in;
+            margin: 1in auto;
+            padding: 0 1in;
+            background-color: #fff;
+        }
+        .header, .footer {
+            text-align: center;
+        }
+        .caption {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .case-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            margin-bottom: 20px;
+        }
+        .plaintiff-info, .defendant-info {
+            padding-right: 20px;
+        }
+        .complaint-title {
+            text-align: center;
+            font-weight: bold;
+            margin-top: -40px;
+        }
+        .section-title {
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        p {
+            margin-bottom: 10px;
+        }
+        ol {
+            list-style-type: none;
+            counter-reset: item;
+            margin: 0;
+            padding: 0;
+        }
+        ol > li {
+            display: block;
+            margin-bottom: 10px;
+        }
+        ol > li:before {
+            content: counter(item) ". ";
+            counter-increment: item;
+            font-weight: bold;
+        }
+        .signature-block {
+            margin-top: 50px;
+            text-align: right;
+        }
+        .signature-line {
+            border-top: 1px solid #000;
+            width: 250px;
+            margin-top: 50px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <p>UNITED STATES DISTRICT COURT</p>
+        <p>{{case_information.court_district.upper() }}</p>
+    </div>
+
+    <hr>
+
+    <div class="case-info">
+        <div class="plaintiff-info">
+            <p>{{parties.plaintiff.name.upper() }}</p>
+            <p>Plaintiff,</p>
+            <p>-against-</p>
+            {% for defendant in hydratedjson.parties.defendants %}
+                <p>{{ defendant.name.upper() }}{% if not loop.last %},{% endif %}</p>
+            {% endfor %}
+            <p>Defendants.</p>
+        </div>
+        <div class="defendant-info">
+            <p>{{case_information.case_number }}</p>
+            <p class="complaint-title">COMPLAINT</p>
+        </div>
+    </div>
+
+    <hr>
+
+    <p>Plaintiff, {{parties.plaintiff.name }} (“Plaintiff”), by and through her undersigned counsel, brings this action against Defendants {{parties.defendants|map(attribute='name')|join(', ') }}, and alleges the following, upon information and belief:</p>
+
+    <div class="section-title">PRELIMINARY STATEMENT</div>
+    <ol>
+        <li>{{preliminary_statement }}</li>
+    </ol>
+
+    <div class="section-title">JURISDICTION AND VENUE</div>
+    <ol start="6">
+        <li>The jurisdiction of this Court is conferred by {{jurisdiction_and_venue.federal_jurisdiction.citation }}.</li>
+        <li>This Court has diversity jurisdiction over the state law claims pursuant to {{jurisdiction_and_venue.supplemental_jurisdiction.citation }}.</li>
+        <li>Venue is properly laid pursuant to {{jurisdiction_and_venue.venue.citation }}.</li>
+    </ol>
+
+    <div class="section-title">PARTIES</div>
+    <ol start="9">
+        <li>Plaintiff, a natural person, is a resident of the State of New York, and borough of Manhattan, and qualifies as an individual “consumer” within the meaning of both the FCRA and the NY FCRA.</li>
+        {% for defendant in hydratedjson.parties.defendants %}
+            <li>Defendant {{ defendant.name }} is a {{ defendant.state_of_incorporation }} corporation, duly authorized and qualified to do business in the State of New York. {{ defendant.name }} qualifies as a “{{ defendant.type }}” within the meaning of the FCRA.</li>
+        {% endfor %}
+    </ol>
+
+    <div class="section-title">FACTUAL BACKGROUND</div>
+    <ol start="14">
+        <li>{{factual_background.summary }}</li>
+    </ol>
+
+    {% for cause_of_action in hydratedjson.causes_of_action %}
+        <div class="section-title">{{ cause_of_action.title }}<br>Against {{ cause_of_action.against_defendants|join(', ') }}</div>
+        <ol start="{{ 29 if loop.first else 38 }}">
+            <li>Plaintiff repeats and realleges each and every allegation set forth above as if reasserted and realleged herein.</li>
+            {% for allegation in cause_of_action.allegations %}
+                <li>{{ allegation.description }} in violation of {{ allegation.citation }}.</li>
+            {% endfor %}
+        </ol>
+    {% endfor %}
+
+    <p>THE PLAINTIFF DEMANDS A JURY TRIAL ON ALL CAUSES OF ACTION ASSERTED HEREIN.</p>
+
+    <div class="signature-block">
+        <p>Dated: {{filing_details.date }}</p>
+        <p>Respectfully submitted,</p>
+        <div class="signature-line">
+            <p>Kevin C. Mallon</p>
+            <p>Mallon Consumer Law Group, PLLC</p>
+            <p>238 Merritt Drive</p>
+            <p>Oradell, NJ. 07649</p>
+            <p>(917) 734-6815</p>
+            <p>kmallon@consmerprotectionfirm.com</p>
+            <p><i>Attorneys for the Plaintiff</i></p>
+        </div>
+    </div>
+
+</body>
+</html>

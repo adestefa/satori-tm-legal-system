@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kevin Mallon, Esq - Satori AI</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- HTMX for real-time updates -->
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        const SATORI_VERSION = "1.9.7";  // Fixed PDF generation and serving with standardized naming
+    </script>
+    <style>
+        /* Custom styles to apply the Inter font */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* bg-slate-50 */
+        }
+        /* Custom styles for disabled button state */
+        .btn-disabled {
+            background-color: #f1f5f9; /* bg-slate-100 */
+            color: #94a3b8; /* text-slate-400 */
+            cursor: not-allowed;
+        }
+        /* File processing animation */
+        @keyframes pulse {
+            0%, 100% { 
+                opacity: 1; 
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 0.6; 
+                transform: scale(1.1);
+            }
+        }
+        @keyframes spin {
+            0% { 
+                transform: rotate(0deg);
+            }
+            100% { 
+                transform: rotate(360deg);
+            }
+        }
+        @keyframes hourglass-sand {
+            0% { 
+                transform: rotate(0deg);
+                opacity: 1;
+            }
+            45% { 
+                transform: rotate(0deg);
+                opacity: 1;
+            }
+            50% { 
+                transform: rotate(180deg);
+                opacity: 0.8;
+            }
+            55% { 
+                transform: rotate(180deg);
+                opacity: 1;
+            }
+            95% { 
+                transform: rotate(180deg);
+                opacity: 1;
+            }
+            100% { 
+                transform: rotate(360deg);
+                opacity: 1;
+            }
+        }
+        .file-status-icon {
+            transition: all 0.3s ease-in-out;
+        }
+        .button-spinner {
+            animation: hourglass-sand 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 font-sans antialiased">
+
+    <div class="flex h-screen bg-slate-50">
+        <!-- Sidebar -->
+        <aside class="w-64 flex flex-col bg-white border-r border-slate-200 hidden md:flex">
+            <!-- Logo -->
+            <div class="h-16 flex items-center px-6 border-b border-slate-200">
+                <div class="flex items-center space-x-2">
+                    <svg class="h-6 w-6 text-gray-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <!-- Courthouse icon -->
+                        <!-- Base/foundation -->
+                        <rect x="2" y="19" width="20" height="2" stroke="currentColor" fill="none"/>
+                        <!-- Steps -->
+                        <rect x="3" y="17" width="18" height="2" stroke="currentColor" fill="none"/>
+                        <!-- Main building -->
+                        <rect x="5" y="8" width="14" height="9" stroke="currentColor" fill="none"/>
+                        <!-- Columns -->
+                        <line x1="7" y1="8" x2="7" y2="17" stroke="currentColor"/>
+                        <line x1="10" y1="8" x2="10" y2="17" stroke="currentColor"/>
+                        <line x1="14" y1="8" x2="14" y2="17" stroke="currentColor"/>
+                        <line x1="17" y1="8" x2="17" y2="17" stroke="currentColor"/>
+                        <!-- Roof/pediment -->
+                        <path d="M4 8 L12 3 L20 8 Z" stroke="currentColor" fill="none"/>
+                        <!-- Entrance -->
+                        <rect x="11" y="13" width="2" height="4" stroke="currentColor" fill="none"/>
+                    </svg>
+                    <h1 class="text-lg font-bold text-slate-800">Kevin Mallon, Esq.</h1>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="flex-1 py-6 px-4 space-y-6">
+                <!-- Cases Folder Section -->
+                <div>
+                    <span class="px-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Cases Folder</span>
+                    <ul class="space-y-1 mt-2">
+                        <li>
+                            <a href="#" id="filter-all" class="flex items-center px-4 py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-lg filter-btn" data-filter="all">
+                                <svg class="h-4 w-4 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z" />
+                                </svg>
+                                All Cases
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Filter Section -->
+                <div>
+                    <span class="px-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Filter by Status</span>
+                    <ul class="space-y-1 mt-2">
+                        <li>
+                            <a href="#" id="filter-new" class="flex items-center px-4 py-2 text-sm font-medium text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg filter-btn" data-filter="New">
+                                <svg class="h-4 w-4 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m3.75 9v6m3-3H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c0 .621-.504 1.125-1.125 1.125H5.625z" />
+                                </svg>
+                                New Cases
+                                <span id="new-count" class="ml-auto bg-blue-100 text-blue-600 text-xs px-2 py-0.5 rounded-full font-medium">0</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" id="filter-pending" class="flex items-center px-4 py-2 text-sm font-medium text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg filter-btn" data-filter="Pending Review">
+                                <svg class="h-4 w-4 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
+                                </svg>
+                                Pending Review
+                                <span id="pending-count" class="ml-auto bg-yellow-100 text-yellow-600 text-xs px-2 py-0.5 rounded-full font-medium">0</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" id="filter-complete" class="flex items-center px-4 py-2 text-sm font-medium text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg filter-btn" data-filter="Complete">
+                                <svg class="h-4 w-4 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                </svg>
+                                Completed
+                                <span id="complete-count" class="ml-auto bg-green-100 text-green-600 text-xs px-2 py-0.5 rounded-full font-medium">0</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+            </nav>
+
+            <!-- Sidebar Footer -->
+            <div class="p-4 border-t border-slate-200">
+                <div class="flex items-center justify-center space-x-2 text-xs text-slate-400">
+                    <svg class="h-4 w-4 text-slate-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                    <span>Powered by Satori AI v1.9.7</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col">
+            <!-- Header -->
+            <header class="h-16 flex items-center justify-between px-8 bg-white border-b border-slate-200">
+                <!-- Search Bar -->
+                <div class="flex items-center w-1/2 max-w-md">
+                    <div class="relative w-full">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-slate-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                            </svg>
+                        </div>
+                        <input type="text" id="search-bar" placeholder="Search cases by name, defendant, or case number..." class="w-full bg-slate-100 border border-transparent focus:bg-white focus:border-blue-500 focus:ring-blue-500 rounded-lg py-2 pl-10 pr-10 text-sm">
+                        <!-- Clear search button -->
+                        <button id="search-clear-btn" class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer text-slate-400 hover:text-slate-600 hidden" type="button">
+                            <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- System Status -->
+                <div class="flex items-center space-x-6">
+                    <div class="flex items-center space-x-2">
+                        <a href="/settings" class="flex items-center space-x-2 text-sm font-medium text-slate-600 hover:text-blue-600 hover:bg-slate-100 px-2 py-1 rounded-lg transition-colors">
+                            <svg class="h-5 w-5 text-slate-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.24-.438.613-.43.992a6.759 6.759 0 0 1 0 1.985c-.008.379.137.752.43.992l1.003.827c.424.35.534.954.26 1.431l-1.296 2.247a1.125 1.125 0 0 1-1.37.49l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.063-.374-.313-.686-.645-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.075-.124l-1.217.456a1.125 1.125 0 0 1-1.37-.49l-1.296-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 0 1 0-1.985c.008-.379-.137-.752-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.431l1.296-2.247a1.125 1.125 0 0 1 1.37-.49l1.217.456c.355.133.75.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                            </svg>
+                            <span>Settings</span>
+                        </a>
+                    </div>
+                    <div class="w-px h-6 bg-slate-200"></div>
+                    <div class="flex items-center space-x-3">
+                        <div class="relative" id="user-menu">
+                            <button class="flex items-center space-x-3 text-sm font-medium text-slate-700 hover:text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg p-1" id="user-menu-button">
+                                <div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold">
+                                    <span id="user-initials">AD</span>
+                                </div>
+                                <span id="user-display-name">Admin</span>
+                                <svg class="h-4 w-4 text-slate-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                </svg>
+                            </button>
+                            
+                            <!-- Dropdown menu -->
+                            <div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-10 hidden" id="user-dropdown">
+                                <div class="px-4 py-2 border-b border-gray-100">
+                                    <p class="text-sm font-medium text-gray-900" id="dropdown-username">Admin</p>
+                                    <p class="text-xs text-gray-500">System Administrator</p>
+                                </div>
+                                <button class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center" id="logout-btn">
+                                    <svg class="h-4 w-4 mr-2 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
+                                    </svg>
+                                    Sign Out
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="flex-1 p-8 overflow-y-auto">
+                <h2 class="text-2xl font-bold text-slate-900 mb-6">All Cases</h2>
+
+                <!-- Cases Grid -->
+                <div id="case-grid" 
+                     class="flex flex-wrap gap-6">
+                    <!-- Cases will be loaded dynamically via JavaScript -->
+                    <div class="text-center text-gray-500 w-full">Loading cases...</div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="/themes/light/js/api.js?v=1.9.7&t=20250714-110443" type="module"></script>
+    <script src="/themes/light/js/ani.js?v=1.9.7&t=20250714-110443" type="module"></script>
+    <script src="/themes/light/js/ui.js?v=1.9.7&t=20250714-110443" type="module"></script>
+    <script src="/themes/light/js/eventHandlers.js?v=1.9.7&t=20250714-110443" type="module"></script>
+    <script src="/themes/light/js/main.js?v=1.9.7&t=20250714-110443" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satori UAT Agent Documentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .code-block {
+            background-color: #f6f8fa;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            padding: 16px;
+            margin: 16px 0;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        }
+        .nav-item {
+            transition: all 0.2s ease;
+        }
+        .nav-item:hover {
+            background-color: #f6f8fa;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-900 font-sans">
+    <div class="flex min-h-screen">
+        <!-- Sidebar Navigation -->
+        <div class="w-64 bg-gray-50 border-r border-gray-200 p-6">
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold text-gray-900">Satori UAT Agent</h2>
+                <p class="text-sm text-gray-600 mt-1">Documentation</p>
+            </div>
+            <nav class="space-y-2">
+                <a href="#overview" class="nav-item block px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900">Overview</a>
+                <a href="#features" class="nav-item block px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900">Features</a>
+                <a href="#architecture" class="nav-item block px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900">Architecture</a>
+                <a href="#task-analysis" class="nav-item block px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900">Task Analysis</a>
+                <a href="#usage" class="nav-item block px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900">Usage</a>
+                <a href="#test-structure" class="nav-item block px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900">Test Structure</a>
+                <a href="#automation" class="nav-item block px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900">Browser Automation</a>
+                <a href="#examples" class="nav-item block px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900">Examples</a>
+                <a href="#workflow" class="nav-item block px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900">Workflow</a>
+                <a href="#best-practices" class="nav-item block px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900">Best Practices</a>
+                <a href="#troubleshooting" class="nav-item block px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900">Troubleshooting</a>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 p-8">
+            <div class="max-w-4xl mx-auto">
+                <!-- Header -->
+                <div class="mb-10">
+                    <h1 class="text-4xl font-bold text-gray-900 mb-4">Satori UAT Agent</h1>
+                    <p class="text-xl text-gray-600">Comprehensive User Acceptance Testing automation for legal document processing systems</p>
+                </div>
+
+                <!-- Overview Section -->
+                <section id="overview" class="mb-12">
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-6">Overview</h2>
+                    <div class="prose prose-lg max-w-none">
+                        <p class="text-gray-700 mb-4">
+                            The Satori UAT Agent is an intelligent testing automation system designed specifically for the Tiger-Monkey legal document processing platform. It combines advanced browser automation with intelligent test case generation to ensure comprehensive quality assurance for front-end features.
+                        </p>
+                        <p class="text-gray-700 mb-4">
+                            Built on Playwright browser automation technology, the UAT Agent provides automated test execution, intelligent test case generation from development tasks, and comprehensive reporting. It bridges the gap between development requirements and quality assurance by automatically translating acceptance criteria into executable test cases.
+                        </p>
+                        <p class="text-gray-700 mb-4">
+                            The system intelligently analyzes development task files, extracts front-end requirements, and generates structured UAT test cases that validate user-facing functionality. This ensures that every front-end feature is thoroughly tested before deployment to production.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Features Section -->
+                <section id="features" class="mb-12">
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-6">Core Features</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-3">Development Task Analysis</h3>
+                            <p class="text-gray-700">Automatically reads development task files, extracts requirements, and generates corresponding UAT test cases with mapped success criteria.</p>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-3">Intelligent Input Processing</h3>
+                            <p class="text-gray-700">Detects input type (dev task file, UAT test file, or description string) and responds with appropriate analysis or execution.</p>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-3">Browser Automation</h3>
+                            <p class="text-gray-700">Full Playwright integration for automated navigation, interaction, screenshot capture, and comprehensive UI validation.</p>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-3">Structured Reporting</h3>
+                            <p class="text-gray-700">Generates detailed test reports with pass/fail analysis, visual documentation, and actionable feedback for developers.</p>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-3">Voice Notifications</h3>
+                            <p class="text-gray-700">Real-time audio alerts for test completion, failures, status updates, and user intervention requests during testing.</p>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-3">Acceptance Criteria Mapping</h3>
+                            <p class="text-gray-700">Automatically converts development acceptance criteria into executable success criteria for comprehensive feature validation.</p>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-3">Visual Documentation</h3>
+                            <p class="text-gray-700">Automatic screenshot capture for initial states, test failures, successes, and comprehensive visual test evidence.</p>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-3">Legal Domain Expertise</h3>
+                            <p class="text-gray-700">Specialized for legal document processing workflows, compliance requirements, and court-ready document validation.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Architecture Section -->
+                <section id="architecture" class="mb-12">
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-6">System Architecture</h2>
+                    <div class="space-y-6">
+                        <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+                            <h3 class="text-lg font-semibold text-blue-900 mb-3">Component Overview</h3>
+                            <ul class="space-y-2 text-blue-800">
+                                <li><strong>Input Processor:</strong> Detects and routes different input types (dev tasks, UAT tests, descriptions)</li>
+                                <li><strong>Task Analyzer:</strong> Evaluates development tasks for front-end testing requirements and extracts acceptance criteria</li>
+                                <li><strong>Test Generator:</strong> Creates structured UAT test cases with mapped success criteria and test interactions</li>
+                                <li><strong>Browser Engine:</strong> Playwright-powered automation for web interaction, navigation, and validation</li>
+                                <li><strong>Criteria Mapper:</strong> Converts development acceptance criteria into executable UAT success criteria</li>
+                                <li><strong>Reporting System:</strong> Generates comprehensive test documentation, screenshots, and results analysis</li>
+                                <li><strong>Notification System:</strong> Audio and visual alerts for test status updates and user intervention requests</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-green-50 border border-green-200 rounded-lg p-6">
+                            <h3 class="text-lg font-semibold text-green-900 mb-3">Integration Points</h3>
+                            <ul class="space-y-2 text-green-800">
+                                <li><strong>Tiger Service:</strong> Document processing and data extraction validation</li>
+                                <li><strong>Monkey Service:</strong> Document generation and template rendering testing</li>
+                                <li><strong>Web Dashboard:</strong> Case management interface and user workflow testing</li>
+                                <li><strong>File System:</strong> Test artifact storage and organization</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Development Task Analysis Section -->
+                <section id="task-analysis" class="mb-12">
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-6">Development Task Analysis</h2>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-6">
+                            <h3 class="text-xl font-semibold text-blue-900 mb-4">Intelligent Requirements Extraction</h3>
+                            <p class="text-blue-800 mb-4">
+                                The UAT Agent automatically analyzes development task files to identify front-end components and extract testable requirements. 
+                                It converts acceptance criteria into executable success criteria and generates comprehensive test cases.
+                            </p>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+                                <div class="bg-white p-4 rounded-lg border border-blue-200">
+                                    <h4 class="font-semibold text-blue-900 mb-2">1. Parse Requirements</h4>
+                                    <p class="text-sm text-blue-700">Extracts functional requirements, technical specifications, and acceptance criteria from development tasks.</p>
+                                </div>
+                                <div class="bg-white p-4 rounded-lg border border-blue-200">
+                                    <h4 class="font-semibold text-blue-900 mb-2">2. Map Criteria</h4>
+                                    <p class="text-sm text-blue-700">Converts acceptance criteria into measurable success criteria with specific validation points.</p>
+                                </div>
+                                <div class="bg-white p-4 rounded-lg border border-blue-200">
+                                    <h4 class="font-semibold text-blue-900 mb-2">3. Generate Tests</h4>
+                                    <p class="text-sm text-blue-700">Creates structured UAT test files with interactions, expected outcomes, and validation steps.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-amber-50 border border-amber-200 rounded-lg p-6">
+                            <h3 class="text-lg font-semibold text-amber-900 mb-3">Analysis Decision Matrix</h3>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full border-collapse">
+                                    <thead>
+                                        <tr class="border-b border-amber-300">
+                                            <th class="text-left p-3 font-semibold text-amber-900">Task Type</th>
+                                            <th class="text-left p-3 font-semibold text-amber-900">Front-end Impact</th>
+                                            <th class="text-left p-3 font-semibold text-amber-900">UAT Action</th>
+                                            <th class="text-left p-3 font-semibold text-amber-900">Example</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-amber-800">
+                                        <tr class="border-b border-amber-200">
+                                            <td class="p-3">UI Components</td>
+                                            <td class="p-3">High</td>
+                                            <td class="p-3">Generate UAT test case</td>
+                                            <td class="p-3">Add logout button to header</td>
+                                        </tr>
+                                        <tr class="border-b border-amber-200">
+                                            <td class="p-3">Form Features</td>
+                                            <td class="p-3">High</td>
+                                            <td class="p-3">Generate UAT test case</td>
+                                            <td class="p-3">Add file upload with validation</td>
+                                        </tr>
+                                        <tr class="border-b border-amber-200">
+                                            <td class="p-3">API Endpoints</td>
+                                            <td class="p-3">None</td>
+                                            <td class="p-3">Skip UAT testing</td>
+                                            <td class="p-3">Optimize database queries</td>
+                                        </tr>
+                                        <tr class="border-b border-amber-200">
+                                            <td class="p-3">Navigation</td>
+                                            <td class="p-3">Medium</td>
+                                            <td class="p-3">Generate UAT test case</td>
+                                            <td class="p-3">Add breadcrumb navigation</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="p-3">Data Display</td>
+                                            <td class="p-3">High</td>
+                                            <td class="p-3">Generate UAT test case</td>
+                                            <td class="p-3">Add case status dashboard</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Usage Section -->
+                <section id="usage" class="mb-12">
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-6">Usage Methods</h2>
+                    
+                    <div class="space-y-8">
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">1. Development Task File Analysis</h3>
+                            <p class="text-gray-700 mb-4">Analyze a development task file and automatically generate corresponding UAT test cases.</p>
+                            <div class="code-block">
+                                <pre class="text-sm">/uat TM/tasks/example_dev_task.md
+
+# Output: Generates TM/tasks/UAT/uat_footer_1.md with:
+# - Success criteria based on acceptance criteria
+# - Test interactions for all footer functionality  
+# - Expected outcomes for each requirement</pre>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">2. Task Description Analysis</h3>
+                            <p class="text-gray-700 mb-4">Provide a development task description and the UAT Agent will analyze it for front-end testing requirements.</p>
+                            <div class="code-block">
+                                <pre class="text-sm">/uat "Add new case creation form with file upload functionality"</pre>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">3. Test Execution Mode</h3>
+                            <p class="text-gray-700 mb-4">Execute existing UAT test cases by providing the test instruction file path.</p>
+                            <div class="code-block">
+                                <pre class="text-sm">/uat TM/tasks/UAT/uat_dashboard_1.md</pre>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">4. Interactive Testing Mode</h3>
+                            <p class="text-gray-700 mb-4">Step-by-step testing with manual validation and real-time decision making.</p>
+                            <div class="code-block">
+                                <pre class="text-sm">/uat --interactive TM/tasks/UAT/uat_form_validation.md
+
+# Interactive Features:
+# - Pause between each test step for manual inspection
+# - Voice prompts for user decisions and confirmations
+# - Dynamic test modification during execution
+# - Manual screenshot triggering at any point
+# - Failure recovery options (retry, skip, modify)</pre>
+                            </div>
+                            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-4">
+                                <p class="text-sm text-blue-800">
+                                    <strong>Note:</strong> Interactive mode is currently under development. 
+                                    It will enable exploratory testing and debugging scenarios where step-by-step validation is preferred over automated execution.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Test Structure Section -->
+                <section id="test-structure" class="mb-12">
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-6">Test Case Structure</h2>
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-3">Standard Test File Format</h3>
+                            <div class="code-block">
+                                <pre class="text-sm"># UAT [Feature Name] Task [Number]
+
+## APP: Satori Legal Case Management System
+
+## APP URL:
+http://127.0.0.1:8000/
+
+## UAT DIR:
+TM/tasks/UAT/
+ - tasks to work on marked with uat_ prefix
+ - results saved in the same directory
+
+## Development Context
+[Brief description of the development task]
+
+## Steps
+1. Navigate to the target page/feature
+2. Take initial screenshot
+3. Execute test interactions
+4. Validate against success criteria
+5. Generate test report
+
+## Success Criteria
+1. Page loads without errors
+2. All UI elements are present
+3. Functionality works as expected
+4. Data displays correctly
+5. User interactions work properly
+
+## Test Interactions
+[Specific user actions to test]
+
+## Expected Outcomes
+[What should happen after each interaction]</pre>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-3">Success Criteria Categories</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <h4 class="font-semibold text-gray-900 mb-2">Page Load & Display</h4>
+                                    <ul class="text-sm text-gray-700 space-y-1">
+                                        <li>Error-free page loading</li>
+                                        <li>Correct titles and headings</li>
+                                        <li>All UI elements visible</li>
+                                        <li>Responsive design</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <h4 class="font-semibold text-gray-900 mb-2">Navigation & Interaction</h4>
+                                    <ul class="text-sm text-gray-700 space-y-1">
+                                        <li>Links and buttons functional</li>
+                                        <li>Form validation working</li>
+                                        <li>Search functionality</li>
+                                        <li>File upload/download</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <h4 class="font-semibold text-gray-900 mb-2">Data Display</h4>
+                                    <ul class="text-sm text-gray-700 space-y-1">
+                                        <li>Backend data loading</li>
+                                        <li>Proper formatting</li>
+                                        <li>Accurate status indicators</li>
+                                        <li>Consistent date/time formats</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <h4 class="font-semibold text-gray-900 mb-2">User Experience</h4>
+                                    <ul class="text-sm text-gray-700 space-y-1">
+                                        <li>Loading states shown</li>
+                                        <li>Clear error messages</li>
+                                        <li>Success notifications</li>
+                                        <li>Keyboard navigation</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Browser Automation Section -->
+                <section id="automation" class="mb-12">
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-6">Browser Automation Capabilities</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-3">Navigation & Page Control</h3>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full border border-gray-200">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th class="border border-gray-200 px-4 py-2 text-left font-semibold">Function</th>
+                                            <th class="border border-gray-200 px-4 py-2 text-left font-semibold">Description</th>
+                                            <th class="border border-gray-200 px-4 py-2 text-left font-semibold">Parameters</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="border border-gray-200 px-4 py-2 font-mono text-sm">navigate</td>
+                                            <td class="border border-gray-200 px-4 py-2">Navigate to any URL</td>
+                                            <td class="border border-gray-200 px-4 py-2">url (required)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-200 px-4 py-2 font-mono text-sm">navigate_back</td>
+                                            <td class="border border-gray-200 px-4 py-2">Go back in browser history</td>
+                                            <td class="border border-gray-200 px-4 py-2">None</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-200 px-4 py-2 font-mono text-sm">navigate_forward</td>
+                                            <td class="border border-gray-200 px-4 py-2">Go forward in browser history</td>
+                                            <td class="border border-gray-200 px-4 py-2">None</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-200 px-4 py-2 font-mono text-sm">resize</td>
+                                            <td class="border border-gray-200 px-4 py-2">Resize browser window</td>
+                                            <td class="border border-gray-200 px-4 py-2">width, height</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-3">Element Interaction</h3>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full border border-gray-200">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th class="border border-gray-200 px-4 py-2 text-left font-semibold">Function</th>
+                                            <th class="border border-gray-200 px-4 py-2 text-left font-semibold">Description</th>
+                                            <th class="border border-gray-200 px-4 py-2 text-left font-semibold">Parameters</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="border border-gray-200 px-4 py-2 font-mono text-sm">click</td>
+                                            <td class="border border-gray-200 px-4 py-2">Click on web elements</td>
+                                            <td class="border border-gray-200 px-4 py-2">element, ref</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-200 px-4 py-2 font-mono text-sm">type</td>
+                                            <td class="border border-gray-200 px-4 py-2">Type text into input fields</td>
+                                            <td class="border border-gray-200 px-4 py-2">element, ref, text</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-200 px-4 py-2 font-mono text-sm">hover</td>
+                                            <td class="border border-gray-200 px-4 py-2">Hover over elements</td>
+                                            <td class="border border-gray-200 px-4 py-2">element, ref</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-200 px-4 py-2 font-mono text-sm">select_option</td>
+                                            <td class="border border-gray-200 px-4 py-2">Select dropdown options</td>
+                                            <td class="border border-gray-200 px-4 py-2">element, ref, values</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-200 px-4 py-2 font-mono text-sm">file_upload</td>
+                                            <td class="border border-gray-200 px-4 py-2">Upload files</td>
+                                            <td class="border border-gray-200 px-4 py-2">paths (array)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-3">Screenshot & Documentation</h3>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full border border-gray-200">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th class="border border-gray-200 px-4 py-2 text-left font-semibold">Function</th>
+                                            <th class="border border-gray-200 px-4 py-2 text-left font-semibold">Description</th>
+                                            <th class="border border-gray-200 px-4 py-2 text-left font-semibold">Output</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="border border-gray-200 px-4 py-2 font-mono text-sm">take_screenshot</td>
+                                            <td class="border border-gray-200 px-4 py-2">Capture full page or element screenshots</td>
+                                            <td class="border border-gray-200 px-4 py-2">PNG/JPEG image file</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-200 px-4 py-2 font-mono text-sm">snapshot</td>
+                                            <td class="border border-gray-200 px-4 py-2">Capture accessibility snapshot</td>
+                                            <td class="border border-gray-200 px-4 py-2">Structured element data</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-200 px-4 py-2 font-mono text-sm">pdf_save</td>
+                                            <td class="border border-gray-200 px-4 py-2">Save page as PDF</td>
+                                            <td class="border border-gray-200 px-4 py-2">PDF document</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Examples Section -->
+                <section id="examples" class="mb-12">
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-6">Usage Examples</h2>
+                    
+                    <div class="space-y-8">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-3">Example 1: Complete Development Task to UAT Workflow</h3>
+                            <div class="code-block">
+                                <pre class="text-sm"># Step 1: Analyze Development Task
+/uat TM/tasks/example_dev_task.md
+
+# UAT Agent Analysis:
+# - Identifies footer component as front-end feature
+# - Extracts acceptance criteria as success criteria
+# - Generates comprehensive UAT test case
+
+# Step 2: Generated UAT Test Case
+# File: TM/tasks/UAT/uat_footer_1.md
+# Success Criteria:
+# 1. Footer visible on dashboard pages
+# 2. Date/time updates correctly
+# 3. User information displays properly
+# 4. All links are functional
+# 5. Responsive design works
+# 6. System status indicator accurate
+
+# Step 3: Execute UAT Test
+/uat TM/tasks/UAT/uat_footer_1.md
+
+# Generated Files:
+# TM/tasks/UAT/uat_footer_1_passed.png
+# TM/tasks/UAT/uat_footer_1_checklist.md</pre>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-3">Example 2: Dashboard Testing Execution</h3>
+                            <div class="code-block">
+                                <pre class="text-sm"># Command
+/uat TM/tasks/UAT/uat_dashboard_1.md
+
+# Generated Files
+TM/tasks/UAT/uat_dashboard_1_initial.png
+TM/tasks/UAT/uat_dashboard_1_failed.png
+TM/tasks/UAT/uat_dashboard_1_checklist.md
+
+# Voice Alert
+"UAT Dashboard test failed. Missing logout button and footer."</pre>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-3">Example 3: Task Description Analysis</h3>
+                            <div class="code-block">
+                                <pre class="text-sm"># Task Analysis
+/uat "Add client information form with validation for required fields"
+
+# Generated Test Case
+TM/tasks/UAT/uat_client_form_1.md
+
+# Test Execution
+/uat TM/tasks/UAT/uat_client_form_1.md</pre>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-3">Example 4: Backend-Only Task (No UAT Generated)</h3>
+                            <div class="code-block">
+                                <pre class="text-sm"># Task Description
+/uat "Optimize database query performance for case retrieval"
+
+# UAT Agent Analysis:
+# - No front-end changes identified
+# - Backend-only performance optimization
+# - No UAT testing required
+
+# Output:
+# "This task involves backend-only changes with no user-visible 
+#  front-end modifications. UAT testing is not needed."</pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Workflow Section -->
+                <section id="workflow" class="mb-12">
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-6">Complete Workflow</h2>
+                    
+                    <div class="bg-gradient-to-br from-gray-50 to-blue-50 border border-gray-200 rounded-lg p-8">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-6">Development Task to UAT Execution Flow</h3>
+                        
+                        <div class="space-y-6">
+                            <!-- Step 1 -->
+                            <div class="flex items-start space-x-4">
+                                <div class="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-semibold">1</div>
+                                <div class="flex-grow">
+                                    <h4 class="font-semibold text-gray-900 mb-2">Development Task Created</h4>
+                                    <p class="text-gray-700 text-sm mb-2">Developer creates task file with requirements, acceptance criteria, and technical specifications.</p>
+                                    <div class="bg-white p-3 rounded border text-xs font-mono">TM/tasks/add_footer_feature.md</div>
+                                </div>
+                            </div>
+
+                            <!-- Arrow -->
+                            <div class="flex justify-center">
+                                <div class="w-0.5 h-6 bg-gray-300"></div>
+                            </div>
+
+                            <!-- Step 2 -->
+                            <div class="flex items-start space-x-4">
+                                <div class="flex-shrink-0 w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center font-semibold">2</div>
+                                <div class="flex-grow">
+                                    <h4 class="font-semibold text-gray-900 mb-2">UAT Agent Analysis</h4>
+                                    <p class="text-gray-700 text-sm mb-2">Agent analyzes task file, identifies front-end components, and extracts testable requirements.</p>
+                                    <div class="bg-white p-3 rounded border text-xs font-mono">/uat TM/tasks/add_footer_feature.md</div>
+                                </div>
+                            </div>
+
+                            <!-- Arrow -->
+                            <div class="flex justify-center">
+                                <div class="w-0.5 h-6 bg-gray-300"></div>
+                            </div>
+
+                            <!-- Step 3 -->
+                            <div class="flex items-start space-x-4">
+                                <div class="flex-shrink-0 w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center font-semibold">3</div>
+                                <div class="flex-grow">
+                                    <h4 class="font-semibold text-gray-900 mb-2">UAT Test Case Generated</h4>
+                                    <p class="text-gray-700 text-sm mb-2">Agent creates structured test case with mapped success criteria and test interactions.</p>
+                                    <div class="bg-white p-3 rounded border text-xs font-mono">TM/tasks/UAT/uat_footer_1.md</div>
+                                </div>
+                            </div>
+
+                            <!-- Arrow -->
+                            <div class="flex justify-center">
+                                <div class="w-0.5 h-6 bg-gray-300"></div>
+                            </div>
+
+                            <!-- Step 4 -->
+                            <div class="flex items-start space-x-4">
+                                <div class="flex-shrink-0 w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-semibold">4</div>
+                                <div class="flex-grow">
+                                    <h4 class="font-semibold text-gray-900 mb-2">Feature Implementation</h4>
+                                    <p class="text-gray-700 text-sm mb-2">Developer implements the feature according to requirements and acceptance criteria.</p>
+                                    <div class="bg-white p-3 rounded border text-xs font-mono">Feature deployed to development environment</div>
+                                </div>
+                            </div>
+
+                            <!-- Arrow -->
+                            <div class="flex justify-center">
+                                <div class="w-0.5 h-6 bg-gray-300"></div>
+                            </div>
+
+                            <!-- Step 5 -->
+                            <div class="flex items-start space-x-4">
+                                <div class="flex-shrink-0 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center font-semibold">5</div>
+                                <div class="flex-grow">
+                                    <h4 class="font-semibold text-gray-900 mb-2">UAT Test Execution</h4>
+                                    <p class="text-gray-700 text-sm mb-2">Agent executes browser automation tests against implemented feature.</p>
+                                    <div class="bg-white p-3 rounded border text-xs font-mono">/uat TM/tasks/UAT/uat_footer_1.md</div>
+                                </div>
+                            </div>
+
+                            <!-- Arrow -->
+                            <div class="flex justify-center">
+                                <div class="w-0.5 h-6 bg-gray-300"></div>
+                            </div>
+
+                            <!-- Step 6 -->
+                            <div class="flex items-start space-x-4">
+                                <div class="flex-shrink-0 w-8 h-8 bg-indigo-500 text-white rounded-full flex items-center justify-center font-semibold">6</div>
+                                <div class="flex-grow">
+                                    <h4 class="font-semibold text-gray-900 mb-2">Results & Reporting</h4>
+                                    <p class="text-gray-700 text-sm mb-2">Agent generates comprehensive test report with screenshots and actionable feedback.</p>
+                                    <div class="bg-white p-3 rounded border text-xs">
+                                        <div class="font-mono text-xs space-y-1">
+                                            <div>uat_footer_1_passed.png</div>
+                                            <div>uat_footer_1_checklist.md</div>
+                                            <div>Voice alert: "Footer test passed successfully!"</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                            <h4 class="font-semibold text-blue-900 mb-2">Workflow Benefits</h4>
+                            <ul class="text-sm text-blue-800 space-y-1">
+                                <li>• Ensures every front-end feature has corresponding UAT coverage</li>
+                                <li>• Automatically translates business requirements into testable criteria</li>
+                                <li>• Provides immediate feedback on implementation quality</li>
+                                <li>• Creates comprehensive test documentation for compliance</li>
+                                <li>• Reduces manual testing effort while increasing coverage</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Best Practices Section -->
+                <section id="best-practices" class="mb-12">
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-6">Best Practices</h2>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-amber-50 border border-amber-200 rounded-lg p-6">
+                            <h3 class="text-lg font-semibold text-amber-900 mb-3">Test Design</h3>
+                            <ul class="space-y-2 text-amber-800">
+                                <li>Create specific, measurable success criteria</li>
+                                <li>Include both positive and negative test cases</li>
+                                <li>Test edge cases and error conditions</li>
+                                <li>Validate accessibility and responsive design</li>
+                                <li>Test keyboard navigation and screen readers</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+                            <h3 class="text-lg font-semibold text-blue-900 mb-3">Test Execution</h3>
+                            <ul class="space-y-2 text-blue-800">
+                                <li>Always take initial screenshots before interactions</li>
+                                <li>Use descriptive element names for better readability</li>
+                                <li>Wait for elements to be ready before interaction</li>
+                                <li>Clean up browser resources after testing</li>
+                                <li>Use absolute paths for file operations</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-green-50 border border-green-200 rounded-lg p-6">
+                            <h3 class="text-lg font-semibold text-green-900 mb-3">Documentation</h3>
+                            <ul class="space-y-2 text-green-800">
+                                <li>Generate comprehensive test reports</li>
+                                <li>Include screenshots for visual validation</li>
+                                <li>Document all test interactions and outcomes</li>
+                                <li>Maintain version control for test cases</li>
+                                <li>Update test cases when requirements change</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Troubleshooting Section -->
+                <section id="troubleshooting" class="mb-12">
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-6">Troubleshooting</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-3">Common Issues</h3>
+                            <div class="space-y-4">
+                                <div class="border border-gray-200 rounded-lg p-4">
+                                    <h4 class="font-semibold text-gray-900 mb-2">Browser Connection Failed</h4>
+                                    <p class="text-gray-700 mb-2">The browser automation cannot connect to the application.</p>
+                                    <div class="bg-gray-50 p-3 rounded text-sm">
+                                        <strong>Solution:</strong> Ensure the application is running on the specified URL (typically http://127.0.0.1:8000/)
+                                    </div>
+                                </div>
+
+                                <div class="border border-gray-200 rounded-lg p-4">
+                                    <h4 class="font-semibold text-gray-900 mb-2">Element Not Found</h4>
+                                    <p class="text-gray-700 mb-2">The test cannot locate specific UI elements.</p>
+                                    <div class="bg-gray-50 p-3 rounded text-sm">
+                                        <strong>Solution:</strong> Take a fresh snapshot to get updated element references. Check if the UI has changed.
+                                    </div>
+                                </div>
+
+                                <div class="border border-gray-200 rounded-lg p-4">
+                                    <h4 class="font-semibold text-gray-900 mb-2">Test Timeout</h4>
+                                    <p class="text-gray-700 mb-2">Tests are timing out during execution.</p>
+                                    <div class="bg-gray-50 p-3 rounded text-sm">
+                                        <strong>Solution:</strong> Add wait conditions for dynamic content. Increase timeout values for slow-loading pages.
+                                    </div>
+                                </div>
+
+                                <div class="border border-gray-200 rounded-lg p-4">
+                                    <h4 class="font-semibold text-gray-900 mb-2">Screenshot Issues</h4>
+                                    <p class="text-gray-700 mb-2">Screenshots are not capturing correctly.</p>
+                                    <div class="bg-gray-50 p-3 rounded text-sm">
+                                        <strong>Solution:</strong> Check file permissions in the UAT directory. Ensure the browser window is properly sized.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-3">Debugging Tips</h3>
+                            <ul class="space-y-2 text-gray-700">
+                                <li>Use browser console messages to identify JavaScript errors</li>
+                                <li>Check network requests for failed API calls</li>
+                                <li>Verify element selectors with browser developer tools</li>
+                                <li>Test manually before automating complex interactions</li>
+                                <li>Review generated test reports for detailed failure information</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Footer -->
+                <footer class="border-t border-gray-200 pt-8 mt-16">
+                    <div class="text-center text-gray-600">
+                        <p>Satori UAT Agent Documentation</p>
+                        <p class="text-sm mt-2">Legal Document Processing System Quality Assurance</p>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Highlight active navigation item
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('nav a[href^="#"]');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('bg-blue-100', 'text-blue-700');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('bg-blue-100', 'text-blue-700');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

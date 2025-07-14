@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-gray-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Review - Document Preview</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/themes/light/css/style.css"> <!-- Re-use main theme styles -->
+</head>
+<body class="p-8">
+
+    <div class="max-w-6xl mx-auto">
+        <div class="flex justify-between items-center">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">Step 3: Review Extracted Data</h1>
+                <p class="text-gray-600 mb-8">Review the information extracted from your documents before generating the final complaint.</p>
+            </div>
+            <a href="/" class="text-sm font-medium text-blue-600 hover:underline">&larr; Back to Dashboard</a>
+        </div>
+
+        <!-- Tabs -->
+        <div class="mb-8">
+            <div class="border-b border-gray-200">
+                <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+                    <a href="data.html" class="tab-link border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                        Review Data
+                    </a>
+                    <a href="timeline.html" class="tab-link border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                        Timeline Validation
+                    </a>
+                    <a href="preview.html" class="tab-link border-blue-500 text-blue-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm" aria-current="page">
+                        Preview Document
+                    </a>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Preview Document Content -->
+        <div id="tab-content-preview">
+            <div class="bg-white p-8 rounded-lg shadow-sm">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-2xl font-bold text-gray-800">Document Preview</h2>
+                    <div class="flex space-x-3">
+                        <button id="open-in-new-tab" class="hidden px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+                            📄 Open in New Tab
+                        </button>
+                        <button id="generate-complaint" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                            Generate Complaint
+                        </button>
+                    </div>
+                </div>
+                <div id="preview-loading" class="hidden text-center py-8">
+                    <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                    <p class="mt-2 text-gray-600">Generating complaint document...</p>
+                </div>
+                <div id="preview-content" class="border rounded-lg" style="height: 800px;">
+                    <p class="text-gray-600 p-4">Click "Generate Complaint" to preview the legal document.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/preview-document.js?v=1.6.1"></script>
+</body>
+</html>

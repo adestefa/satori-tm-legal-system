@@ -1,0 +1,140 @@
+{
+    "case_information": {
+        "court_type": "United States District Court",
+        "court_district": "Southern District of New York", 
+        "case_number": "1:25-cv-02156",
+        "case_type": "Complaint",
+        "jury_demand": true
+    },
+    "plaintiff": {
+        "name": "Sarah Johnson",
+        "address": {
+            "street": "123 Main Street, Apartment 4B",
+            "city": "New York",
+            "state": "NY", 
+            "zip_code": "10001",
+            "country": "USA"
+        },
+        "residency": "State of New York, and New York County",
+        "consumer_status": "Individual 'consumer' within the meaning of both the FCRA and the NY FCRA",
+        "phone": "(212) 555-0123",
+        "email": "sarah.johnson@email.com"
+    },
+    "plaintiff_counsel": {
+        "name": "Kevin C. Mallon",
+        "firm": "Mallon Consumer Law Group, PLLC",
+        "address": {
+            "street": "238 Merritt Drive",
+            "city": "Oradell", 
+            "state": "NJ",
+            "zip_code": "07649"
+        },
+        "phone": "(917) 734-6815",
+        "email": "kmallon@consumerprotectionfirm.com"
+    },
+    "defendants": [
+        {
+            "name": "FIRST NATIONAL BANK",
+            "short_name": "First National",
+            "type": "Furnisher of Information",
+            "state_of_incorporation": "Delaware",
+            "business_status": "Duly authorized and qualified to do business in the State of New York",
+            "address": {
+                "street": "500 Corporate Plaza",
+                "city": "Chicago",
+                "state": "IL",
+                "zip_code": "60601"
+            }
+        },
+        {
+            "name": "EQUIFAX INFORMATION SERVICES, LLC",
+            "short_name": "Equifax",
+            "type": "Consumer Reporting Agency", 
+            "state_of_incorporation": "Georgia",
+            "address": {
+                "street": "1550 Peachtree Street NW",
+                "city": "Atlanta",
+                "state": "GA", 
+                "zip_code": "30309"
+            }
+        },
+        {
+            "name": "EXPERIAN INFORMATION SOLUTIONS, INC.",
+            "short_name": "Experian",
+            "type": "Consumer Reporting Agency",
+            "state_of_incorporation": "Ohio", 
+            "address": {
+                "street": "475 Anton Blvd",
+                "city": "Costa Mesa",
+                "state": "CA",
+                "zip_code": "92626"
+            }
+        },
+        {
+            "name": "TRANSUNION LLC", 
+            "short_name": "TransUnion",
+            "type": "Consumer Reporting Agency",
+            "state_of_incorporation": "Delaware",
+            "address": {
+                "street": "P.O. Box 1000", 
+                "city": "Chester",
+                "state": "PA",
+                "zip_code": "19022"
+            }
+        }
+    ],
+    "factual_background": {
+        "summary": "Plaintiff is a victim of identity theft. While plaintiff was out of town, thieves used her First National Bank credit card to make over $3,200 in fraudulent purchases without her consent.",
+        "events": [
+            { "date": "June 2024", "description": "Plaintiff opened First National Bank credit card with $5,000 credit limit." },
+            { "date": "August 2024", "description": "Identity theft occurred - fraudulent charges totaling $3,200." },
+            { "date": "September 2024", "description": "Plaintiff disputed charges with bank on five separate occasions." },
+            { "date": "October 2024", "description": "Bank refused to remove charges, claimed they were valid." },
+            { "date": "November 15, 2024", "description": "Plaintiff sent written disputes to all three credit reporting agencies." },
+            { "date": "December 1, 2024", "description": "All agencies responded that debt was 'verified as accurate'." }
+        ],
+        "additional_notes": [
+            "Bank told plaintiff 'the chip was used so charges must be valid'", 
+            "Plaintiff was out of town when fraudulent charges occurred",
+            "Police report filed (Report #2024-098765)",
+            "Plaintiff has travel receipts proving she was in Boston during fraud period"
+        ]
+    },
+    "causes_of_action": [
+        {
+            "title": "VIOLATION OF THE FCRA",
+            "against_defendants": ["All Defendants"],
+            "allegations": [
+                "Defendants Equifax, Experian, and TransUnion willfully (or, in the alternative, negligently) violated 15 U.S.C. § 1681i by failing to conduct reasonable reinvestigations...",
+                "Defendant First National Bank willfully (or, in the alternative, negligently) violated 15 U.S.C. § 1681s-2(b) by failing to conduct reasonable reinvestigations..."
+            ]
+        },
+        {
+            "title": "VIOLATION OF THE NY FCRA", 
+            "against_defendants": ["Equifax, Experian, and TransUnion Only"],
+            "allegations": [
+                "Defendants Experian, Equifax and TransUnion willfully (or, in the alternative, negligently) violated N.Y. GBL § 380-f by failing to conduct reasonable reinvestigations..."
+            ]
+        }
+    ],
+    "damages": {
+        "summary": "The erroneous derogatory payment information wrongfully listed on Plaintiff's consumer reports caused her to suffer actual damages including, but not limited to, damage to reputation, adverse impact on credit rating, being denied credit, in addition to emotional distress, expenditure of time and resources, annoyance, aggravation, and frustration.",
+        "denials": [
+            {
+                "creditor": "Metro Credit Union",
+                "application_for": "Auto Loan", 
+                "date": "January 8, 2025",
+                "reasons": [
+                    "Delinquent credit obligations",
+                    "Recent derogatory payment information", 
+                    "Debt-to-income ratio too high",
+                    "Credit report shows recent charge-offs"
+                ],
+                "credit_score_used": "620"
+            }
+        ]
+    },
+    "filing_details": {
+        "date": "January 15, 2025"
+    }
+}

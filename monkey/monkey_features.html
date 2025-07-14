@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monkey Service Features</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'legal-blue': '#1e40af',
+                        'legal-gray': '#374151',
+                        'accent-blue': '#3b82f6'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 font-sans">
+    <div class="max-w-6xl mx-auto px-6 py-12">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <div class="mb-4">
+                <p class="text-lg text-black mb-2">Satori AI</p>
+                <h1 class="text-4xl font-bold text-legal-blue mb-4">Monkey Service</h1>
+            </div>
+            <p class="text-xl text-legal-gray max-w-3xl mx-auto">
+                Professional legal document generation engine that transforms structured data into court-ready documents using advanced template processing
+            </p>
+        </div>
+
+        <!-- Core Features -->
+        <div class="mb-16">
+            <h2 class="text-3xl font-semibold text-legal-blue mb-8 text-center">Core Features</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-legal-gray mb-4">Document Generation</h3>
+                    <ul class="space-y-2 text-gray-600">
+                        <li>FCRA complaint documents</li>
+                        <li>Summons generation</li>
+                        <li>Civil cover sheets</li>
+                        <li>Case review documents</li>
+                        <li>Multi-format output support</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-legal-gray mb-4">Template System</h3>
+                    <ul class="space-y-2 text-gray-600">
+                        <li>Jinja2 template engine</li>
+                        <li>HTML auto-escaping</li>
+                        <li>Template inheritance</li>
+                        <li>Custom filter support</li>
+                        <li>Template validation</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-legal-gray mb-4">Data Processing</h3>
+                    <ul class="space-y-2 text-gray-600">
+                        <li>JSON schema validation</li>
+                        <li>Tiger service integration</li>
+                        <li>Data quality assessment</li>
+                        <li>Error handling</li>
+                        <li>Metadata generation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Command Line Interface -->
+        <div class="mb-16">
+            <h2 class="text-3xl font-semibold text-legal-blue mb-8 text-center">Command Line Interface</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-legal-gray mb-4">Primary Commands</h3>
+                    <div class="space-y-4">
+                        <div class="border-l-4 border-accent-blue pl-4">
+                            <h4 class="font-semibold text-legal-gray">build-complaint</h4>
+                            <p class="text-gray-600">Generate legal complaint documents with optional summons and cover sheets</p>
+                        </div>
+                        <div class="border-l-4 border-accent-blue pl-4">
+                            <h4 class="font-semibold text-legal-gray">review</h4>
+                            <p class="text-gray-600">Create HTML review documents for case analysis</p>
+                        </div>
+                        <div class="border-l-4 border-accent-blue pl-4">
+                            <h4 class="font-semibold text-legal-gray">validate</h4>
+                            <p class="text-gray-600">Validate complaint JSON data against schema</p>
+                        </div>
+                        <div class="border-l-4 border-accent-blue pl-4">
+                            <h4 class="font-semibold text-legal-gray">preview</h4>
+                            <p class="text-gray-600">Preview document generation without creating files</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-legal-gray mb-4">Utility Commands</h3>
+                    <div class="space-y-4">
+                        <div class="border-l-4 border-accent-blue pl-4">
+                            <h4 class="font-semibold text-legal-gray">templates</h4>
+                            <p class="text-gray-600">List and inspect available document templates</p>
+                        </div>
+                        <div class="border-l-4 border-accent-blue pl-4">
+                            <h4 class="font-semibold text-legal-gray">generate-summons</h4>
+                            <p class="text-gray-600">Generate summons documents for multiple defendants</p>
+                        </div>
+                        <div class="border-l-4 border-accent-blue pl-4">
+                            <h4 class="font-semibold text-legal-gray">test</h4>
+                            <p class="text-gray-600">Run service functionality tests and health checks</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technical Architecture -->
+        <div class="mb-16">
+            <h2 class="text-3xl font-semibold text-legal-blue mb-8 text-center">Technical Architecture</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-legal-gray mb-4">Engine Components</h3>
+                    <ul class="space-y-3 text-gray-600">
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-accent-blue rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            <span>Document Builder orchestrates generation workflow</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-accent-blue rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            <span>HTML Engine processes Jinja2 templates</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-accent-blue rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            <span>PDF Service converts HTML to PDF format</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-accent-blue rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            <span>Output Manager handles file organization</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-accent-blue rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            <span>Quality Validator assesses document completeness</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-legal-gray mb-4">Data Flow</h3>
+                    <ul class="space-y-3 text-gray-600">
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-accent-blue rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            <span>Input validation against shared schema</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-accent-blue rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            <span>Template selection based on case type</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-accent-blue rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            <span>Data preparation for template rendering</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-accent-blue rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            <span>Document generation with format conversion</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-accent-blue rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            <span>Output organization and metadata creation</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Output Formats -->
+        <div class="mb-16">
+            <h2 class="text-3xl font-semibold text-legal-blue mb-8 text-center">Output Formats</h2>
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <div class="w-16 h-16 bg-accent-blue rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-white font-bold text-xl">HTML</span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-legal-gray mb-2">HTML Documents</h3>
+                    <p class="text-gray-600">Primary format for web viewing and browser-based PDF generation</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <div class="w-16 h-16 bg-accent-blue rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-white font-bold text-xl">PDF</span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-legal-gray mb-2">PDF Documents</h3>
+                    <p class="text-gray-600">Court-ready PDF format for filing and distribution</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <div class="w-16 h-16 bg-accent-blue rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-white font-bold text-xl">TXT</span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-legal-gray mb-2">Text Documents</h3>
+                    <p class="text-gray-600">Plain text format for editing and review</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <div class="w-16 h-16 bg-accent-blue rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-white font-bold text-xl">DOCX</span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-legal-gray mb-2">Word Documents</h3>
+                    <p class="text-gray-600">Microsoft Word format for collaborative editing</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Integration Features -->
+        <div class="mb-16">
+            <h2 class="text-3xl font-semibold text-legal-blue mb-8 text-center">Integration Features</h2>
+            <div class="bg-white p-8 rounded-lg shadow-md">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-semibold text-legal-gray mb-4">Tiger Service Integration</h3>
+                        <ul class="space-y-2 text-gray-600">
+                            <li>Direct JSON input from Tiger processing</li>
+                            <li>Shared schema validation</li>
+                            <li>Metadata preservation</li>
+                            <li>Error propagation and handling</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-legal-gray mb-4">Development Features</h3>
+                        <ul class="space-y-2 text-gray-600">
+                            <li>Virtual environment management</li>
+                            <li>Automated testing framework</li>
+                            <li>Health check utilities</li>
+                            <li>Template development tools</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Performance & Quality -->
+        <div class="mb-16">
+            <h2 class="text-3xl font-semibold text-legal-blue mb-8 text-center">Performance & Quality</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-lg font-semibold text-legal-gray mb-4">Performance Optimization</h3>
+                    <ul class="space-y-2 text-gray-600">
+                        <li>Template caching</li>
+                        <li>Memory-efficient processing</li>
+                        <li>Optimized rendering pipeline</li>
+                        <li>Error recovery mechanisms</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-lg font-semibold text-legal-gray mb-4">Quality Assurance</h3>
+                    <ul class="space-y-2 text-gray-600">
+                        <li>Schema validation</li>
+                        <li>Template validation</li>
+                        <li>Document completeness checks</li>
+                        <li>Quality scoring system</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-lg font-semibold text-legal-gray mb-4">Error Handling</h3>
+                    <ul class="space-y-2 text-gray-600">
+                        <li>Comprehensive error reporting</li>
+                        <li>Graceful degradation</li>
+                        <li>Validation warnings</li>
+                        <li>Debug information</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center py-8 border-t border-gray-200">
+            <p class="text-gray-600">Monkey Service - Professional Legal Document Generation Engine</p>
+            <p class="text-gray-500 mt-2">Part of the Tiger-Monkey Legal Document Processing System</p>
+            <p class="text-black mt-1">Created by Satori AI</p>
+        </div>
+    </div>
+</body>
+</html>

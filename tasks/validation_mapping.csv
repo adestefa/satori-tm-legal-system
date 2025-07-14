@@ -1,0 +1,13 @@
+Placeholder,hydratedjson Path,Example from Sources,
+${case_information.court_district},case_information.court_district,Eastern District of New York,
+${plaintiff.name},parties.plaintiff.name,Eman Youssef,
+${defendants.list_formatted},parties.defendants (formatted list),"TD Bank, NA, Equifax Information Services, LLC; Experian Information Solutions, Inc and Trans Union, LLC ",
+${case_information.case_number},case_information.case_number,1:25-cv-01987,
+${defendant.name},parties.defendants[i].name,"TD Bank, N.A. ",
+${defendant.address_block},parties.defendants[i].address (formatted),"1701 Route 70 EastCherry Hill, NJ 08003 ",
+${plaintiff_counsel.name},plaintiff_counsel.name,Kevin Mallon,
+${plaintiff_counsel.firm},plaintiff_counsel.firm,"Mallon Consumer Law Group, PLLC ",
+${plaintiff_counsel.address_block},plaintiff_counsel.address (formatted),238 Merritt DriveOradell NJ 07649,
+${plaintiff_counsel.phone},plaintiff_counsel.phone,cite_start 734-6815,
+${plaintiff_counsel.email},,plaintiff_counsel.email,kmallon@consumerprotectionfirm.com
+${filing_details.date},filing_details.date,(This field will be populated by your system),

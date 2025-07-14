@@ -1,0 +1,34 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "password_hash": "$2a$10$chRmyEeMtNQwSGwwWOfLq.iSTFT5yJwNo46VrEyX1Y9YizpkJta1G",
+      "role": "attorney",
+      "firm": "Mallon Consumer Law Group",
+      "email": "admin@mallonlaw.com",
+      "created": "2025-06-03T00:00:00Z",
+      "active": true
+    },
+    {
+      "id": 2,
+      "username": "kmallon",
+      "password_hash": "$2a$10$chRmyEeMtNQwSGwwWOfLq.iSTFT5yJwNo46VrEyX1Y9YizpkJta1G",
+      "role": "attorney",
+      "firm": "Mallon Consumer Law Group", 
+      "email": "kmallon@mallonlaw.com",
+      "created": "2025-06-03T00:00:00Z",
+      "active": true
+    },
+    {
+      "id": 3,
+      "username": "demo",
+      "password_hash": "$2a$10$chRmyEeMtNQwSGwwWOfLq.iSTFT5yJwNo46VrEyX1Y9YizpkJta1G",
+      "role": "demo",
+      "firm": "Demo Account",
+      "email": "demo@example.com", 
+      "created": "2025-06-03T00:00:00Z",
+      "active": true
+    }
+  ]
+}

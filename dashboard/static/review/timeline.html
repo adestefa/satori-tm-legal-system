@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-gray-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Review - Timeline Validation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/themes/light/css/style.css"> <!-- Re-use main theme styles -->
+</head>
+<body class="p-8">
+
+    <div class="max-w-6xl mx-auto">
+        <div class="flex justify-between items-center">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">Step 3: Review Extracted Data</h1>
+                <p class="text-gray-600 mb-8">Review the information extracted from your documents before generating the final complaint.</p>
+            </div>
+            <a href="/" class="text-sm font-medium text-blue-600 hover:underline">&larr; Back to Dashboard</a>
+        </div>
+
+        <!-- Tabs -->
+        <div class="mb-8">
+            <div class="border-b border-gray-200">
+                <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+                    <a href="data.html" class="tab-link border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                        Review Data
+                    </a>
+                    <a href="timeline.html" class="tab-link border-blue-500 text-blue-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm" aria-current="page">
+                        Timeline Validation
+                    </a>
+                    <a href="preview.html" class="tab-link border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                        Preview Document
+                    </a>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Timeline Validation Content -->
+        <div id="tab-content-timeline">
+            <div class="bg-white p-8 rounded-lg shadow-sm">
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-800">Timeline Validation</h2>
+                        <p class="text-gray-600 mt-1">Review chronological consistency and key dates across all case documents</p>
+                    </div>
+                    <div id="timeline-validation-badge" class="px-4 py-2 rounded-lg font-medium">
+                        <!-- Badge will be populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <!-- Timeline Overview -->
+                <div id="timeline-overview" class="mb-8">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h3 class="font-semibold text-gray-800 mb-2">Key Dates</h3>
+                            <div id="key-dates-summary" class="space-y-2">
+                                <!-- Populated by JavaScript -->
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h3 class="font-semibold text-gray-800 mb-2">Validation Status</h3>
+                            <div id="validation-status-summary" class="space-y-2">
+                                <!-- Populated by JavaScript -->
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h3 class="font-semibold text-gray-800 mb-2">Document Coverage</h3>
+                            <div id="document-coverage-summary" class="space-y-2">
+                                <!-- Populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visual Timeline -->
+                <div id="timeline-visualization" class="mb-8">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Case Timeline</h3>
+                    <div id="timeline-chart" class="bg-gray-50 p-6 rounded-lg">
+                        <!-- Timeline chart will be rendered here -->
+                    </div>
+                </div>
+
+                <!-- Validation Issues -->
+                <div id="timeline-issues" class="mb-8">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Validation Issues</h3>
+                    <div id="timeline-errors" class="space-y-3">
+                        <!-- Error messages will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Document Dates Table -->
+                <div id="timeline-details">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Extracted Document Dates</h3>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-900">Date</th>
+                                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-900">Context</th>
+                                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-900">Source Document</th>
+                                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-900">Confidence</th>
+                                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-900">Source Line</th>
+                                </tr>
+                            </thead>
+                            <tbody id="document-dates-table">
+                                <!-- Table rows will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/timeline-validation.js?v=1.8.0"></script>
+    <script>
+        // Initialize timeline validation on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            const params = new URLSearchParams(window.location.search);
+            const caseId = params.get('case_id');
+            
+            if (caseId && window.timelineValidationUI) {
+                await window.timelineValidationUI.init(caseId);
+            }
+        });
+    </script>
+</body>
+</html>

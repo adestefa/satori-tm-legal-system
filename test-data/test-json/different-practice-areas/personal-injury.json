@@ -1,0 +1,129 @@
+{
+    "case_information": {
+        "court_type": "Superior Court of California",
+        "court_district": "County of Los Angeles",
+        "case_number": "BC789456",
+        "case_type": "Personal Injury Complaint",
+        "jury_demand": true
+    },
+    "plaintiff": {
+        "name": "David Chen",
+        "address": {
+            "street": "456 Sunset Boulevard, Apt 12",
+            "city": "Los Angeles", 
+            "state": "CA",
+            "zip_code": "90028",
+            "country": "USA"
+        },
+        "residency": "State of California, and Los Angeles County",
+        "phone": "(323) 555-0167",
+        "email": "dchen@email.com",
+        "age": 34,
+        "occupation": "Software Engineer"
+    },
+    "plaintiff_counsel": {
+        "name": "Maria Rodriguez",
+        "firm": "Rodriguez & Associates Personal Injury Law",
+        "address": {
+            "street": "9876 Wilshire Boulevard, Suite 200",
+            "city": "Beverly Hills",
+            "state": "CA", 
+            "zip_code": "90210"
+        },
+        "phone": "(310) 555-9999",
+        "email": "mrodriguez@personalinjurylaw.com"
+    },
+    "defendants": [
+        {
+            "name": "ACME TRUCKING COMPANY, INC.",
+            "short_name": "ACME Trucking",
+            "type": "Corporate Defendant",
+            "state_of_incorporation": "Delaware",
+            "business_status": "Duly authorized and qualified to do business in the State of California",
+            "address": {
+                "street": "12345 Industrial Way",
+                "city": "Long Beach",
+                "state": "CA",
+                "zip_code": "90805"
+            },
+            "role": "Employer/Vehicle Owner"
+        },
+        {
+            "name": "ROBERT JACKSON",
+            "short_name": "Jackson",
+            "type": "Individual Defendant",
+            "address": {
+                "street": "7890 Maple Street",
+                "city": "Torrance", 
+                "state": "CA",
+                "zip_code": "90503"
+            },
+            "role": "Driver/Employee"
+        }
+    ],
+    "factual_background": {
+        "summary": "Plaintiff was severely injured in a motor vehicle accident caused by defendant truck driver who was operating a commercial vehicle while fatigued and in violation of federal hours-of-service regulations.",
+        "events": [
+            { "date": "September 15, 2024", "description": "Motor vehicle accident occurred at intersection of Main Street and 1st Avenue at approximately 3:30 PM." },
+            { "date": "September 15, 2024", "description": "Plaintiff transported to Los Angeles General Hospital with multiple injuries." },
+            { "date": "September 16, 2024", "description": "Police report filed identifying defendant Jackson as at-fault driver." },
+            { "date": "September 20, 2024", "description": "Investigation revealed Jackson had been driving for 14 consecutive hours in violation of DOT regulations." },
+            { "date": "October 1, 2024", "description": "Plaintiff underwent emergency surgery for fractured vertebrae." },
+            { "date": "November 15, 2024", "description": "Plaintiff released from hospital after 2-month stay." }
+        ],
+        "additional_notes": [
+            "Defendant Jackson admitted fault at scene",
+            "Defendant was cited for reckless driving and HOS violations",
+            "ACME Trucking had previous safety violations on record",
+            "Multiple witnesses observed defendant's erratic driving prior to collision",
+            "Plaintiff sustained permanent spinal injuries requiring ongoing medical care"
+        ]
+    },
+    "causes_of_action": [
+        {
+            "title": "NEGLIGENCE",
+            "against_defendants": ["ROBERT JACKSON"],
+            "allegations": [
+                "Defendant Jackson owed a duty of care to operate his vehicle safely and in compliance with traffic laws and federal regulations.",
+                "Defendant Jackson breached this duty by operating his commercial vehicle while fatigued and in violation of hours-of-service regulations.",
+                "Defendant Jackson's negligent operation of his vehicle was the proximate cause of the collision and plaintiff's injuries."
+            ]
+        },
+        {
+            "title": "RESPONDEAT SUPERIOR / VICARIOUS LIABILITY",
+            "against_defendants": ["ACME TRUCKING COMPANY, INC."],
+            "allegations": [
+                "At all relevant times, defendant Jackson was acting within the course and scope of his employment with ACME Trucking.",
+                "ACME Trucking is vicariously liable for the negligent acts of its employee defendant Jackson.",
+                "ACME Trucking failed to properly supervise and monitor its driver's compliance with federal safety regulations."
+            ]
+        },
+        {
+            "title": "NEGLIGENT HIRING, TRAINING, AND SUPERVISION",
+            "against_defendants": ["ACME TRUCKING COMPANY, INC."],
+            "allegations": [
+                "ACME Trucking negligently hired defendant Jackson despite knowledge of prior safety violations.",
+                "ACME Trucking failed to provide adequate training regarding hours-of-service regulations.",
+                "ACME Trucking failed to properly supervise Jackson's compliance with federal safety requirements."
+            ]
+        }
+    ],
+    "damages": {
+        "summary": "Plaintiff sustained severe and permanent injuries including fractured vertebrae, traumatic brain injury, and multiple fractures requiring extensive medical treatment, resulting in substantial medical expenses, lost wages, pain and suffering, and permanent disability.",
+        "medical_expenses": {
+            "emergency_treatment": 125000,
+            "surgery_costs": 350000,
+            "rehabilitation": 75000,
+            "ongoing_care_estimated": 500000
+        },
+        "lost_wages": {
+            "past_lost_income": 85000,
+            "future_lost_earning_capacity": 1200000
+        },
+        "pain_and_suffering": "To be determined at trial",
+        "permanent_disability": "15% whole person impairment per medical evaluation"
+    },
+    "filing_details": {
+        "date": "February 12, 2025"
+    }
+}

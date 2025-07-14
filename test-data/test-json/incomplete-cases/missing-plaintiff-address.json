@@ -1,0 +1,91 @@
+{
+    "case_information": {
+        "court_type": "United States District Court",
+        "court_district": "Eastern District of Michigan",
+        "case_number": "2:25-cv-10123", 
+        "case_type": "Complaint",
+        "jury_demand": true
+    },
+    "plaintiff": {
+        "name": "Michael Rodriguez",
+        "address": {
+            "street": null,
+            "city": "Detroit",
+            "state": "MI",
+            "zip_code": null,
+            "country": "USA"
+        },
+        "residency": "State of Michigan",
+        "consumer_status": "Individual 'consumer' within the meaning of both the FCRA and the Michigan FCRA",
+        "phone": null,
+        "email": null
+    },
+    "plaintiff_counsel": {
+        "name": "Kevin C. Mallon", 
+        "firm": "Mallon Consumer Law Group, PLLC",
+        "address": {
+            "street": "238 Merritt Drive",
+            "city": "Oradell",
+            "state": "NJ", 
+            "zip_code": "07649"
+        },
+        "phone": "(917) 734-6815",
+        "email": "kmallon@consumerprotectionfirm.com"
+    },
+    "defendants": [
+        {
+            "name": "WELLS FARGO BANK, N.A.",
+            "short_name": "Wells Fargo",
+            "type": "Furnisher of Information",
+            "state_of_incorporation": "South Dakota",
+            "business_status": "Duly authorized and qualified to do business in the State of Michigan",
+            "address": {
+                "street": "420 Montgomery Street", 
+                "city": "San Francisco",
+                "state": "CA",
+                "zip_code": "94104"
+            }
+        },
+        {
+            "name": "EXPERIAN INFORMATION SOLUTIONS, INC.",
+            "short_name": "Experian",
+            "type": "Consumer Reporting Agency",
+            "state_of_incorporation": "Ohio",
+            "address": {
+                "street": "475 Anton Blvd",
+                "city": "Costa Mesa", 
+                "state": "CA",
+                "zip_code": "92626"
+            }
+        }
+    ],
+    "factual_background": {
+        "summary": "Plaintiff disputes erroneous late payment reporting on Wells Fargo auto loan after payments were made on time.",
+        "events": [
+            { "date": "January 2024", "description": "Plaintiff obtained auto loan from Wells Fargo." },
+            { "date": "March 2024", "description": "Wells Fargo incorrectly reported late payments despite timely payments." },
+            { "date": "April 2024", "description": "Plaintiff disputed with Wells Fargo multiple times." },
+            { "date": "May 2024", "description": "Plaintiff disputed with Experian in writing." }
+        ],
+        "additional_notes": [
+            "Plaintiff has bank records showing timely payments",
+            "Wells Fargo acknowledged error internally but continued reporting"
+        ]
+    },
+    "causes_of_action": [
+        {
+            "title": "VIOLATION OF THE FCRA",
+            "against_defendants": ["All Defendants"],
+            "allegations": [
+                "Defendants violated FCRA by failing to conduct reasonable investigations of plaintiff's disputes."
+            ]
+        }
+    ],
+    "damages": {
+        "summary": "Plaintiff suffered damage to credit score and was denied for refinancing.",
+        "denials": []
+    },
+    "filing_details": {
+        "date": "February 1, 2025"
+    }
+}

@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-gray-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kevin Mallon, Esq - Satori AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/themes/light/css/style.css?v=1.9.7&t=20250714-110443">
+    <script>
+        const SATORI_VERSION = "1.9.7";  // Updated for version control standardization
+    </script>
+</head>
+<body class="bg-gray-50">
+
+    <div class="min-h-screen">
+        <!-- Header -->
+        <header class="bg-white shadow-sm border-b border-gray-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <div class="flex items-center">
+                        <svg class="h-6 w-6 text-blue-600 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.24-.438.613-.43.992a6.759 6.759 0 0 1 0 1.985c-.008.379.137.752.43.992l1.003.827c.424.35.534.954.26 1.431l-1.296 2.247a1.125 1.125 0 0 1-1.37.49l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.063-.374-.313-.686-.645-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.075-.124l-1.217.456a1.125 1.125 0 0 1-1.37-.49l-1.296-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 0 1 0-1.985c.008-.379-.137-.752-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.431l1.296-2.247a1.125 1.125 0 0 1 1.37-.49l1.217.456c.355.133.75.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281Z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                        </svg>
+                        <h1 class="text-xl font-bold text-gray-900">Settings</h1>
+                    </div>
+                    <a href="/" class="text-sm font-medium text-blue-600 hover:underline">&larr; Back to Dashboard</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Settings Categories -->
+            <div class="bg-white rounded-lg shadow-sm">
+                <!-- Page Header -->
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900">System Settings</h2>
+                            <p class="text-gray-600 mt-1">Configure firm-level settings that apply to all cases.</p>
+                        </div>
+                        <div class="flex space-x-3">
+                            <button id="reset-settings-btn" class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500">
+                                <svg class="h-4 w-4 inline-block mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+                                </svg>
+                                Reset to Defaults
+                            </button>
+                            <button id="save-settings-btn" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <svg class="h-4 w-4 inline-block mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                </svg>
+                                Save Settings
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings Content -->
+                <div class="p-6">
+                    <!-- Attorney Notes Template Section -->
+                    <div class="mb-8">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                            <svg class="h-5 w-5 text-blue-600 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-4.5a1.125 1.125 0 0 1-1.125-1.125v-1.5A3.375 3.375 0 0 0 7.125 2.25H4.875C3.839 2.25 3 3.089 3 4.125v15.75c0 1.036.839 1.875 1.875 1.875h11.25c1.036 0 1.875-.839 1.875-1.875v-8.688a3.375 3.375 0 0 0-.621-1.943l-2.343-3.129a1.406 1.406 0 0 0-1.134-.564H12a.75.75 0 0 1 0-1.5h1.875A2.906 2.906 0 0 1 16.19 5.47l2.343 3.129A4.875 4.875 0 0 1 19.5 11.25Z" />
+                            </svg>
+                            Attorney Notes Template
+                        </h3>
+                        <p class="text-sm text-gray-600 mb-6">Download the structured template for attorney notes to ensure proper case data extraction.</p>
+                        
+                        <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                            <div class="flex items-start space-x-3">
+                                <svg class="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-4.5a1.125 1.125 0 0 1-1.125-1.125v-1.5A3.375 3.375 0 0 0 7.125 2.25H4.875C3.839 2.25 3 3.089 3 4.125v15.75c0 1.036.839 1.875 1.875 1.875h11.25c1.036 0 1.875-.839 1.875-1.875v-8.688a3.375 3.375 0 0 0-.621-1.943l-2.343-3.129a1.406 1.406 0 0 0-1.134-.564H12a.75.75 0 0 1 0-1.5h1.875A2.906 2.906 0 0 1 16.19 5.47l2.343 3.129A4.875 4.875 0 0 1 19.5 11.25Z" />
+                                </svg>
+                                <div class="flex-1">
+                                    <h4 class="text-sm font-medium text-blue-900 mb-2">Structured Template Format</h4>
+                                    <p class="text-sm text-blue-800 mb-4">Use this template to ensure accurate data extraction by the Tiger service. The template includes labeled fields for all required case information.</p>
+                                    <div class="flex space-x-3">
+                                        <a href="/api/attorney_template" target="_blank" class="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                            <svg class="h-4 w-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
+                                            </svg>
+                                            Download Template (.txt)
+                                        </a>
+                                        <button id="download-docx-btn" class="inline-flex items-center px-3 py-2 border border-blue-600 text-sm font-medium rounded-md text-blue-600 bg-white hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                            <svg class="h-4 w-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-4.5a1.125 1.125 0 0 1-1.125-1.125v-1.5A3.375 3.375 0 0 0 7.125 2.25H4.875C3.839 2.25 3 3.089 3 4.125v15.75c0 1.036.839 1.875 1.875 1.875h11.25c1.036 0 1.875-.839 1.875-1.875v-8.688a3.375 3.375 0 0 0-.621-1.943l-2.343-3.129a1.406 1.406 0 0 0-1.134-.564H12a.75.75 0 0 1 0-1.5h1.875A2.906 2.906 0 0 1 16.19 5.47l2.343 3.129A4.875 4.875 0 0 1 19.5 11.25Z" />
+                                            </svg>
+                                            Download as Word (.docx)
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Firm Information Section -->
+                    <div class="mb-8">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                            <svg class="h-5 w-5 text-blue-600 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m2.25-18v18m13.5-18v18m2.25-18v18M6.75 9h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.75m-.75 3h.75m-.75 3h.75m-3.75-16.5h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75" />
+                            </svg>
+                            Law Firm Information
+                        </h3>
+                        <p class="text-sm text-gray-600 mb-6">These firm-level details will be automatically included in all generated documents. You only need to configure this once.</p>
+                        
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <!-- Firm Name -->
+                            <div class="lg:col-span-2">
+                                <label for="firm-name" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Law Firm Name <span class="text-red-500">*</span>
+                                </label>
+                                <input type="text" 
+                                       id="firm-name" 
+                                       name="firm-name"
+                                       placeholder="e.g., The Consumer Protection Firm, P.C."
+                                       class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                <p class="text-xs text-gray-500 mt-1">Full legal name of your law firm as it appears on court documents</p>
+                            </div>
+
+                            <!-- Address -->
+                            <div class="lg:col-span-2">
+                                <label for="firm-address" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Business Address <span class="text-red-500">*</span>
+                                </label>
+                                <textarea id="firm-address" 
+                                          name="firm-address"
+                                          rows="3"
+                                          placeholder="238 Merritt Drive&#10;Oradell, NJ 07649"
+                                          class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none"></textarea>
+                                <p class="text-xs text-gray-500 mt-1">Street address, city, state, and ZIP code (use line breaks for multi-line addresses)</p>
+                            </div>
+
+                            <!-- Phone -->
+                            <div>
+                                <label for="firm-phone" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Business Phone <span class="text-red-500">*</span>
+                                </label>
+                                <input type="tel" 
+                                       id="firm-phone" 
+                                       name="firm-phone"
+                                       placeholder="(917) 734-6815"
+                                       class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                <p class="text-xs text-gray-500 mt-1">Primary business phone number</p>
+                            </div>
+
+                            <!-- Email -->
+                            <div>
+                                <label for="firm-email" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Contact Email <span class="text-red-500">*</span>
+                                </label>
+                                <input type="email" 
+                                       id="firm-email" 
+                                       name="firm-email"
+                                       placeholder="info@consumerprotectionfirm.com"
+                                       class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                <p class="text-xs text-gray-500 mt-1">Primary contact email for the firm</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Document Generation Settings -->
+                    <div class="mb-8 border-t border-gray-200 pt-8">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                            <svg class="h-5 w-5 text-blue-600 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-4.5a1.125 1.125 0 0 1-1.125-1.125v-1.5A3.375 3.375 0 0 0 7.125 2.25H4.875C3.839 2.25 3 3.089 3 4.125v15.75c0 1.036.839 1.875 1.875 1.875h11.25c1.036 0 1.875-.839 1.875-1.875v-8.688a3.375 3.375 0 0 0-.621-1.943l-2.343-3.129a1.406 1.406 0 0 0-1.134-.564H12a.75.75 0 0 1 0-1.5h1.875A2.906 2.906 0 0 1 16.19 5.47l2.343 3.129A4.875 4.875 0 0 1 19.5 11.25Z" />
+                            </svg>
+                            Document Generation Preferences
+                        </h3>
+                        
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <!-- Default Court -->
+                            <div>
+                                <label for="default-court" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Default Court
+                                </label>
+                                <select id="default-court" 
+                                        name="default-court"
+                                        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                    <option value="">Select a court...</option>
+                                    <option value="UNITED STATES DISTRICT COURT">United States District Court</option>
+                                    <option value="STATE SUPREME COURT">State Supreme Court</option>
+                                    <option value="COUNTY COURT">County Court</option>
+                                </select>
+                                <p class="text-xs text-gray-500 mt-1">Default court for new cases (can be overridden per case)</p>
+                            </div>
+
+                            <!-- Default District -->
+                            <div>
+                                <label for="default-district" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Default District
+                                </label>
+                                <select id="default-district" 
+                                        name="default-district"
+                                        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                    <option value="">Select a district...</option>
+                                    <option value="EASTERN DISTRICT OF NEW YORK">Eastern District of New York</option>
+                                    <option value="SOUTHERN DISTRICT OF NEW YORK">Southern District of New York</option>
+                                    <option value="WESTERN DISTRICT OF NEW YORK">Western District of New York</option>
+                                    <option value="NORTHERN DISTRICT OF NEW YORK">Northern District of New York</option>
+                                    <option value="DISTRICT OF NEW JERSEY">District of New Jersey</option>
+                                </select>
+                                <p class="text-xs text-gray-500 mt-1">Default district for new cases (can be overridden per case)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Document Templates Section -->
+                    <div class="border-t border-gray-200 pt-8">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                            <svg class="h-5 w-5 text-blue-600 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+                            </svg>
+                            Document Templates
+                        </h3>
+                        <p class="text-sm text-gray-600 mb-6">Upload custom templates for automated document generation. Templates use placeholder variables that are automatically filled with case data.</p>
+                        
+                        <div class="grid grid-cols-1 gap-6">
+                            <!-- Summons Template -->
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <h4 class="text-sm font-medium text-gray-900 mb-3 flex items-center">
+                                    <svg class="h-4 w-4 text-gray-600 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" />
+                                    </svg>
+                                    Summons Template
+                                </h4>
+                                
+                                <div class="space-y-4">
+                                    <!-- Current Template Status -->
+                                    <div id="summons-template-status" class="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+                                        <div class="flex items-center">
+                                            <svg class="h-5 w-5 text-yellow-600 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+                                            </svg>
+                                            <span class="text-sm font-medium text-yellow-800">No custom template uploaded</span>
+                                        </div>
+                                        <p class="text-xs text-yellow-700 mt-1">Using default system template. Upload a custom template to generate summons with your preferred formatting.</p>
+                                    </div>
+                                    
+                                    <!-- Template Upload -->
+                                    <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-gray-400 transition-colors">
+                                        <input type="file" id="summons-template-upload" accept=".docx" class="hidden" />
+                                        <label for="summons-template-upload" class="cursor-pointer">
+                                            <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                                                <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                            </svg>
+                                            <p class="mt-2 text-sm text-gray-600">
+                                                <span class="font-medium text-blue-600 hover:text-blue-500">Click to upload</span> or drag and drop
+                                            </p>
+                                            <p class="text-xs text-gray-500">Microsoft Word (.docx) files only</p>
+                                        </label>
+                                    </div>
+                                    
+                                    <!-- Template Actions -->
+                                    <div class="flex justify-between items-center">
+                                        <button id="preview-template-btn" class="text-sm text-blue-600 hover:text-blue-500 flex items-center opacity-50 cursor-not-allowed" disabled>
+                                            <svg class="h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                            </svg>
+                                            Preview Template
+                                        </button>
+                                        <button id="remove-template-btn" class="text-sm text-red-600 hover:text-red-500 flex items-center opacity-50 cursor-not-allowed" disabled>
+                                            <svg class="h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                                            </svg>
+                                            Remove Template
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Placeholder Variables Help -->
+                            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                                <h4 class="text-sm font-medium text-blue-900 mb-2 flex items-center">
+                                    <svg class="h-4 w-4 text-blue-600 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z" />
+                                    </svg>
+                                    Available Placeholder Variables
+                                </h4>
+                                <p class="text-sm text-blue-800 mb-3">Use these variables in your templates - they will be automatically replaced with case data:</p>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                                    <div>
+                                        <strong>Case Information:</strong><br>
+                                        <code class="bg-white px-1 py-0.5 rounded">${case_information.court_district}</code><br>
+                                        <code class="bg-white px-1 py-0.5 rounded">${case_information.case_number}</code><br>
+                                        <code class="bg-white px-1 py-0.5 rounded">${filing_details.date}</code>
+                                    </div>
+                                    <div>
+                                        <strong>Parties:</strong><br>
+                                        <code class="bg-white px-1 py-0.5 rounded">${plaintiff.name}</code><br>
+                                        <code class="bg-white px-1 py-0.5 rounded">${defendant.name}</code><br>
+                                        <code class="bg-white px-1 py-0.5 rounded">${defendant.address_block}</code>
+                                    </div>
+                                    <div>
+                                        <strong>Attorney Information:</strong><br>
+                                        <code class="bg-white px-1 py-0.5 rounded">${plaintiff_counsel.name}</code><br>
+                                        <code class="bg-white px-1 py-0.5 rounded">${plaintiff_counsel.firm}</code><br>
+                                        <code class="bg-white px-1 py-0.5 rounded">${plaintiff_counsel.address_block}</code>
+                                    </div>
+                                    <div>
+                                        <strong>Contact Details:</strong><br>
+                                        <code class="bg-white px-1 py-0.5 rounded">${plaintiff_counsel.phone}</code><br>
+                                        <code class="bg-white px-1 py-0.5 rounded">${plaintiff_counsel.email}</code>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- iCloud Integration -->
+                    <div class="border-t border-gray-200 pt-8 mb-8">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                            <svg class="h-5 w-5 text-blue-600 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15a4.5 4.5 0 0 0 4.5 4.5H18a3.75 3.75 0 0 0 1.332-7.257 3 3 0 0 0-3.758-3.848 5.25 5.25 0 0 0-10.233 2.33A4.502 4.502 0 0 0 2.25 15Z" />
+                            </svg>
+                            iCloud Integration
+                        </h3>
+                        <p class="text-sm text-gray-600 mb-6">Connect to your law firm's official iCloud account to automatically sync case files. These credentials will securely connect the system to the parent folder where all case files are stored.</p>
+                        
+                        <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6">
+                            <div class="flex items-start space-x-3">
+                                <svg class="h-5 w-5 text-amber-600 mt-0.5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3.75 5.25a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                </svg>
+                                <div class="flex-1">
+                                    <h4 class="text-sm font-medium text-amber-900 mb-1">Secure Storage</h4>
+                                    <p class="text-sm text-amber-800">iCloud credentials are encrypted and stored locally. The system uses these credentials only to access your designated case files folder and does not have access to any other iCloud data.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 gap-6">
+                            <!-- iCloud Account -->
+                            <div>
+                                <label for="icloud-account" class="block text-sm font-medium text-gray-700 mb-2">
+                                    iCloud Account Email <span class="text-red-500">*</span>
+                                </label>
+                                <input type="email" 
+                                       id="icloud-account" 
+                                       name="icloud-account"
+                                       placeholder="firm@icloud.com"
+                                       class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                <p class="text-xs text-gray-500 mt-1">The official law firm iCloud account email address</p>
+                            </div>
+
+                            <!-- iCloud Password -->
+                            <div>
+                                <label for="icloud-password" class="block text-sm font-medium text-gray-700 mb-2">
+                                    iCloud App-Specific Password <span class="text-red-500">*</span>
+                                </label>
+                                <div class="relative">
+                                    <input type="password" 
+                                           id="icloud-password" 
+                                           name="icloud-password"
+                                           placeholder="xxxx-xxxx-xxxx-xxxx"
+                                           class="w-full border border-gray-300 rounded-lg px-3 py-2 pr-10 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                    <button type="button" 
+                                            id="toggle-password-btn"
+                                            class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600"
+                                            onclick="togglePasswordVisibility()">
+                                        <!-- Eye icon (hidden state) -->
+                                        <svg id="eye-closed" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 1-4.243-4.243m4.242 4.242L9.88 9.88" />
+                                        </svg>
+                                        <!-- Eye slash icon (visible state) -->
+                                        <svg id="eye-open" class="h-5 w-5 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <p class="text-xs text-gray-500 mt-1">Generate an app-specific password in your iCloud settings for enhanced security</p>
+                            </div>
+
+                            <!-- Case Files Parent Folder -->
+                            <div>
+                                <label for="icloud-folder" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Case Files Parent Folder Path <span class="text-red-500">*</span>
+                                </label>
+                                <input type="text" 
+                                       id="icloud-folder" 
+                                       name="icloud-folder"
+                                       placeholder="/LegalCases"
+                                       class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                <p class="text-xs text-gray-500 mt-1">The iCloud Drive folder path where all case folders are stored (e.g., /LegalCases, /ClientFiles)</p>
+                            </div>
+
+                            <!-- Test Connection -->
+                            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h4 class="text-sm font-medium text-blue-900 mb-1">Test iCloud Connection</h4>
+                                        <p class="text-sm text-blue-800">Verify that the system can connect to your iCloud account and access the specified folder.</p>
+                                    </div>
+                                    <button id="test-icloud-btn" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+                                        Test Connection
+                                    </button>
+                                    <button id="sync-icloud-btn" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 text-sm ml-3">
+                                        <svg class="h-4 w-4 inline-block mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+                                        </svg>
+                                        Sync Cases
+                                    </button>
+                                </div>
+                                <div id="icloud-test-result" class="mt-3 hidden">
+                                    <!-- Test results will be shown here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Creditor Addresses Configuration -->
+                    <div class="border-t border-gray-200 pt-8 mb-8">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                            <svg class="h-5 w-5 text-blue-600 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                            </svg>
+                            Creditor Address Directory
+                        </h3>
+                        <p class="text-sm text-gray-600 mb-6">Manage standard addresses for creditors used in legal documents. These addresses are automatically used when generating summons and other court documents.</p>
+                        
+                        <!-- Add New Creditor Button -->
+                        <div class="mb-6">
+                            <button id="add-creditor-btn" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 text-sm">
+                                <svg class="h-4 w-4 inline-block mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                </svg>
+                                Add New Creditor
+                            </button>
+                        </div>
+
+                        <!-- Creditors List -->
+                        <div id="creditors-list" class="space-y-4">
+                            <!-- Major Credit Bureaus -->
+                            <div class="border border-gray-200 rounded-lg p-4 bg-gray-50">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h4 class="text-sm font-medium text-gray-900">Experian Information Solutions, Inc.</h4>
+                                        <p class="text-sm text-gray-600">475 Anton Blvd, Costa Mesa, CA 92626</p>
+                                        <p class="text-xs text-gray-500 mt-1">Credit Bureau • Ohio corporation, authorized to do business in New York</p>
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">Edit</button>
+                                        <button class="text-red-600 hover:text-red-800 text-sm font-medium">Remove</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="border border-gray-200 rounded-lg p-4 bg-gray-50">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h4 class="text-sm font-medium text-gray-900">Equifax Information Services, LLC</h4>
+                                        <p class="text-sm text-gray-600">1550 Peachtree Street N.W., Atlanta, GA 30309</p>
+                                        <p class="text-xs text-gray-500 mt-1">Credit Bureau • Georgia corporation, authorized to do business in New York</p>
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">Edit</button>
+                                        <button class="text-red-600 hover:text-red-800 text-sm font-medium">Remove</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="border border-gray-200 rounded-lg p-4 bg-gray-50">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h4 class="text-sm font-medium text-gray-900">Trans Union, LLC</h4>
+                                        <p class="text-sm text-gray-600">555 W. Adams St., Chicago, IL 60661</p>
+                                        <p class="text-xs text-gray-500 mt-1">Credit Bureau • Delaware corporation, authorized to do business in New York</p>
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">Edit</button>
+                                        <button class="text-red-600 hover:text-red-800 text-sm font-medium">Remove</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Common Financial Institutions -->
+                            <div class="border border-gray-200 rounded-lg p-4 bg-gray-50">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h4 class="text-sm font-medium text-gray-900">TD Bank, N.A.</h4>
+                                        <p class="text-sm text-gray-600">1701 Route 70 East, Cherry Hill, NJ 08003</p>
+                                        <p class="text-xs text-gray-500 mt-1">Furnisher of Information • Delaware corporation, authorized to do business in New York</p>
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">Edit</button>
+                                        <button class="text-red-600 hover:text-red-800 text-sm font-medium">Remove</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Add/Edit Creditor Modal Template (Hidden) -->
+                        <div id="creditor-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+                            <div class="bg-white rounded-lg p-6 w-full max-w-md mx-4">
+                                <div class="flex justify-between items-center mb-4">
+                                    <h4 class="text-lg font-semibold text-gray-900">
+                                        <span id="modal-title">Add New Creditor</span>
+                                    </h4>
+                                    <button id="close-modal-btn" class="text-gray-400 hover:text-gray-600">
+                                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                
+                                <form id="creditor-form" class="space-y-4">
+                                    <div>
+                                        <label for="creditor-name" class="block text-sm font-medium text-gray-700 mb-1">Creditor Name</label>
+                                        <input type="text" id="creditor-name" name="name" required 
+                                               class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                               placeholder="e.g., Experian Information Solutions, Inc.">
+                                    </div>
+                                    
+                                    <div>
+                                        <label for="creditor-street" class="block text-sm font-medium text-gray-700 mb-1">Street Address</label>
+                                        <input type="text" id="creditor-street" name="street" required 
+                                               class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                               placeholder="e.g., 475 Anton Blvd">
+                                    </div>
+                                    
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <label for="creditor-city" class="block text-sm font-medium text-gray-700 mb-1">City</label>
+                                            <input type="text" id="creditor-city" name="city" required 
+                                                   class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                                   placeholder="e.g., Costa Mesa">
+                                        </div>
+                                        <div>
+                                            <label for="creditor-state" class="block text-sm font-medium text-gray-700 mb-1">State</label>
+                                            <input type="text" id="creditor-state" name="state" required 
+                                                   class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                                   placeholder="e.g., CA" maxlength="2">
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <label for="creditor-zip" class="block text-sm font-medium text-gray-700 mb-1">ZIP Code</label>
+                                        <input type="text" id="creditor-zip" name="zip_code" required 
+                                               class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                               placeholder="e.g., 92626">
+                                    </div>
+                                    
+                                    <div>
+                                        <label for="creditor-category" class="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                                        <select id="creditor-category" name="category" 
+                                                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                            <option value="Credit Bureau">Credit Bureau</option>
+                                            <option value="Bank">Bank</option>
+                                            <option value="Credit Card Company">Credit Card Company</option>
+                                            <option value="Collection Agency">Collection Agency</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="flex justify-end space-x-3 pt-4">
+                                        <button type="button" id="cancel-modal-btn" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400">
+                                            Cancel
+                                        </button>
+                                        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                                            <span id="save-btn-text">Save Creditor</span>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- System Configuration -->
+                    <div class="border-t border-gray-200 pt-8">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                            <svg class="h-5 w-5 text-blue-600 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12a7.5 7.5 0 0 0 15 0m-15 0a7.5 7.5 0 1 1 15 0m-15 0H3m16.5 0H21m-1.5 0H12m-8.457 3.077 1.41-.513m14.095-5.13 1.41-.513M5.106 17.785l1.15-.964m11.49-9.642 1.149-.964M7.501 19.795l.75-1.3m7.5-12.99.75-1.3m-6.063 16.658.26-1.477m2.605-14.772.26-1.477m0 17.726-.26-1.477M10.698 4.614l-.26-1.477M16.5 19.794l-.75-1.299M7.5 4.205 12 12m6.894 5.785-1.149-.964M6.256 7.178l-1.15-.964m15.352 8.864-1.41-.513M4.954 9.435l-1.41-.513M12.002 12l-3.75 6.495" />
+                            </svg>
+                            System Configuration
+                        </h3>
+                        
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <!-- Auto-save -->
+                            <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                                <div>
+                                    <h4 class="text-sm font-medium text-gray-900">Auto-save Settings</h4>
+                                    <p class="text-xs text-gray-600">Automatically save changes as you type</p>
+                                </div>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" id="auto-save" name="auto-save" class="sr-only peer">
+                                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                                </label>
+                            </div>
+
+                            <!-- Data Retention -->
+                            <div>
+                                <label for="data-retention" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Data Retention Period
+                                </label>
+                                <select id="data-retention" 
+                                        name="data-retention"
+                                        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                    <option value="30">30 days</option>
+                                    <option value="90" selected>90 days</option>
+                                    <option value="180">180 days</option>
+                                    <option value="365">1 year</option>
+                                    <option value="0">Keep forever</option>
+                                </select>
+                                <p class="text-xs text-gray-500 mt-1">How long to keep processed case data</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Changelog Section -->
+                    <div class="border-t border-gray-200 pt-8 hidden">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                            <svg class="h-5 w-5 text-blue-600 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+                            </svg>
+                            Version History & Changelog
+                        </h3>
+                        <p class="text-sm text-gray-600 mb-6">View recent updates, bug fixes, and new features added to the dashboard.</p>
+                        
+                        <div class="bg-white border border-gray-200 rounded-lg">
+                            <!-- Changelog Header -->
+                            <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h4 class="text-sm font-medium text-gray-900">Current Version</h4>
+                                        <p class="text-sm text-gray-600" id="current-version">Loading...</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <h4 class="text-sm font-medium text-gray-900">Last Updated</h4>
+                                        <p class="text-sm text-gray-600" id="changelog-last-updated">Loading...</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Changelog Content -->
+                            <div class="px-6 py-6">
+                                <div id="changelog-content" class="prose prose-sm max-w-none">
+                                    <div class="text-center py-8">
+                                        <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                                        <p class="mt-2 text-gray-600">Loading changelog...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Success/Error Messages -->
+                <div id="settings-messages" class="hidden px-6 py-4 border-t border-gray-200">
+                    <!-- Messages will be inserted here by JavaScript -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/static/settings/settings.js?v=1.9.0"></script>
+</body>
+</html>

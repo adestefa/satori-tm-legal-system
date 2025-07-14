@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Review</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #f0f2f5;
+        }
+    </style>
+</head>
+<body class="p-8">
+
+    <div class="max-w-6xl mx-auto">
+        <h1 class="text-3xl font-bold text-gray-800 mb-4">Step 3: Review Extracted Data</h1>
+        <p class="text-gray-600 mb-8">Review the information extracted from your documents before generating the final complaint.</p>
+
+        <!-- Tabs -->
+        <div class="mb-8">
+            <div class="border-b border-gray-200">
+                <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+                    <a href="#" class="border-blue-500 text-blue-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm" aria-current="page">
+                        Review Data
+                    </a>
+                    <a href="#" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                        Preview Document
+                    </a>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Review Data Section -->
+        <div id="review-data-section">
+            <!-- Content will be dynamically injected here -->
+        </div>
+
+        <!-- Cause of Action Section -->
+        <div id="cause-of-action-section" class="mt-12">
+             <h2 class="text-2xl font-bold text-gray-800 mb-6">Cause of Action</h2>
+            <!-- Content will be dynamically injected here -->
+        </div>
+
+        <!-- Legal Violations Section -->
+        <div id="legal-violations-section" class="mt-12">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Legal Violations</h2>
+            <!-- Content will be dynamically injected here -->
+        </div>
+    </div>
+
+    <script>
+        const jsonData = {
+            "court_information": {
+                "jurisdiction": "Eastern District of New York",
+                "division": "Brooklyn Division",
+                "case_classification": "Consumer Credit",
+                "jury_demand": "Yes"
+            },
+            "client_information": {
+                "name": "Eman Youssef",
+                "contact": "347.891.5584",
+                "residence": "Queens, New York",
+                "case_type": "FCRA Credit Card Fraud"
+            },
+            "case_details": {
+                "financial_institution": "TD Bank",
+                "fraud_amount": "$7,500",
+                "travel_location": "Egypt",
+                "credit_bureaus": "Experian, Equifax, TransUnion"
+            },
+            "causes_of_action": [
+                {
+                    "title": "Negligent Non-Compliance with FCRA",
+                    "description": "Defendants negligently failed to follow reasonable procedures to assure maximum possible accuracy of consumer credit information",
+                    "statutory_basis": "15 U.S.C. § 1681e(b)",
+                    "elements": [
+                        "Duty to maintain reasonable procedures",
+                        "Failure to assure maximum possible accuracy",
+                        "Reporting of inaccurate information",
+                        "Proximately caused damages to consumer"
+                    ],
+                    "source_document": "Complaint_Final.docx"
+                },
+                {
+                    "title": "Willful Non-Compliance with FCRA",
+                    "description": "Defendants willfully failed to conduct reasonable reinvestigation upon consumer dispute",
+                    "statutory_basis": "15 U.S.C. § 1681i(a)",
+                    "elements": [
+                        "Received consumer dispute",
+                        "Failed to conduct reasonable reinvestigation",
+                        "Willful or reckless disregard for consumer rights",
+                        "Continued reporting of disputed information"
+                    ],
+                    "source_document": "Attorney_Notes.txt"
+                },
+                {
+                    "title": "Failure to Provide Required Notices",
+                    "description": "Defendants failed to provide adverse action notices as required by FCRA",
+                    "statutory_basis": "15 U.S.C. § 1681m(a)",
+                    "elements": [
+                        "Use of consumer report in adverse action",
+                        "Failure to provide timely notice",
+                        "Inadequate disclosure of consumer rights",
+                        "Damages from lack of notice"
+                    ],
+                    "source_document": "Adverse_Action_Letter_Cap_One.pdf"
+                }
+            ],
+            "legal_violations": [
+                {
+                    "title": "15 U.S.C. § 1681e(b)",
+                    "subtitle": "Negligent Failure - Reasonable Procedures",
+                    "description": "Consumer reporting agency failed to follow reasonable procedures to assure maximum possible accuracy of information concerning the consumer",
+                    "penalties": "Actual damages, attorney fees, and costs",
+                    "source_document": "Complaint_Final.docx"
+                },
+                {
+                    "title": "15 U.S.C. § 1681i(a)(1)(A)",
+                    "subtitle": "Willful Failure - Reinvestigation Duties",
+                    "description": "Upon dispute, consumer reporting agency failed to conduct reasonable reinvestigation to determine whether the disputed information is inaccurate",
+                    "penalties": "Actual damages OR statutory damages $100-$1,000, plus attorney fees",
+                    "source_document": "Attorney_Notes.txt"
+                },
+                {
+                    "title": "15 U.S.C. § 1681i(a)(5)(A)",
+                    "subtitle": "Failure to Delete - Disputed Information",
+                    "description": "Failed to promptly delete inaccurate or unverifiable information from consumer's file following dispute",
+                    "penalties": "Actual damages, attorney fees, and costs",
+                    "source_document": "Attorney_Notes.txt"
+                },
+                {
+                    "title": "15 U.S.C. § 1681c(a)(2)",
+                    "subtitle": "Reporting Prohibited Information",
+                    "description": "Continued reporting of adverse account information beyond the permissible time periods",
+                    "penalties": "Actual damages, attorney fees, and costs",
+                    "source_document": "Adverse_Action_Letter_Cap_One.pdf"
+                },
+                 {
+                    "title": "15 U.S.C. § 1681m(a)",
+                    "subtitle": "Adverse Action Notice Violations",
+                    "description": "Failed to provide required adverse action notices with consumer reporting agency information",
+                    "penalties": "Actual damages, attorney fees, and costs",
+                    "source_document": "Adverse_Action_Letter_Cap_One.pdf"
+                },
+                {
+                    "title": "15 U.S.C. § 1681n",
+                    "subtitle": "Willful Non-Compliance - Civil Liability",
+                    "description": "Pattern of willful non-compliance with FCRA requirements causing consumer harm",
+                    "penalties": "Actual damages, plus statutory damages, plus punitive damages and attorney fees",
+                    "source_document": "Complaint_Final.docx"
+                }
+            ]
+        };
+
+        function renderReviewData(data) {
+            const container = document.getElementById('review-data-section');
+            const createSection = (title, details) => {
+                let detailsHtml = '<div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">';
+                for (const [key, value] of Object.entries(details)) {
+                    const label = key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                    detailsHtml += `
+                        <div>
+                            <dt class="text-sm font-medium text-gray-500">${label}</dt>
+                            <dd class="mt-1 text-sm text-gray-900">${value}</dd>
+                        </div>
+                    `;
+                }
+                detailsHtml += '</div>';
+
+                return `
+                    <div class="bg-white p-6 rounded-lg shadow-sm mb-8">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">${title}</h3>
+                        <dl>${detailsHtml}</dl>
+                    </div>
+                `;
+            };
+
+            let html = '';
+            if (data.court_information) html += createSection('Court Information', data.court_information);
+            if (data.client_information) html += createSection('Client Information', data.client_information);
+            if (data.case_details) html += createSection('Case Details', data.case_details);
+            
+            container.innerHTML = html;
+        }
+
+        function renderCausesOfAction(data) {
+            const container = document.getElementById('cause-of-action-section');
+            let html = '<div class="space-y-6">';
+            data.forEach(cause => {
+                const elementsHtml = cause.elements.map(el => `<li class="text-gray-600">${el}</li>`).join('');
+                html += `
+                    <div class="bg-white p-6 rounded-lg shadow-sm relative">
+                        <div class="absolute top-4 right-4 bg-gray-100 text-gray-600 text-xs font-mono px-2 py-1 rounded">${cause.source_document}</div>
+                        <h3 class="text-xl font-semibold text-gray-800">${cause.title}</h3>
+                        <p class="mt-2 text-gray-700">${cause.description}</p>
+                        <p class="mt-4 text-sm font-medium text-gray-500">Statutory Basis: <span class="text-gray-700 font-mono">${cause.statutory_basis}</span></p>
+                        <div class="mt-4">
+                            <p class="text-sm font-medium text-gray-500">Elements:</p>
+                            <ul class="list-disc list-inside mt-2 space-y-1">
+                                ${elementsHtml}
+                            </ul>
+                        </div>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            container.innerHTML += html;
+        }
+
+        function renderLegalViolations(data) {
+            const container = document.getElementById('legal-violations-section');
+            let html = '<div class="space-y-4">';
+            data.forEach(violation => {
+                html += `
+                    <div class="bg-red-50 border border-red-200 p-5 rounded-lg relative">
+                        <div class="absolute top-4 right-4 bg-gray-100 text-gray-600 text-xs font-mono px-2 py-1 rounded">${violation.source_document}</div>
+                        <h4 class="text-md font-bold text-red-800">${violation.title}</h4>
+                        <p class="text-md font-semibold text-red-700 mt-1">${violation.subtitle}</p>
+                        <p class="mt-2 text-sm text-red-900">${violation.description}</p>
+                        <p class="mt-3 text-xs text-red-700"><span class="font-semibold">Penalties:</span> ${violation.penalties}</p>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            container.innerHTML += html;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderReviewData(jsonData);
+            renderCausesOfAction(jsonData.causes_of_action);
+            renderLegalViolations(jsonData.legal_violations);
+        });
+
+    </script>
+</body>
+</html>

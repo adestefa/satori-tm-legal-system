@@ -1,0 +1,6 @@
+document3.txt|processing|2025-07-11T08:48:17.305235|null|45|null|null
+document2.txt|processing|2025-07-11T08:48:17.305235|null|45|null|null
+document1.txt|processing|2025-07-11T08:48:17.305235|null|45|null|null
+document3.txt|success|2025-07-11T08:48:17.305235|2025-07-11T08:48:17.525027|45|217|null
+document2.txt|success|2025-07-11T08:48:17.305235|2025-07-11T08:48:17.525027|45|217|null
+document1.txt|success|2025-07-11T08:48:17.305235|2025-07-11T08:48:17.525027|45|217|null

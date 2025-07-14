@@ -1,0 +1,3 @@
+Taking screenshot of: http://127.0.0.1:8000/
+Screenshot captured! The page shows the Satori Legal Agent interface with several test cases including Rodriguez, Final Output Ground Truth, Garcia Maria, Chen John, and Youssef. Each case has a "Process Files" button and shows recent activity timestamps.
+Screenshot saved to: /Users/corelogic/satori-dev/TM/outputs/screenshots

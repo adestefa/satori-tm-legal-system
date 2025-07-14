@@ -1,0 +1,15 @@
+{
+  "directories_to_scan": [
+    ".claude/memories",
+    ".claude/commands",
+    "project_memories/prd",
+    "project_memories/legal-spec",
+    "tasks"
+  ],
+  "files_to_scan": [],
+  "exclude_patterns": [
+    "*.pyc",
+    ".DS_Store",
+    "screens"
+  ]
+}

@@ -1,0 +1,169 @@
+{
+  "case_information": {
+    "court_name": "UNITED STATES DISTRICT COURT",
+    "court_district": "Eastern District of New York",
+    "case_number": "1.25-cv-01987",
+    "document_title": "COMPLAINT",
+    "document_type": "FCRA"
+  },
+  "parties": {
+    "plaintiff": {
+      "name": "Eman Youssef",
+      "address": {
+        "street": "P.O. Box 8828 \nWilmington",
+        "city": "DE 19899-8828",
+        "state": "NY",
+        "zip_code": "Not specified"
+      },
+      "residency": "Borough of Manhattan",
+      "consumer_status": "Individual 'consumer' under FCRA and NY FCRA"
+    },
+    "defendants": [
+      {
+        "name": "EQUIFAX INFORMATION SERVICES LLC",
+        "short_name": "Equifax",
+        "type": "Consumer Reporting Agency",
+        "state_of_incorporation": "Georgia",
+        "business_status": "Authorized to do business in New York"
+      },
+      {
+        "name": "TRANS UNION LLC",
+        "short_name": "TransUnion",
+        "type": "Consumer Reporting Agency",
+        "state_of_incorporation": "Delaware",
+        "business_status": "Authorized to do business in New York"
+      },
+      {
+        "name": "EXPERIAN INFORMATION SOLUTIONS, INC.",
+        "short_name": "Experian",
+        "type": "Consumer Reporting Agency",
+        "state_of_incorporation": "Ohio",
+        "business_status": "Authorized to do business in New York"
+      },
+      {
+        "name": "TD BANK, N.A.",
+        "short_name": "TD Bank",
+        "type": "Furnisher of Information",
+        "state_of_incorporation": "Delaware",
+        "business_status": "Authorized to do business in New York"
+      }
+    ]
+  },
+  "jurisdiction_and_venue": {
+    "federal_jurisdiction": {
+      "basis": "Federal Question",
+      "citation": "15 U.S.C. § 1681p"
+    },
+    "supplemental_jurisdiction": {
+      "basis": "Supplemental Jurisdiction",
+      "citation": "28 U.S.C. § 1367(a)"
+    },
+    "venue": {
+      "basis": "Proper Venue",
+      "citation": "28 U.S.C. § 1391(b)"
+    }
+  },
+  "preliminary_statement": "Plaintiff brings this action against the defendants for violations of the Fair Credit Reporting Act and the New York Fair Credit Reporting Act...",
+  "factual_background": {
+    "summary": "Plaintiff, a victim of identity theft while traveling abroad, disputed fraudulent charges with defendant TD Bank, who failed to reasonably investigate. The defendant credit reporting agencies subsequently failed to correct her credit reports, leading to significant financial and emotional damages."
+  },
+  "causes_of_action": [
+    {
+      "count_number": 1,
+      "title": "FIRST CAUSE OF ACTION: Violation of the FCRA",
+      "against_defendants": [
+        "All Defendants"
+      ],
+      "allegations": [
+        {
+          "citation": "15 U.S.C. § 1681i",
+          "description": "Failure to conduct reasonable reinvestigations of the plaintiff's disputes.",
+          "against_defendants": [
+            "Equifax",
+            "Experian",
+            "Trans Union"
+          ]
+        },
+        {
+          "citation": "15 U.S.C. § 1681i(a)(4)",
+          "description": "Failure to review and consider all relevant information submitted by the plaintiff.",
+          "against_defendants": [
+            "Equifax",
+            "Experian",
+            "Trans Union"
+          ]
+        },
+        {
+          "citation": "15 U.S.C. § 1681i(a)(5)",
+          "description": "Failure to delete or modify inaccurate information after failing to verify it.",
+          "against_defendants": [
+            "Equifax",
+            "Experian",
+            "Trans Union"
+          ]
+        },
+        {
+          "citation": "15 U.S.C. § 1681s-2(b)",
+          "description": "Failure to conduct a reasonable investigation after receiving notice of a dispute.",
+          "against_defendants": [
+            "TD Bank"
+          ]
+        },
+        {
+          "citation": "15 U.S.C. § 1681s-2(b)(1)(B)",
+          "description": "Failure to review all relevant information provided by the credit reporting agencies.",
+          "against_defendants": [
+            "TD Bank"
+          ]
+        }
+      ]
+    },
+    {
+      "count_number": 2,
+      "title": "SECOND CAUSE OF ACTION: Violation of the NY FCRA",
+      "against_defendants": [
+        "Equifax",
+        "Experian",
+        "Trans Union"
+      ],
+      "allegations": [
+        {
+          "citation": "N.Y. GBL § 380–j(a)(3)",
+          "description": "Including known erroneous information in a credit report."
+        },
+        {
+          "citation": "N.Y. GBL § 380-f",
+          "description": "Failure to conduct reasonable reinvestigations."
+        },
+        {
+          "citation": "N.Y. GBL §§ 380-f(b) and (d)",
+          "description": "Failure to delete or modify unverified information."
+        }
+      ]
+    }
+  ],
+  "prayer_for_relief": {
+    "damages": [
+      "Actual damages",
+      "Statutory damages",
+      "Punitive damages"
+    ],
+    "injunctive_relief": [
+      "An order requiring defendants to correct the plaintiff's credit report",
+      "An order requiring defendants to implement policies to prevent future violations"
+    ],
+    "costs_and_fees": [
+      "Litigation costs",
+      "Reasonable attorney's fees"
+    ]
+  },
+  "jury_demand": true,
+  "filing_details": {
+    "date": "04/05/2025",
+    "signature_date": "2025-07-04"
+  },
+  "metadata": {
+    "tiger_case_id": "youssef",
+    "format_version": "3.0"
+  }
+}

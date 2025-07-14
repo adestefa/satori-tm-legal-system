@@ -1,0 +1,131 @@
+{
+    "causes_of_action": [
+      {
+        "category": "Claims Against Credit Reporting Agencies (CRAs)",
+        "claims": [
+          {
+            "title": "Negligent Non-Compliance with NJFCRA - Inaccurate Reporting",
+            "description": "The CRA negligently failed to follow reasonable procedures to assure maximum possible accuracy of the information in a consumer's credit report, leading to inaccurate reporting.",
+            "statutory_basis": "N.J.S.A. 56:11-33",
+            "elements": [
+              "The CRA reported inaccurate information about the plaintiff.",
+              "The CRA failed to follow reasonable procedures to ensure accuracy.",
+              "The plaintiff suffered actual damages as a result of the inaccurate reporting.",
+              "The CRA's actions were negligent."
+            ]
+          },
+          {
+            "title": "Willful Non-Compliance with NJFCRA - Inaccurate Reporting",
+            "description": "The CRA willfully, or with knowing or reckless disregard for the law, failed to follow reasonable procedures to ensure the maximum possible accuracy of information in a consumer's report.",
+            "statutory_basis": "N.J.S.A. 56:11-33",
+            "elements": [
+              "The CRA reported inaccurate information about the plaintiff.",
+              "The CRA's failure to follow reasonable procedures was willful.",
+              "The plaintiff suffered damages (actual, statutory, and potentially punitive)."
+            ]
+          },
+          {
+            "title": "Negligent Failure to Reinvestigate Disputed Information",
+            "description": "After a consumer disputed the accuracy of information, the CRA negligently failed to conduct a reasonable reinvestigation to verify the information's accuracy.",
+            "statutory_basis": "N.J.S.A. 56:11-36",
+            "elements": [
+              "The plaintiff notified the CRA of a dispute regarding information in their file.",
+              "The CRA's reinvestigation was unreasonable or not conducted at all.",
+              "The failure was negligent.",
+              "The plaintiff suffered actual damages from the continued inaccuracy."
+            ]
+          },
+          {
+            "title": "Willful Failure to Reinvestigate Disputed Information",
+            "description": "After a consumer dispute, the CRA willfully failed to conduct a reasonable reinvestigation, showing a knowing or reckless disregard for its statutory duties.",
+            "statutory_basis": "N.J.S.A. 56:11-36",
+            "elements": [
+              "The plaintiff disputed information with the CRA.",
+              "The CRA's failure to conduct a reasonable reinvestigation was willful.",
+              "The plaintiff suffered damages (actual, statutory, and potentially punitive)."
+            ]
+          },
+          {
+            "title": "Failure to Provide Written Notice of Reinvestigation Results",
+            "description": "The CRA failed to provide the consumer with written notice of the results of its reinvestigation within five business days of its completion.",
+            "statutory_basis": "N.J.S.A. 56:11-36(a)(6)(b)",
+            "elements": [
+              "The CRA completed a reinvestigation of the consumer's dispute.",
+              "The CRA failed to provide written notice of the results within five business days.",
+              "The failure resulted in damages to the plaintiff."
+            ]
+          }
+        ]
+      },
+      {
+        "category": "Claims Against Furnishers of Information (e.g., Banks)",
+        "claims": [
+          {
+            "title": "Negligent Failure to Conduct an Investigation (Furnisher)",
+            "description": "After receiving notice of a dispute from a CRA, the furnisher of information negligently failed to conduct its own reasonable investigation into the disputed information as required by the NJFCRA.",
+            "statutory_basis": "N.J.S.A. 56:11-41(a)",
+            "elements": [
+              "The consumer disputed information with a CRA.",
+              "The CRA notified the furnisher of the dispute.",
+              "The furnisher failed to conduct a reasonable and timely investigation.",
+              "The furnisher's failure was negligent.",
+              "The plaintiff suffered actual damages."
+            ]
+          },
+          {
+            "title": "Willful Failure to Conduct an Investigation (Furnisher)",
+            "description": "After receiving notice of a dispute from a CRA, the furnisher willfully failed to conduct a reasonable investigation, demonstrating a knowing or reckless disregard for its obligations.",
+            "statutory_basis": "N.J.S.A. 56:11-41(a)",
+            "elements": [
+              "The consumer disputed information with a CRA.",
+              "The CRA notified the furnisher of the dispute.",
+              "The furnisher's failure to investigate was willful.",
+              "The plaintiff suffered damages (actual, statutory, and potentially punitive)."
+            ]
+          }
+        ]
+      }
+    ],
+    "legal_violations": [
+      {
+        "statute": "New Jersey Fair Credit Reporting Act (NJFCRA)",
+        "violations": [
+          {
+            "citation": "N.J.S.A. 56:11-33",
+            "title": "Accuracy of Information",
+            "description": "Requires a credit reporting agency to 'maintain reasonable procedures to assure maximum possible accuracy' of the information in a consumer report."
+          },
+          {
+            "citation": "N.J.S.A. 56:11-36",
+            "title": "Reinvestigation of Disputed Information",
+            "description": "Mandates that a CRA reinvestigate disputed items of information, usually within 30 days, and record the current status or delete the item if it's found to be inaccurate, unverifiable, or untimely."
+          },
+          {
+            "citation": "N.J.S.A. 56:11-36(a)(6)(b)",
+            "title": "Failure to Provide Reinvestigation Results",
+            "description": "A CRA must provide the consumer with written notice of the results of a reinvestigation not later than five business days after the completion of the reinvestigation."
+          },
+          {
+            "citation": "N.J.S.A. 56:11-36(a)(6)(c)",
+            "title": "Failure to Provide Statement of Dispute",
+            "description": "Requires the CRA to include a statement of the dispute in subsequent consumer reports if the reinvestigation does not resolve the dispute."
+          },
+          {
+            "citation": "N.J.S.A. 56:11-41(a)",
+            "title": "Furnisher's Duty to Investigate Disputed Information",
+            "description": "After being notified of a dispute by a CRA, a furnisher must conduct an investigation, review all relevant information, and report the results to the CRA."
+          },
+          {
+            "citation": "N.J.S.A. 56:11-41(b)",
+            "title": "Furnisher's Duty to Report Accurate Information",
+            "description": "Prohibits a person from furnishing information relating to a consumer to any CRA if the person knows or has reasonable cause to believe that the information is inaccurate."
+          },
+          {
+            "citation": "N.J.S.A. 56:11-44",
+            "title": "Civil Liability for Noncompliance",
+            "description": "Establishes civil liability for negligent and willful noncompliance with the NJFCRA, allowing for recovery of actual damages, punitive damages (for willful violations), costs, and reasonable attorney's fees."
+          }
+        ]
+      }
+    ]
+  }

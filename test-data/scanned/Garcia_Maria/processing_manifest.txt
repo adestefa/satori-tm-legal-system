@@ -1,0 +1,8 @@
+Collection Notice - Midland.pdf|processing|2025-07-09T16:44:53.976821|null|151672|null|null
+Adverse Action - Capital One.pdf|processing|2025-07-09T16:44:53.976821|null|146006|null|null
+Adverse Action - Discover.pdf|processing|2025-07-09T16:44:53.976821|null|135946|null|null
+Atty_Notes_Garcia.docx|processing|2025-07-09T16:44:53.976821|null|8106|null|null
+Collection Notice - Midland.pdf|success|2025-07-09T16:44:53.976821|2025-07-09T16:45:17.740613|151672|23762|null
+Adverse Action - Capital One.pdf|success|2025-07-09T16:44:53.976821|2025-07-09T16:45:17.740613|146006|23762|null
+Adverse Action - Discover.pdf|success|2025-07-09T16:44:53.976821|2025-07-09T16:45:17.740613|135946|23762|null
+Atty_Notes_Garcia.docx|success|2025-07-09T16:44:53.976821|2025-07-09T16:45:17.740613|8106|23762|null
