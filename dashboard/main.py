@@ -19,6 +19,7 @@ from .file_watcher import FileWatcher
 from .models import CaseStatus
 from . import service_runner
 from .sync_manager import SyncManager
+from .upload_service import StandaloneCaseUploader
 
 # Document parsing removed - Tiger service handles all document processing
 
@@ -142,7 +143,7 @@ def require_auth(user: dict = Depends(get_current_user)) -> dict:
     return user
 
 # --- Configuration ---
-APP_VERSION = "1.9.13"  # Animation timing optimized to 15 seconds per file (10s processing + 5s transition)
+APP_VERSION = "2.0.0"  # Major release: Added standalone case file upload service to replace iCloud sync
 
 # Global session manager
 session_manager = SessionManager()
@@ -1731,11 +1732,32 @@ async def preview_summons_template():
         logger.error(f"Error serving template preview: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error serving template preview: {str(e)}")
 
+# --- Upload Service Integration ---
+
+@app.get("/upload")
+async def upload_page(user: dict = Depends(get_current_user)):
+    """Serve standalone upload interface"""
+    if not user:
+        return RedirectResponse(url="/login", status_code=302)
+    
+    upload_html_path = os.path.join(os.path.dirname(__file__), "upload_service", "static", "upload.html")
+    return FileResponse(upload_html_path)
+
+@app.post("/api/upload/cases")
+async def upload_cases(file: UploadFile = File(...), user: dict = Depends(get_current_user)):
+    """Process case file upload"""
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+    
+    uploader = StandaloneCaseUploader(CASE_DIRECTORY)
+    return await uploader.process_upload(file)
+
 # --- Frontend Serving ---
 
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 app.mount("/themes", StaticFiles(directory=THEMES_DIR), name="themes")
 app.mount("/documents", StaticFiles(directory=OUTPUT_DIR), name="documents")
+app.mount("/dashboard/upload_service/static", StaticFiles(directory=os.path.join(os.path.dirname(__file__), "upload_service", "static")), name="upload_service")
 
 @app.get("/")
 async def read_index(theme: Literal['light', 'dark', 'lexigen'] = 'light', user: dict = Depends(get_current_user)):
