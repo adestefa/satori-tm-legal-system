@@ -1413,9 +1413,6 @@ function setupPacketButtonHandlers(caseId) {
     const downloadBtn = document.getElementById('download-packet');
     downloadBtn.addEventListener('click', () => downloadLegalPacket(caseId));
     
-    // Sync to iCloud button
-    const syncBtn = document.getElementById('sync-to-icloud');
-    syncBtn.addEventListener('click', () => syncPacketToiCloud(caseId));
 }
 
 // Helper functions
@@ -1481,23 +1478,6 @@ async function downloadLegalPacket(caseId) {
     }
 }
 
-async function syncPacketToiCloud(caseId) {
-    try {
-        const response = await fetch(`/api/cases/${caseId}/sync-to-icloud`, {
-            method: 'POST'
-        });
-        
-        if (!response.ok) {
-            throw new Error('Failed to sync to iCloud');
-        }
-        
-        const result = await response.json();
-        showSuccessMessage(`Synced ${result.files_synced} files to iCloud successfully!`);
-    } catch (error) {
-        console.error('Sync to iCloud error:', error);
-        showErrorMessage('Failed to sync to iCloud. Please try again.');
-    }
-}
 
 function showPacketError(message) {
     const container = document.getElementById('generated-documents');
