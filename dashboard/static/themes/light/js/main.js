@@ -176,10 +176,10 @@ function startManifestPolling(caseId) {
                         window.forceCompleteAnimation(caseId);
                     }
                     
-                    // Trigger a case data refresh to update overall status
-                    setTimeout(() => {
-                        loadCases();
-                    }, 1000);
+                    // Case data refresh disabled - users can refresh manually
+                    // setTimeout(() => {
+                    //     loadCases();
+                    // }, 1000);
                 }
             }
             
@@ -406,8 +406,8 @@ async function initialize() {
         // Load existing manifest states to restore processing status
         await loadExistingManifestStates();
         
-        // Start polling every 10 seconds
-        setInterval(loadCases, 10000);
+        // POLLING DISABLED - Users can refresh manually to see changes
+        // setInterval(loadCases, 10000);
         
         console.log('✅ Dashboard initialized successfully');
         
@@ -442,8 +442,8 @@ window.handleManualRefresh = handleManualRefresh;
 
 // DOM ready initialization
 document.addEventListener('DOMContentLoaded', () => {
-    // Version and path verification console logs (v1.9.12)
-    console.log('🔍 DASHBOARD VERSION: 1.9.13 - Animation timing optimized to 15 seconds per file');
+    // Version and path verification console logs (v2.0.0)
+    console.log('🔍 DASHBOARD VERSION: 2.0.0 - Case upload service added, polling disabled');
     console.log('🔍 TIGER RESOURCES PATH: tiger/app/resources/legal-spec/NY_FCRA.json');
     console.log('📄 DOM loaded, starting initialization...');
     initialize();
