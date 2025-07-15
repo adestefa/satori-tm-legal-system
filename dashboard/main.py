@@ -123,9 +123,15 @@ class SessionManager:
             del self.sessions[session_id]
 
 # --- Authentication ---
+# User accounts - Username: Password
+VALID_USERS = {
+    "Admin": "admin",
+    "Kevin": "Automate2025!"
+}
+
 def authenticate_user(username: str, password: str) -> bool:
-    """Simple authentication - Admin/admin for now"""
-    return username == "Admin" and password == "admin"
+    """Simple authentication with multiple user support"""
+    return username in VALID_USERS and VALID_USERS[username] == password
 
 def get_current_user(session_id: str = Cookie(None)) -> Optional[dict]:
     """Get current user from session"""
