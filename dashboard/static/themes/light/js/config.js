@@ -2,13 +2,13 @@
 // Single source of truth for all animation timing
 
 export const ANIMATION_CONFIG = {
-    // File processing timing (in seconds) - Reduced transition time only
-    PROCESSING_TIME: 10,     // Time showing ⏳ hourglass (restored to original)
-    TRANSITION_TIME: 1,      // Time for transition to next file (reduced from 5s to 1s)
+    // File processing timing (in seconds) - Back to original timing
+    PROCESSING_TIME: 10,     // Time showing ⏳ hourglass 
+    TRANSITION_TIME: 5,      // Time for transition to next file (restored to original)
     
     // Calculated totals
     get TOTAL_PER_FILE() {
-        return this.PROCESSING_TIME + this.TRANSITION_TIME; // 11 seconds
+        return this.PROCESSING_TIME + this.TRANSITION_TIME; // 15 seconds
     },
     
     // Convert to milliseconds for setTimeout
@@ -17,7 +17,7 @@ export const ANIMATION_CONFIG = {
     },
     
     get TRANSITION_MS() {
-        return this.TRANSITION_TIME * 1000; // 1000ms
+        return this.TRANSITION_TIME * 1000; // 5000ms
     },
     
     // Other UI timings
