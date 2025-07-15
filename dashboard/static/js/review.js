@@ -646,13 +646,11 @@ function showComplaintPlaceholder(caseId) {
     // Reset generate button text
     generateBtn.textContent = 'Generate Complaint';
     
-    // Hide the "Edit", "Open in New Tab", and "Download PDF" buttons
+    // Hide the "Edit" and "Open in New Tab" buttons
     const editBtn = document.getElementById('edit-complaint');
     const openTabBtn = document.getElementById('open-in-new-tab');
-    const downloadBtn = document.getElementById('download-pdf');
     editBtn.classList.add('hidden');
     openTabBtn.classList.add('hidden');
-    downloadBtn.classList.add('hidden');
 }
 
 async function generateComplaint(caseId) {
@@ -715,29 +713,17 @@ async function generateComplaint(caseId) {
             </iframe>
         `;
 
-        // Show the "Edit", "Open in New Tab", and "Download PDF" buttons
+        // Show the "Edit" and "Open in New Tab" buttons
         const editBtn = document.getElementById('edit-complaint');
         const openTabBtn = document.getElementById('open-in-new-tab');
-        const downloadBtn = document.getElementById('download-pdf');
         
         editBtn.classList.remove('hidden');
         openTabBtn.classList.remove('hidden');
-        downloadBtn.classList.remove('hidden');
         
         // Set up button click handlers
         editBtn.onclick = () => enterEditMode(caseId);
         openTabBtn.onclick = () => {
             window.open(`/complaint/${caseId}`, '_blank');
-        };
-        downloadBtn.onclick = () => {
-            // Use a direct link to trigger proper browser download
-            const link = document.createElement('a');
-            link.href = `/complaint/${caseId}?download=true`;
-            link.download = `complaint_${caseId}.pdf`;
-            link.target = '_blank';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
         };
 
         // Show success message for both documents
