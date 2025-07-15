@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Cases - Tiger-Monkey</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom upload styling */
+        .upload-zone {
+            border: 2px dashed #d1d5db;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-zone.drag-over {
+            border-color: #3b82f6;
+            background-color: #eff6ff;
+        }
+        
+        .upload-zone:hover {
+            border-color: #6b7280;
+            background-color: #f9fafb;
+        }
+        
+        .file-input:focus + .upload-zone {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+        }
+        
+        .progress-bar {
+            transition: width 0.3s ease;
+        }
+        
+        .spinner {
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .success-checkmark {
+            animation: scaleIn 0.3s ease-out;
+        }
+        
+        @keyframes scaleIn {
+            from { transform: scale(0); }
+            to { transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-4xl mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <h1 class="text-2xl font-bold text-gray-900">Upload Cases</h1>
+                <a href="/" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                    </svg>
+                    Back to Dashboard
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-4 py-8">
+        <!-- Upload Instructions -->
+        <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-8">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <svg class="h-5 w-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                    </svg>
+                </div>
+                <div class="ml-3">
+                    <h3 class="text-sm font-medium text-blue-800">Upload Instructions</h3>
+                    <div class="mt-2 text-sm text-blue-700">
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>Upload ZIP files containing case folders</li>
+                            <li>Each case folder should contain legal documents (.pdf, .docx, .txt)</li>
+                            <li>Maximum file size: 50MB per ZIP file</li>
+                            <li>Files will be extracted to the case processing directory automatically</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upload Area -->
+        <div class="bg-white rounded-lg shadow-md p-8">
+            <div class="upload-container">
+                <!-- File Input (Hidden) -->
+                <input type="file" id="file-input" class="file-input hidden" accept=".zip" />
+                
+                <!-- Drop Zone -->
+                <div id="upload-zone" class="upload-zone rounded-lg p-12 text-center cursor-pointer">
+                    <div class="upload-content">
+                        <svg class="mx-auto h-16 w-16 text-gray-400 mb-4" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                            <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <h3 class="text-xl font-medium text-gray-900 mb-2">Drop ZIP file here</h3>
+                        <p class="text-gray-600 mb-4">or click to browse your files</p>
+                        <button type="button" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                            </svg>
+                            Choose ZIP File
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Upload Progress (Hidden Initially) -->
+                <div id="upload-progress" class="hidden mt-6">
+                    <div class="bg-gray-200 rounded-full h-3 mb-4">
+                        <div id="progress-bar" class="progress-bar bg-blue-600 h-3 rounded-full" style="width: 0%"></div>
+                    </div>
+                    <div class="flex items-center justify-center">
+                        <svg id="upload-spinner" class="spinner h-5 w-5 text-blue-600 mr-2" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <span id="upload-status" class="text-sm text-gray-600">Uploading and processing...</span>
+                    </div>
+                </div>
+
+                <!-- Success Message (Hidden Initially) -->
+                <div id="success-message" class="hidden mt-6 p-4 bg-green-50 border border-green-200 rounded-lg fade-in">
+                    <div class="flex items-center">
+                        <svg class="success-checkmark h-5 w-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                        <div>
+                            <h4 class="text-sm font-medium text-green-800">Upload Successful!</h4>
+                            <p id="success-details" class="text-sm text-green-700 mt-1"></p>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <a href="/" class="inline-flex items-center px-4 py-2 text-sm font-medium text-green-800 bg-green-100 border border-green-300 rounded-md hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                            </svg>
+                            Return to Dashboard
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Error Message (Hidden Initially) -->
+                <div id="error-message" class="hidden mt-6 p-4 bg-red-50 border border-red-200 rounded-lg fade-in">
+                    <div class="flex items-center">
+                        <svg class="h-5 w-5 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                        </svg>
+                        <div>
+                            <h4 class="text-sm font-medium text-red-800">Upload Failed</h4>
+                            <p id="error-details" class="text-sm text-red-700 mt-1"></p>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <button id="retry-button" class="inline-flex items-center px-4 py-2 text-sm font-medium text-red-800 bg-red-100 border border-red-300 rounded-md hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                            </svg>
+                            Try Again
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- File Information (Hidden Initially) -->
+        <div id="file-info" class="hidden mt-6 bg-white rounded-lg shadow-md p-6">
+            <h3 class="text-lg font-medium text-gray-900 mb-4">Selected File</h3>
+            <div class="flex items-center">
+                <svg class="h-8 w-8 text-gray-400 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1v-2zM3.293 7.707A1 1 0 014 7h12a1 1 0 01.707.293l2 2A1 1 0 0119 10v4a1 1 0 01-1 1v-2a3 3 0 00-3-3H5a3 3 0 00-3 3v2a1 1 0 01-1-1v-4a1 1 0 01.293-.707l2-2z" clip-rule="evenodd"/>
+                </svg>
+                <div>
+                    <p id="file-name" class="text-sm font-medium text-gray-900"></p>
+                    <p id="file-size" class="text-sm text-gray-500"></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- JavaScript -->
+    <script src="/dashboard/upload_service/static/upload.js"></script>
+</body>
+</html>
