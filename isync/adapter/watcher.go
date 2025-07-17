@@ -57,15 +57,18 @@ func (fw *FileWatcher) Start(ctx context.Context) error {
 	}
 
 	// Also watch TM outputs directory for reverse sync
-	outputPath := fw.config.getOutputPath()
-	if _, err := os.Stat(outputPath); err == nil {
-		err = fw.addDirectoryRecursive(outputPath)
-		if err != nil {
-			logger.Warn("Failed to add outputs directory to watcher", "path", outputPath, "error", err)
+	outputPath, err := fw.config.getOutputPath()
+	if err != nil {
+		logger.Warn("Could not get output path, reverse sync might not work", "error", err)
+	} else {
+		if _, err := os.Stat(outputPath); err == nil {
+			err = fw.addDirectoryRecursive(outputPath)
+			if err != nil {
+				logger.Warn("Failed to add outputs directory to watcher", "path", outputPath, "error", err)
+			}
 		}
+		logger.Info("File watcher started", "icloud_path", icloudPath, "output_path", outputPath)
 	}
-
-	logger.Info("File watcher started", "icloud_path", icloudPath, "output_path", outputPath)
 
 	// Start event processing goroutine
 	go fw.processEvents(ctx)
@@ -269,17 +272,21 @@ func (fw *FileWatcher) isInICloudPath(path string) bool {
 
 // isInOutputPath checks if a path is within the TM outputs directory
 func (fw *FileWatcher) isInOutputPath(path string) bool {
-	outputPath := fw.config.getOutputPath()
-	
+	outputPath, err := fw.config.getOutputPath()
+	if err != nil {
+		logger.Warn("Could not get output path for checking", "error", err)
+		return false
+	}
+
 	absPath, err := filepath.Abs(path)
 	if err != nil {
 		return false
 	}
-	
+
 	absOutputPath, err := filepath.Abs(outputPath)
 	if err != nil {
 		return false
 	}
-	
+
 	return strings.HasPrefix(absPath, absOutputPath)
 }

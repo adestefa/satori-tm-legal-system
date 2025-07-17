@@ -1,9 +1,12 @@
 package main
 
 import (
+	"bytes"
 	"context"
 	"fmt"
 	"io"
+	"mime/multipart"
+	"net/http"
 	"os"
 	"path/filepath"
 	"strings"
@@ -20,7 +23,8 @@ type SyncManager struct {
 
 // SyncStats tracks synchronization statistics
 type SyncStats struct {
-	FilesSync       int
+	FilesUploaded   int
+	FilesDownloaded int
 	DirectoriesSync int
 	Errors          int
 	LastSync        time.Time
@@ -47,18 +51,18 @@ func NewSyncManager(config *Config) (*SyncManager, error) {
 // Start begins the sync process
 func (sm *SyncManager) Start(ctx context.Context) error {
 	logger.Info("Starting sync manager")
-	
-	// Start file watcher
-	err := sm.watcher.Start(ctx)
-	if err != nil {
-		return fmt.Errorf("failed to start file watcher: %w", err)
-	}
 
 	// Perform initial sync
-	err = sm.performInitialSync()
+	err := sm.performInitialSync()
 	if err != nil {
 		logger.Error("Initial sync failed", "error", err)
 		// Don't return error - continue with event-based sync
+	}
+
+	// Start file watcher
+	err = sm.watcher.Start(ctx)
+	if err != nil {
+		return fmt.Errorf("failed to start file watcher: %w", err)
 	}
 
 	// Start event processing
@@ -73,16 +77,16 @@ func (sm *SyncManager) Start(ctx context.Context) error {
 
 // performInitialSync performs a full bidirectional sync on startup
 func (sm *SyncManager) performInitialSync() error {
-	logger.Info("Performing initial sync")
-	
-	// Sync from iCloud to TM
-	err := sm.syncICloudToTM()
+	logger.Info("Performing initial sync...")
+
+	// Sync from iCloud to Server
+	err := sm.uploadICloudFiles()
 	if err != nil {
-		logger.Error("iCloud to TM sync failed", "error", err)
+		logger.Error("iCloud to Server sync failed", "error", err)
 		return err
 	}
 
-	// Sync from TM to iCloud
+	// Sync from TM to iCloud (for processed files)
 	err = sm.syncTMToICloud()
 	if err != nil {
 		logger.Error("TM to iCloud sync failed", "error", err)
@@ -90,18 +94,18 @@ func (sm *SyncManager) performInitialSync() error {
 	}
 
 	sm.syncStats.LastSync = time.Now()
-	logger.Info("Initial sync completed", "files_synced", sm.syncStats.FilesSync, "dirs_synced", sm.syncStats.DirectoriesSync)
+	logger.Info("Initial sync completed", "files_uploaded", sm.syncStats.FilesUploaded, "files_downloaded", sm.syncStats.FilesDownloaded, "dirs_synced", sm.syncStats.DirectoriesSync)
 	return nil
 }
 
-// syncICloudToTM syncs files from iCloud Drive to TM test-data directory
-func (sm *SyncManager) syncICloudToTM() error {
+// uploadICloudFiles syncs files from iCloud Drive to the remote server
+func (sm *SyncManager) uploadICloudFiles() error {
 	icloudPath, err := sm.config.getICloudPath()
 	if err != nil {
 		return fmt.Errorf("failed to get iCloud path: %w", err)
 	}
 
-	logger.Info("Syncing from iCloud to TM", "source", icloudPath, "dest", sm.config.LocalTMPath)
+	logger.Info("Checking for files to upload from iCloud...", "source", icloudPath)
 
 	return filepath.Walk(icloudPath, func(srcPath string, info os.FileInfo, err error) error {
 		if err != nil {
@@ -110,8 +114,7 @@ func (sm *SyncManager) syncICloudToTM() error {
 			return nil // Continue walking
 		}
 
-		// Skip system files
-		if sm.shouldSkipFile(srcPath) {
+		if info.IsDir() || sm.shouldSkipFile(srcPath) {
 			return nil
 		}
 
@@ -123,36 +126,81 @@ func (sm *SyncManager) syncICloudToTM() error {
 			return nil
 		}
 
-		// Calculate destination path
-		destPath := filepath.Join(sm.config.LocalTMPath, relPath)
-
-		// Sync file or directory
-		if info.IsDir() {
-			err = sm.syncDirectory(srcPath, destPath)
-			if err != nil {
-				logger.Warn("Failed to sync directory", "src", srcPath, "dest", destPath, "error", err)
-				sm.syncStats.Errors++
-			} else {
-				sm.syncStats.DirectoriesSync++
-			}
+		err = sm.uploadFile(srcPath, relPath)
+		if err != nil {
+			logger.Warn("Failed to upload file", "path", srcPath, "error", err)
+			sm.syncStats.Errors++
 		} else {
-			err = sm.syncFile(srcPath, destPath)
-			if err != nil {
-				logger.Warn("Failed to sync file", "src", srcPath, "dest", destPath, "error", err)
-				sm.syncStats.Errors++
-			} else {
-				sm.syncStats.FilesSync++
-			}
+			sm.syncStats.FilesUploaded++
+			logger.Info("Successfully uploaded file", "file", relPath)
 		}
 
 		return nil
 	})
 }
 
+// uploadFile uploads a single file to the remote server
+func (sm *SyncManager) uploadFile(filePath, relativePath string) error {
+	logger.Info("Uploading file...", "file", relativePath)
+
+	file, err := os.Open(filePath)
+	if err != nil {
+		return fmt.Errorf("could not open file: %w", err)
+	}
+	defer file.Close()
+
+	body := &bytes.Buffer{}
+	writer := multipart.NewWriter(body)
+
+	part, err := writer.CreateFormFile("file", filepath.Base(filePath))
+	if err != nil {
+		return fmt.Errorf("could not create form file: %w", err)
+	}
+
+	_, err = io.Copy(part, file)
+	if err != nil {
+		return fmt.Errorf("could not copy file to buffer: %w", err)
+	}
+
+	// Add relative path so the server knows where to save it
+	_ = writer.WriteField("relative_path", relativePath)
+
+	err = writer.Close()
+	if err != nil {
+		return fmt.Errorf("could not close multipart writer: %w", err)
+	}
+
+	req, err := http.NewRequest("POST", sm.config.ApiEndpoint, body)
+	if err != nil {
+		return fmt.Errorf("could not create request: %w", err)
+	}
+
+	req.Header.Set("Content-Type", writer.FormDataContentType())
+	req.Header.Set("Authorization", "Bearer "+sm.config.ApiKey)
+
+	client := &http.Client{Timeout: time.Second * 30}
+	resp, err := client.Do(req)
+	if err != nil {
+		return fmt.Errorf("request failed: %w", err)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		respBody, _ := io.ReadAll(resp.Body)
+		return fmt.Errorf("upload failed with status %d: %s", resp.StatusCode, string(respBody))
+	}
+
+	logger.Info("File uploaded successfully", "file", relativePath)
+	return nil
+}
+
 // syncTMToICloud syncs files from TM outputs to iCloud Drive
 func (sm *SyncManager) syncTMToICloud() error {
-	outputPath := sm.config.getOutputPath()
-	
+	outputPath, err := sm.config.getOutputPath()
+	if err != nil {
+		return fmt.Errorf("failed to get output path: %w", err)
+	}
+
 	// Check if outputs directory exists
 	if _, err := os.Stat(outputPath); os.IsNotExist(err) {
 		logger.Info("TM outputs directory does not exist, skipping reverse sync", "path", outputPath)
@@ -211,7 +259,7 @@ func (sm *SyncManager) syncTMToICloud() error {
 				logger.Warn("Failed to sync file", "src", srcPath, "dest", destPath, "error", err)
 				sm.syncStats.Errors++
 			} else {
-				sm.syncStats.FilesSync++
+				sm.syncStats.FilesDownloaded++
 			}
 		}
 
@@ -314,7 +362,7 @@ func (sm *SyncManager) copyFile(srcPath, destPath string) error {
 // shouldSkipFile determines if a file should be skipped during sync
 func (sm *SyncManager) shouldSkipFile(path string) bool {
 	base := filepath.Base(path)
-	
+
 	// Skip system files and temporary files
 	skipPatterns := []string{
 		".DS_Store", "Thumbs.db", ".tmp", ".temp",
@@ -339,7 +387,7 @@ func (sm *SyncManager) shouldSkipFile(path string) bool {
 // processFileEvents processes file system events from the watcher
 func (sm *SyncManager) processFileEvents(ctx context.Context) {
 	eventChan := sm.watcher.GetEventChannel()
-	
+
 	for {
 		select {
 		case <-ctx.Done():
@@ -390,36 +438,28 @@ func (sm *SyncManager) handleICloudEvent(event FileEvent) {
 		return
 	}
 
-	// Calculate destination path in TM
-	destPath := filepath.Join(sm.config.LocalTMPath, relPath)
-
 	// Handle based on operation
 	if strings.Contains(event.Operation, "CREATE") || strings.Contains(event.Operation, "WRITE") {
-		if event.IsDir {
-			err = sm.syncDirectory(event.Path, destPath)
-		} else {
-			err = sm.syncFile(event.Path, destPath)
-		}
-		
-		if err != nil {
-			logger.Error("Failed to sync from iCloud", "src", event.Path, "dest", destPath, "error", err)
-		} else {
-			logger.Info("Synced from iCloud", "src", event.Path, "dest", destPath)
+		if !event.IsDir {
+			err = sm.uploadFile(event.Path, relPath)
+			if err != nil {
+				logger.Error("Failed to upload from iCloud", "path", event.Path, "error", err)
+			}
 		}
 	} else if strings.Contains(event.Operation, "REMOVE") {
-		err = os.RemoveAll(destPath)
-		if err != nil {
-			logger.Error("Failed to remove file", "path", destPath, "error", err)
-		} else {
-			logger.Info("Removed file", "path", destPath)
-		}
+		// TODO: Implement file deletion on the server if needed
+		logger.Info("File removed in iCloud, no action taken on server", "path", relPath)
 	}
 }
 
 // handleOutputEvent handles events from TM outputs
 func (sm *SyncManager) handleOutputEvent(event FileEvent) {
-	outputPath := sm.config.getOutputPath()
-	
+	outputPath, err := sm.config.getOutputPath()
+	if err != nil {
+		logger.Error("Failed to get output path", "error", err)
+		return
+	}
+
 	// Calculate relative path
 	relPath, err := filepath.Rel(outputPath, event.Path)
 	if err != nil {
@@ -433,7 +473,7 @@ func (sm *SyncManager) handleOutputEvent(event FileEvent) {
 		logger.Error("Failed to get iCloud path", "error", err)
 		return
 	}
-	
+
 	destPath := filepath.Join(icloudPath, "outputs", relPath)
 
 	// Handle based on operation
@@ -443,7 +483,7 @@ func (sm *SyncManager) handleOutputEvent(event FileEvent) {
 		} else {
 			err = sm.syncFile(event.Path, destPath)
 		}
-		
+
 		if err != nil {
 			logger.Error("Failed to sync to iCloud", "src", event.Path, "dest", destPath, "error", err)
 		} else {
@@ -473,12 +513,12 @@ func (sm *SyncManager) periodicSync(ctx context.Context) {
 		case <-ticker.C:
 			logger.Debug("Performing periodic sync")
 			sm.syncing = true
-			
+
 			err := sm.performInitialSync()
 			if err != nil {
 				logger.Error("Periodic sync failed", "error", err)
 			}
-			
+
 			sm.syncing = false
 		}
 	}
@@ -487,12 +527,12 @@ func (sm *SyncManager) periodicSync(ctx context.Context) {
 // Stop stops the sync manager
 func (sm *SyncManager) Stop() error {
 	logger.Info("Stopping sync manager")
-	
+
 	err := sm.watcher.Stop()
 	if err != nil {
 		return fmt.Errorf("failed to stop file watcher: %w", err)
 	}
-	
+
 	logger.Info("Sync manager stopped")
 	return nil
 }

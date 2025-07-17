@@ -60,9 +60,9 @@ func (app *Application) Start() error {
 	logger.Info("Starting TM iSync Adapter", "version", AppVersion)
 	
 	// Log configuration
-	logger.Info("Configuration loaded", 
+	logger.Info("Configuration loaded",
 		"icloud_parent_folder", app.config.ICloudParentFolder,
-		"local_tm_path", app.config.LocalTMPath,
+		"api_endpoint", app.config.ApiEndpoint,
 		"sync_interval", app.config.SyncInterval,
 		"log_level", app.config.LogLevel,
 		"backup_enabled", app.config.BackupEnabled)
@@ -85,11 +85,6 @@ func (app *Application) Start() error {
 
 // validatePaths validates that required paths exist and are accessible
 func (app *Application) validatePaths() error {
-	// Check local TM path
-	if _, err := os.Stat(app.config.LocalTMPath); os.IsNotExist(err) {
-		return fmt.Errorf("local TM path does not exist: %s", app.config.LocalTMPath)
-	}
-
 	// Check iCloud path
 	icloudPath, err := app.config.getICloudPath()
 	if err != nil {
@@ -106,9 +101,13 @@ func (app *Application) validatePaths() error {
 	}
 
 	// Check outputs path (optional)
-	outputPath := app.config.getOutputPath()
-	if _, err := os.Stat(outputPath); os.IsNotExist(err) {
-		logger.Info("TM outputs directory does not exist, will be created when needed", "path", outputPath)
+	outputPath, err := app.config.getOutputPath()
+	if err != nil {
+		logger.Warn("Could not determine output path", "error", err)
+	} else {
+		if _, err := os.Stat(outputPath); os.IsNotExist(err) {
+			logger.Info("TM outputs directory does not exist, will be created when needed", "path", outputPath)
+		}
 	}
 
 	return nil
@@ -166,8 +165,9 @@ func (app *Application) statusReporter() {
 			return
 		case <-ticker.C:
 			stats := app.syncManager.GetStats()
-			logger.Info("Sync status", 
-				"files_synced", stats.FilesSync,
+			logger.Info("Sync status",
+				"files_uploaded", stats.FilesUploaded,
+				"files_downloaded", stats.FilesDownloaded,
 				"directories_synced", stats.DirectoriesSync,
 				"errors", stats.Errors,
 				"last_sync", stats.LastSync.Format("2006-01-02 15:04:05"),

@@ -10,7 +10,8 @@ import (
 // Config represents the application configuration
 type Config struct {
 	ICloudParentFolder string `json:"icloud_parent_folder"`
-	LocalTMPath        string `json:"local_tm_path"`
+	ApiEndpoint        string `json:"api_endpoint"`
+	ApiKey             string `json:"api_key"`
 	SyncInterval       int    `json:"sync_interval"`
 	LogLevel           string `json:"log_level"`
 	BackupEnabled      bool   `json:"backup_enabled"`
@@ -20,8 +21,9 @@ type Config struct {
 func DefaultConfig() *Config {
 	return &Config{
 		ICloudParentFolder: "TM_Cases",
-		LocalTMPath:        "/Users/corelogic/satori-dev/TM/test-data/sync-test-cases",
-		SyncInterval:       30,
+		ApiEndpoint:        "http://localhost:8000/api/icloud/upload",
+		ApiKey:             "your_api_key_here",
+		SyncInterval:       10,
 		LogLevel:           "info",
 		BackupEnabled:      true,
 	}
@@ -88,8 +90,12 @@ func validateConfig(config *Config) error {
 		return fmt.Errorf("icloud_parent_folder cannot be empty")
 	}
 
-	if config.LocalTMPath == "" {
-		return fmt.Errorf("local_tm_path cannot be empty")
+	if config.ApiEndpoint == "" {
+		return fmt.Errorf("api_endpoint cannot be empty")
+	}
+
+	if config.ApiKey == "" {
+		return fmt.Errorf("api_key cannot be empty")
 	}
 
 	if config.SyncInterval < 1 {
@@ -105,11 +111,6 @@ func validateConfig(config *Config) error {
 	}
 	if !validLogLevels[config.LogLevel] {
 		return fmt.Errorf("invalid log_level: %s (must be debug, info, warn, or error)", config.LogLevel)
-	}
-
-	// Validate local TM path exists
-	if _, err := os.Stat(config.LocalTMPath); os.IsNotExist(err) {
-		return fmt.Errorf("local_tm_path does not exist: %s", config.LocalTMPath)
 	}
 
 	return nil
@@ -133,8 +134,13 @@ func (c *Config) getICloudPath() (string, error) {
 }
 
 // getOutputPath returns the path to TM outputs directory
-func (c *Config) getOutputPath() string {
-	// Assume outputs directory is in the parent of test-data
-	tmDir := filepath.Dir(filepath.Dir(c.LocalTMPath)) // Go up from test-data/sync-test-cases to TM
-	return filepath.Join(tmDir, "outputs")
+func (c *Config) getOutputPath() (string, error) {
+    homeDir, err := os.UserHomeDir()
+    if err != nil {
+        return "", fmt.Errorf("failed to get user home directory: %w", err)
+    }
+    // This is a bit of a guess, we might need a better way to configure this.
+    // For now, let's assume a path relative to the user's home directory.
+    // This should be updated if the TM project structure is known.
+    return filepath.Join(homeDir, "satori-dev", "TM", "outputs"), nil
 }
