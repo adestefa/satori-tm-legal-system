@@ -1,0 +1,18 @@
+{
+  "generation_timestamp": "2025-07-09T22:15:48.398956",
+  "beaver_version": "1.0.0",
+  "document_types": [
+    "complaint"
+  ],
+  "source_case_id": null,
+  "source_confidence": null,
+  "source_documents": [],
+  "case_information": {
+    "case_number": "1.25-cv-01987",
+    "court_district": "Eastern District of New York",
+    "plaintiff_name": null,
+    "defendant_count": 0
+  },
+  "generation_date": "2025-07-09T22:15:48.399361",
+  "success": true
+}

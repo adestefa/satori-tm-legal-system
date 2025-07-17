@@ -50,8 +50,12 @@ Then we will consider how we can use a headless chrome instance in a container o
 
 In the meantime we will rely on the user to simply use the browser and click print to pdf themselves. We will finish all other work and leve that last. 
 
-**ALWAYS** make a backup before you make any changes to the code during the start of each new phase.
+**ALWAYS** 
+
+1. make a backup before you make any changes to the code during the start of each new phase.
 scripts/backup.sh "<VERSION>, <DESC OF PHASE AND CHECKPOINT>"
+
+2. Any major changes should be in a feature branch and merged through PR.
 
 </MANDATORY_RULES>
 
@@ -80,6 +84,10 @@ scripts/backup.sh "<VERSION>, <DESC OF PHASE AND CHECKPOINT>"
 3. Monkey Service: `/Users/corelogic/satori-dev/TM/monkey_service/CLAUDE.md`
 4. Dashboard Service: `/Users/corelogic/satori-dev/TM/dashboard/CLAUDE.md`
 5. Browser Service: `/Users/corelogic/satori-dev/TM/browser/CLAUDE.md`
-6. Testing `/Users/corelogic/satori-dev/TM/0_how_to_test.md` 
+6. Testing `/Users/corelogic/satori-dev/TM/0_how_to_test.md`
+
+
+**CURRENT BLOCKER PRIORITY**
+we failed at implementing icloud sync service using python and icloudpd. We are scrapping that idea for a new plan using golang adapter to use the OS to connect to the filesystem directly and read from icloud local folder. Then use REST APIS and webworkers to sync the files to the Linode server. We need to create a plan to implement a adapter service to sync with icloud: `/Users/corelogic/satori-dev/TM/isync/new_plan/go_adapter.md`
 
 </PROJECT_MEMORIES>>

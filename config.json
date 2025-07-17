@@ -1,0 +1,7 @@
+{
+  "icloud_parent_folder": "CASES",
+  "local_tm_path": "/Users/corelogic/satori-dev/TM/test-data/sync-test-cases",
+  "sync_interval": 30,
+  "log_level": "info",
+  "backup_enabled": false
+}
