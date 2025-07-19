@@ -3,6 +3,7 @@ import json
 import logging
 import hashlib
 import glob
+import shutil
 from datetime import datetime, timedelta
 from fastapi import FastAPI, HTTPException, Query, Request, File, UploadFile, WebSocket, WebSocketDisconnect, Depends, Cookie
 from fastapi.staticfiles import StaticFiles
@@ -149,7 +150,7 @@ def require_auth(user: dict = Depends(get_current_user)) -> dict:
     return user
 
 # --- Configuration ---
-APP_VERSION = "2.0.0"  # Major release: Added standalone case file upload service to replace iCloud sync
+APP_VERSION = "2.1.0"  # Enhanced: Added deployment infrastructure and Go adapter for iCloud filesystem integration
 
 # Global session manager
 session_manager = SessionManager()
@@ -1053,6 +1054,23 @@ async def generate_complaint_html(case_id: str):
             if not case.progress.reviewed:
                 case.progress.reviewed = True
             data_manager.update_case_status(case_id, CaseStatus.COMPLETE)
+            
+            # Broadcast complaint generation complete event
+            # Note: Using asyncio.run() in a thread requires care
+            try:
+                event_data = {
+                    "type": "complaint_generated",
+                    "case_id": case_id,
+                    "timestamp": datetime.now().isoformat(),
+                    "message": f"Complaint generation completed for {case_id}"
+                }
+                # Create new event loop for this thread
+                loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(loop)
+                loop.run_until_complete(connection_manager.broadcast_event(event_data))
+                loop.close()
+            except Exception as e:
+                print(f"Error broadcasting complaint generation event: {e}")
         except Exception as e:
             print(f"Error generating complaint for case {case_id}: {e}")
             data_manager.update_case_status(case_id, CaseStatus.ERROR)
