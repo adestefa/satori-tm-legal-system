@@ -67,7 +67,7 @@ class SatoriConfig:
         
         # Service metadata
         self.service_name = "Satori Tiger Document Parser"
-        self.version = "1.8.3"
+        self.version = "1.9.0"
         self.author = "Satori Development Team"
         
         # Load custom config if provided
