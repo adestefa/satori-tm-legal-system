@@ -250,16 +250,141 @@ class CaseConsolidator:
         return None
 
     def _extract_defendants_from_atty_notes(self, text: str) -> List[str]:
-        """Extract defendant names from the DEFENDANTS section in attorney notes."""
-        defendants = []
+        """Enhanced extraction of defendant names from attorney notes using multiple patterns."""
+        defendants = set()
+        
+        # Pattern 1: Traditional DEFENDANTS section
         match = re.search(r'DEFENDANTS:\s*([\s\S]*?)(?=\n\n|\Z|BACKGROUND:)', text, re.IGNORECASE)
         if match:
             defendants_block = match.group(1).strip()
             # Split by newline and remove the leading dash and any whitespace
-            defendants = [line.strip().lstrip('-').strip() for line in defendants_block.split('\n') if line.strip()]
+            section_defendants = [line.strip().lstrip('-').strip() for line in defendants_block.split('\n') if line.strip()]
+            defendants.update(section_defendants)
         
-        self.logger.info(f"Extracted {len(defendants)} defendants from attorney notes: {defendants}")
-        return defendants
+        # Pattern 2: Extract banks and financial institutions mentioned in context
+        bank_patterns = [
+            r'(TD Bank(?:\s+(?:Credit\s+)?Card)?)',
+            r'(Capital One(?:\s+N\.A\.)?)',
+            r'(Barclays(?:\s+Bank)?(?:\s+Delaware)?)',
+            r'(Bank of America(?:\s+N\.A\.)?)',
+            r'(Citibank(?:\s+N\.A\.)?)',
+            r'(Chase(?:\s+Bank)?)',
+            r'(Wells Fargo(?:\s+Bank)?)',
+            r'(American Express)',
+            r'(Discover(?:\s+Bank)?)',
+            r'(Synchrony(?:\s+Bank)?)'
+        ]
+        
+        for pattern in bank_patterns:
+            matches = re.findall(pattern, text, re.IGNORECASE)
+            for match in matches:
+                if match.strip():
+                    # Normalize bank names
+                    normalized_name = self._normalize_bank_name(match.strip())
+                    defendants.add(normalized_name)
+        
+        # Pattern 3: Credit agencies if mentioned as problematic
+        cra_patterns = [
+            r'(Equifax(?:\s+Information\s+Services)?(?:\s+LLC)?)',
+            r'(Experian(?:\s+Information\s+Solutions)?)',
+            r'(TransUnion(?:\s+LLC)?)',
+            r'(Trans\s+Union(?:\s+LLC)?)'
+        ]
+        
+        for pattern in cra_patterns:
+            matches = re.findall(pattern, text, re.IGNORECASE)
+            for match in matches:
+                if match.strip():
+                    normalized_name = self._normalize_cra_name(match.strip())
+                    defendants.add(normalized_name)
+        
+        defendants_list = list(defendants)
+        self.logger.info(f"Extracted {len(defendants_list)} defendants from attorney notes: {defendants_list}")
+        return defendants_list
+    
+    def _normalize_bank_name(self, bank_name: str) -> str:
+        """Normalize bank names to standard format."""
+        name_lower = bank_name.lower()
+        
+        # Normalize common variations
+        if 'td bank' in name_lower:
+            return 'TD BANK, N.A.'
+        elif 'capital one' in name_lower:
+            return 'CAPITAL ONE, N.A.'
+        elif 'barclays' in name_lower:
+            return 'BARCLAYS BANK DELAWARE'
+        elif 'bank of america' in name_lower:
+            return 'BANK OF AMERICA, N.A.'
+        elif 'citibank' in name_lower:
+            return 'CITIBANK, N.A.'
+        elif 'chase' in name_lower:
+            return 'JPMORGAN CHASE BANK, N.A.'
+        elif 'wells fargo' in name_lower:
+            return 'WELLS FARGO BANK, N.A.'
+        elif 'american express' in name_lower:
+            return 'AMERICAN EXPRESS COMPANY'
+        elif 'discover' in name_lower:
+            return 'DISCOVER BANK'
+        elif 'synchrony' in name_lower:
+            return 'SYNCHRONY BANK'
+        else:
+            return bank_name.upper()
+    
+    def _normalize_cra_name(self, cra_name: str) -> str:
+        """Normalize credit reporting agency names to standard format."""
+        name_lower = cra_name.lower()
+        
+        if 'equifax' in name_lower:
+            return 'EQUIFAX INFORMATION SERVICES LLC'
+        elif 'experian' in name_lower:
+            return 'EXPERIAN INFORMATION SOLUTIONS, INC.'
+        elif 'transunion' in name_lower or 'trans union' in name_lower:
+            return 'TRANS UNION LLC'
+        else:
+            return cra_name.upper()
+    
+    def _extract_defendants_from_denial_letters(self, extraction_results: List[ExtractionResult]) -> List[str]:
+        """Extract defendants from denial letters by identifying creditors and issuers."""
+        defendants = set()
+        
+        for result in extraction_results:
+            filename = os.path.basename(result.file_path).lower()
+            text = result.extracted_text
+            
+            # Check if this is a denial letter
+            if any(keyword in filename for keyword in ['denial', 'adverse', 'rejection']) or \
+               any(phrase in text.lower() for phrase in ['denial', 'adverse action', 'cannot approve', 'unable to approve']):
+                
+                # Extract creditor from "Creditor:" field
+                creditor_match = re.search(r'Creditor:\s*([^\n]+)', text, re.IGNORECASE)
+                if creditor_match:
+                    creditor = creditor_match.group(1).strip()
+                    normalized_creditor = self._normalize_bank_name(creditor)
+                    defendants.add(normalized_creditor)
+                    self.logger.info(f"Found creditor in denial letter: {normalized_creditor}")
+                
+                # Extract issuer from letter header/footer
+                issuer_patterns = [
+                    r'(Barclays(?:\s+Bank)?(?:\s+Delaware)?)',
+                    r'(Capital One(?:\s+N\.A\.)?)',
+                    r'issued by\s+([^,\n]+)',
+                    r'Sincerely,\s*([^\n]+)',
+                    r'^([A-Z][A-Za-z\s&]+)(?:\s+P\.O\.|\s+\d+)'  # Company name at start of line
+                ]
+                
+                for pattern in issuer_patterns:
+                    matches = re.findall(pattern, text, re.IGNORECASE | re.MULTILINE)
+                    for match in matches:
+                        if match.strip() and len(match.strip()) > 3:
+                            # Filter out generic terms
+                            if not any(generic in match.lower() for generic in ['customer', 'care', 'team', 'services', 'box']):
+                                normalized_issuer = self._normalize_bank_name(match.strip())
+                                defendants.add(normalized_issuer)
+                                self.logger.info(f"Found issuer in denial letter: {normalized_issuer}")
+        
+        defendants_list = list(defendants)
+        self.logger.info(f"Extracted {len(defendants_list)} defendants from denial letters: {defendants_list}")
+        return defendants_list
 
     def _consolidate_parties(self, consolidated: ConsolidatedCase, all_entities: List[Dict], extraction_results: List[ExtractionResult]):
         """Consolidate plaintiff and defendant information"""
@@ -280,6 +405,11 @@ class CaseConsolidator:
                 defendants_from_notes = self._extract_defendants_from_atty_notes(text)
                 for defendant_name in defendants_from_notes:
                     defendant_names.add(defendant_name)
+
+        # Extract defendants from denial letters (enhanced functionality)
+        defendants_from_denials = self._extract_defendants_from_denial_letters(extraction_results)
+        for defendant_name in defendants_from_denials:
+            defendant_names.add(defendant_name)
 
         for doc_entities in all_entities:
             self.logger.info(f"Processing entities from: {doc_entities.get('file_path')}")
