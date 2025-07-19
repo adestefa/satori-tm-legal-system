@@ -158,3 +158,64 @@ temp/
 
 # Docker (for future use)
 .dockerignore
+
+# CLIENT DATA PROTECTION - Shadow Repository Strategy
+# =====================================================
+# Client documents and case files are managed in separate shadow repository
+# for security, compliance, and audit purposes
+
+# Test data with real client information
+test-data/sync-test-cases/*/
+!test-data/sync-test-cases/*/processing_manifest.txt
+!test-data/sync-test-cases/README.md
+
+# Dashboard outputs containing client data
+dashboard/outputs/*/
+!dashboard/outputs/README.md
+
+# Tiger service outputs
+tiger/outputs/*/
+!tiger/outputs/README.md
+
+# Monkey service outputs with generated documents
+monkey/outputs/*/
+monkey/output/*/
+!monkey/outputs/README.md
+
+# Browser service PDF outputs
+browser/outputs/*/
+browser/test-outputs/*/
+!browser/outputs/README.md
+
+# iCloud sync adapter local data
+isync/adapter/sync-data/
+isync/adapter/uploads/
+isync/adapter/downloads/
+
+# Session and authentication data
+**/icloud_session_data/
+**/session_data/
+**/*.session
+**/*.cookiejar
+
+# Sensitive configuration files with client info
+**/config-production.json
+**/config-local.json
+!**/config-template.json
+!**/config-example.json
+
+# Legal document templates with firm-specific info
+**/templates-custom/
+**/templates-private/
+
+# Backup files that may contain client data
+*.tar.gz
+*.zip
+*-backup-*
+client-*
+case-*
+
+# Logs that may contain sensitive information
+**/processing.log
+**/sync.log
+**/upload.log
