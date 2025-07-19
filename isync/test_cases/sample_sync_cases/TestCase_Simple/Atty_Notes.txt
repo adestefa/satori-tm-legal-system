@@ -1,0 +1,35 @@
+CASE: Test Case Simple - FCRA Violation
+
+CLIENT: John Smith
+EMAIL: john.smith@email.com
+PHONE: (555) 123-4567
+ADDRESS: 123 Main Street, Anytown, NY 10001
+
+DEFENDANTS:
+- Equifax Information Services LLC
+- Experian Information Solutions Inc
+- TransUnion LLC
+
+CASE DETAILS:
+Date of Report: 01/15/2024
+Credit Report Error: Incorrect account status showing as "charged off" when account was paid in full
+Dispute Date: 01/20/2024
+Response: No correction made after 30 days
+
+VIOLATIONS:
+- 15 USC 1681e(b) - Failure to follow reasonable procedures
+- 15 USC 1681i(a) - Failure to conduct reasonable investigation
+
+DAMAGES:
+- Actual damages: Denied credit application for auto loan
+- Statutory damages: $1,000 per violation per defendant
+- Attorney fees and costs
+
+TIMELINE:
+01/15/2024 - Client obtained credit report
+01/20/2024 - Filed dispute with all three bureaus
+02/25/2024 - 30-day investigation period expired
+03/01/2024 - Client contacted attorney
+
+NOTES:
+Simple FCRA case with clear violations. Good test case for system validation.

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- Service Identification -->
+    <key>Label</key>
+    <string>{service_name}</string>
+    
+    <!-- Program Configuration -->
+    <key>Program</key>
+    <string>{binary_path}</string>
+    
+    <key>ProgramArguments</key>
+    <array>
+        <string>{binary_path}</string>
+        <string>-config</string>
+        <string>{config_path}</string>
+    </array>
+    
+    <!-- Working Directory -->
+    <key>WorkingDirectory</key>
+    <string>{install_dir}</string>
+    
+    <!-- Environment Variables -->
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>HOME</key>
+        <string>{home_dir}</string>
+        <key>PATH</key>
+        <string>/usr/local/bin:/usr/bin:/bin</string>
+        <key>TM_ISYNC_HOME</key>
+        <string>{install_dir}</string>
+    </dict>
+    
+    <!-- Service Behavior -->
+    <key>RunAtLoad</key>
+    <true/>
+    
+    <key>KeepAlive</key>
+    <dict>
+        <key>SuccessfulExit</key>
+        <false/>
+        <key>Crashed</key>
+        <true/>
+    </dict>
+    
+    <!-- Restart Configuration -->
+    <key>ThrottleInterval</key>
+    <integer>10</integer>
+    
+    <key>StartInterval</key>
+    <integer>300</integer>
+    
+    <!-- Logging Configuration -->
+    <key>StandardOutPath</key>
+    <string>{log_path}</string>
+    
+    <key>StandardErrorPath</key>
+    <string>{error_log_path}</string>
+    
+    <!-- Process Configuration -->
+    <key>Nice</key>
+    <integer>1</integer>
+    
+    <key>ProcessType</key>
+    <string>Background</string>
+    
+    <!-- Resource Limits -->
+    <key>SoftResourceLimits</key>
+    <dict>
+        <key>NumberOfFiles</key>
+        <integer>1024</integer>
+        <key>NumberOfProcesses</key>
+        <integer>100</integer>
+    </dict>
+    
+    <!-- Security -->
+    <key>UserName</key>
+    <string>{user_name}</string>
+    
+    <!-- iCloud Integration -->
+    <key>LimitLoadToSessionType</key>
+    <array>
+        <string>Aqua</string>
+    </array>
+    
+    <!-- Additional Configuration -->
+    <key>AbandonProcessGroup</key>
+    <true/>
+    
+    <key>ExitTimeOut</key>
+    <integer>30</integer>
+    
+    <!-- Service Description -->
+    <key>ServiceDescription</key>
+    <string>TM iCloud Sync Adapter - Synchronizes Tiger-Monkey case files with iCloud Drive</string>
+</dict>
+</plist>

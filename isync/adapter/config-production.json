@@ -1,0 +1,9 @@
+{
+  "icloud_parent_folder": "CASES",
+  "api_endpoint": "http://198.74.59.11/api/icloud/upload",
+  "api_key": "your-production-api-key",
+  "sync_interval": 30,
+  "log_level": "info",
+  "backup_enabled": true,
+  "environment": "production"
+}

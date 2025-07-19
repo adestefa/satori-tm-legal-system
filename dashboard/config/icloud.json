@@ -1,0 +1,6 @@
+{
+  "folder": "CASES",
+  "sync_interval": 30,
+  "log_level": "info",
+  "backup_enabled": false
+}
