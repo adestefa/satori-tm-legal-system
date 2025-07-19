@@ -442,8 +442,8 @@ window.handleManualRefresh = handleManualRefresh;
 
 // DOM ready initialization
 document.addEventListener('DOMContentLoaded', () => {
-    // Version and path verification console logs (v2.0.0)
-    console.log('🔍 DASHBOARD VERSION: 2.0.0 - Case upload service added, polling disabled');
+    // Version and path verification console logs (v2.1.0)
+    console.log('🔍 DASHBOARD VERSION: 2.1.0 - Case upload service added, polling disabled');
     console.log('🔍 TIGER RESOURCES PATH: tiger/app/resources/legal-spec/NY_FCRA.json');
     console.log('📄 DOM loaded, starting initialization...');
     initialize();

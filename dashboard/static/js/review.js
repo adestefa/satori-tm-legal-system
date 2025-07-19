@@ -1,9 +1,54 @@
 // dashboard/static/review/js/review.js
 
+let websocket = null;
+
 function getCaseId() {
     const params = new URLSearchParams(window.location.search);
     const caseId = params.get('case_id');
     return caseId ? caseId.toLowerCase() : caseId;
+}
+
+function initializeWebSocket() {
+    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    const wsUrl = `${protocol}//${window.location.host}/ws`;
+    
+    try {
+        websocket = new WebSocket(wsUrl);
+        
+        websocket.onopen = () => {
+            console.log('WebSocket connected for real-time updates');
+        };
+        
+        websocket.onmessage = (event) => {
+            try {
+                const data = JSON.parse(event.data);
+                console.log('WebSocket message received:', data);
+                
+                // Handle complaint generation complete event
+                if (data.type === 'complaint_generated') {
+                    const resolvers = window.complaintGenerationResolvers || {};
+                    const resolver = resolvers[data.case_id];
+                    if (resolver) {
+                        console.log(`Complaint ready for case ${data.case_id}`);
+                        resolver();
+                    }
+                }
+            } catch (error) {
+                console.error('Error processing WebSocket message:', error);
+            }
+        };
+        
+        websocket.onerror = (error) => {
+            console.error('WebSocket error:', error);
+        };
+        
+        websocket.onclose = () => {
+            console.log('WebSocket disconnected');
+            // Optionally implement reconnection logic here
+        };
+    } catch (error) {
+        console.error('Failed to initialize WebSocket:', error);
+    }
 }
 
 function checkAndShowValidationAlert(caseId, caseData) {
@@ -695,13 +740,44 @@ async function generateComplaint(caseId) {
             console.error('Error auto-generating summons:', summonsError);
         }
 
-        // Wait a moment for both generations to complete
-        await new Promise(resolve => setTimeout(resolve, 3000));
-
-        // Fetch the generated HTML
-        const htmlResponse = await fetch(`/api/cases/${caseId}/complaint-html`);
-        if (!htmlResponse.ok) {
-            throw new Error(`Failed to fetch complaint HTML: ${htmlResponse.status}`);
+        // Set up promise to wait for WebSocket notification
+        generateBtn.textContent = 'Processing...';
+        
+        // Create a promise that resolves when we receive the WebSocket event
+        const complaintReadyPromise = new Promise((resolve, reject) => {
+            const timeout = setTimeout(() => {
+                reject(new Error('Complaint generation timed out. Please try refreshing the page.'));
+            }, 60000); // 60 second timeout
+            
+            // Store resolver to be called from WebSocket handler
+            window.complaintGenerationResolvers = window.complaintGenerationResolvers || {};
+            window.complaintGenerationResolvers[caseId] = () => {
+                clearTimeout(timeout);
+                resolve();
+            };
+        });
+        
+        // Wait for the complaint to be ready
+        try {
+            await complaintReadyPromise;
+            generateBtn.textContent = 'Fetching complaint...';
+            
+            // Now fetch the generated complaint
+            const htmlResponse = await fetch(`/api/cases/${caseId}/complaint-html`);
+            if (!htmlResponse.ok) {
+                throw new Error(`Failed to fetch complaint HTML: ${htmlResponse.status}`);
+            }
+            
+            // Clean up resolver
+            delete window.complaintGenerationResolvers[caseId];
+            
+            // Continue with the response - htmlContent will be used below
+        } catch (error) {
+            // Clean up resolver on error
+            if (window.complaintGenerationResolvers) {
+                delete window.complaintGenerationResolvers[caseId];
+            }
+            throw error;
         }
 
         const htmlContent = await htmlResponse.text();
@@ -761,6 +837,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     console.log(`Case ID is: ${caseId}`);
+    
+    // Initialize WebSocket connection for real-time updates
+    initializeWebSocket();
     
     // Setup tab switching
     setupTabSwitching();

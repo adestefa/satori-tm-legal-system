@@ -12,8 +12,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- JSONP Version Management -->
+    <script src="/static/version.js"></script>
     <script>
-        const SATORI_VERSION = "2.0.0";  // Major release: Added standalone case file upload service
+        // Legacy compatibility - now sourced from JSONP
+        const SATORI_VERSION = window.satoriVersion?.version || "2.1.1";
     </script>
     <style>
         /* Custom styles to apply the Inter font */
@@ -184,7 +187,7 @@
                     <svg class="h-4 w-4 text-slate-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                     </svg>
-                    <span>Powered by Satori AI v2.0.0</span>
+                    <span class="powered-by-satori">Powered by Satori AI v2.1.1</span>
                 </div>
             </div>
         </aside>
@@ -274,11 +277,12 @@
             </div>
         </main>
     </div>
-    <script src="/themes/light/js/config.js?v=2.0.0&t=20250715-120000" type="module"></script>
-    <script src="/themes/light/js/api.js?v=2.0.0&t=20250715-120000" type="module"></script>
-    <script src="/themes/light/js/ani.js?v=2.0.0&t=20250715-120000" type="module"></script>
-    <script src="/themes/light/js/ui.js?v=2.0.0&t=20250715-120000" type="module"></script>
-    <script src="/themes/light/js/eventHandlers.js?v=2.0.0&t=20250715-120000" type="module"></script>
-    <script src="/themes/light/js/main.js?v=2.0.0&t=20250715-120000" type="module"></script>
+    <!-- Static script loading with JSONP version references -->
+    <script src="/themes/light/js/config.js?v=2.1.1&t=20250719-130000" type="module"></script>
+    <script src="/themes/light/js/api.js?v=2.1.1&t=20250719-130000" type="module"></script>
+    <script src="/themes/light/js/ani.js?v=2.1.1&t=20250719-130000" type="module"></script>
+    <script src="/themes/light/js/ui.js?v=2.1.1&t=20250719-130000" type="module"></script>
+    <script src="/themes/light/js/eventHandlers.js?v=2.1.1&t=20250719-130000" type="module"></script>
+    <script src="/themes/light/js/main.js?v=2.1.1&t=20250719-130000" type="module"></script>
 </body>
 </html>

@@ -4,6 +4,7 @@ import logging
 import hashlib
 import glob
 import shutil
+import subprocess
 from datetime import datetime, timedelta
 from fastapi import FastAPI, HTTPException, Query, Request, File, UploadFile, WebSocket, WebSocketDisconnect, Depends, Cookie
 from fastapi.staticfiles import StaticFiles
@@ -150,7 +151,68 @@ def require_auth(user: dict = Depends(get_current_user)) -> dict:
     return user
 
 # --- Configuration ---
-APP_VERSION = "2.1.0"  # Enhanced: Added deployment infrastructure and Go adapter for iCloud filesystem integration
+APP_VERSION = "2.1.1"  # JSONP Version Management: Automated frontend version synchronization system
+
+def get_git_commit():
+    """Get current git commit hash for version tracking"""
+    try:
+        result = subprocess.run(['git', 'rev-parse', '--short', 'HEAD'], 
+                              capture_output=True, text=True, cwd=os.path.dirname(__file__))
+        return result.stdout.strip() if result.returncode == 0 else "unknown"
+    except Exception:
+        return "unknown"
+
+def generate_version_file():
+    """Generate JSONP version file for frontend consumption"""
+    try:
+        version_data = f'''// SATORI AI VERSION MANAGEMENT (JSONP)
+// ====================================
+// Single source of truth for all version references
+// Auto-generated on server startup
+
+window.satoriVersion = {{
+    version: "{APP_VERSION}",
+    buildDate: "{datetime.now().strftime('%Y-%m-%d')}",
+    gitCommit: "{get_git_commit()}",
+    environment: "{os.getenv('ENVIRONMENT', 'development')}",
+    features: {{
+        deployment_infrastructure: true,
+        go_adapter: true,
+        shadow_repository: true,
+        client_data_protection: true
+    }},
+    // Cache busting parameter for asset loading
+    cacheBuster: "{datetime.now().strftime('%Y%m%d%H')}"
+}};
+
+// Auto-update DOM elements with version class
+if (typeof document !== 'undefined') {{
+    document.addEventListener('DOMContentLoaded', function() {{
+        // Update version display elements
+        document.querySelectorAll('.version-display, .satori-version').forEach(el => {{
+            el.textContent = `v${{window.satoriVersion.version}}`;
+        }});
+        
+        // Update powered-by elements
+        document.querySelectorAll('.powered-by-satori').forEach(el => {{
+            el.textContent = `Powered by Satori AI v${{window.satoriVersion.version}}`;
+        }});
+        
+        // Console logging for debugging
+        console.log(`🚀 Satori AI Tiger-Monkey v${{window.satoriVersion.version}} - ${{window.satoriVersion.environment}}`);
+        console.log(`📅 Build: ${{window.satoriVersion.buildDate}} | Commit: ${{window.satoriVersion.gitCommit}}`);
+    }});
+}}'''
+        
+        version_file_path = os.path.join(os.path.dirname(__file__), "static", "version.js")
+        with open(version_file_path, "w") as f:
+            f.write(version_data)
+        
+        logging.info(f"✅ Generated version.js: {APP_VERSION} ({get_git_commit()})")
+        return True
+    except Exception as e:
+        logging.error(f"❌ Failed to generate version.js: {e}")
+        return False
 
 # Global session manager
 session_manager = SessionManager()
@@ -206,6 +268,10 @@ output_file_watcher = FileWatcher(OUTPUT_DIR, data_manager, connection_manager)
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     print("Starting application...")
+    
+    # Generate version.js file on startup
+    generate_version_file()
+    
     source_watcher_thread = threading.Thread(target=source_file_watcher.start, daemon=True)
     output_watcher_thread = threading.Thread(target=output_file_watcher.start, daemon=True)
     source_watcher_thread.start()
