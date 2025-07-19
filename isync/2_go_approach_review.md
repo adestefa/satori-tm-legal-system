@@ -1,3 +1,16 @@
+
+NOTE: BELOW IS A REVIEW FROM A PAST AGENT WHO'S GOAL WAS TO SOLVE FOR ICLOUD AUTHENTICATION USING AN OLD CONTAINERIZATION APPROACH 
+WE NO LONGER WANT TO USE DOCKER AND OPT FOR BARE METAL NGINX REVERSE PROXY AND BARE METAL PYTHON. 
+In this way we can build up a linode $24 VPS into a Legal-Aent-VPS and then clone it. 
+This avoides extra docker compose and virtual networking complexities. 
+Straight forward clone of entier VPS and everything is already installed just have to run.
+We then white labeled the dashboard such that we can drive it through a json config that is passed at setup time to hard code the values into proper HTML and other files in the app to provided client branding and global values. 
+
+In this way we achchive the same level of docker containerization at the VPS level but with a much simpler setup and less complexity. Take this into account when reviewing this file. I do want you to check if any of the elements stated missing in this review are fixed or still needed to execute. 
+
+
+------------
+
 # Go Filesystem Approach Review for iCloud Sync Integration
 
 ## Executive Summary

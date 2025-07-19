@@ -1,4 +1,0 @@
-demo_document.txt|processing|2025-07-16T23:19:25.150489|null|255|null|null
-client_notes.txt|processing|2025-07-16T23:19:25.150489|null|352|null|null
-demo_document.txt|success|2025-07-16T23:19:25.150489|2025-07-16T23:19:25.694698|255|542|null
-client_notes.txt|success|2025-07-16T23:19:25.150489|2025-07-16T23:19:25.694698|352|542|null
