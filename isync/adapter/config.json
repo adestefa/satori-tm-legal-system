@@ -1,7 +1,8 @@
 {
-  "icloud_parent_folder": "TM_Cases",
-  "local_tm_path": "/Users/corelogic/satori-dev/TM/test-data/sync-test-cases",
+  "icloud_parent_folder": "CASES",
+  "api_endpoint": "http://127.0.0.1:8000/api/icloud/upload",
+  "api_key": "your-secure-api-key",
   "sync_interval": 30,
   "log_level": "info",
-  "backup_enabled": true
+  "backup_enabled": false
 }

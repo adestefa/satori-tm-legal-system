@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ branding.dashboard.title }}</title>
+    <link rel="icon" type="image/x-icon" href="{{ branding.dashboard.favicon_url }}">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Hard-coded configuration for performance -->
+    <script>
+        window.TM_CONFIG = {
+            firm: {
+                name: "{{ firm.name }}",
+                phone: "{{ firm.contact.phone }}",
+                email: "{{ firm.contact.email }}"
+            },
+            branding: {
+                title: "{{ branding.dashboard.title }}",
+                subtitle: "{{ branding.dashboard.subtitle }}",
+                logo_url: "{{ branding.dashboard.logo_url }}"
+            },
+            app: {
+                version: "{{ deployment.version }}",
+                instance_id: "{{ deployment.instance_id }}"
+            }
+        };
+    </script>
+</head>
+<body class="bg-gray-50">
+    <header class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-4">
+                    <img src="{{ branding.dashboard.logo_url }}" alt="{{ firm.name }}" class="h-8 w-auto">
+                    <div>
+                        <h1 class="text-xl font-semibold text-gray-900">{{ branding.dashboard.title }}</h1>
+                        <p class="text-sm text-gray-600">{{ branding.dashboard.subtitle }}</p>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <p class="text-sm font-medium text-gray-900">{{ firm.name }}</p>
+                    <p class="text-xs text-gray-600">{{ firm.contact.phone }}</p>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <!-- Rest of dashboard content remains templated but with firm branding embedded -->
+        <div id="case-grid" class="flex flex-wrap gap-6">
+            <!-- Dynamic case cards loaded via JavaScript -->
+        </div>
+    </main>
+
+    <!-- Load JavaScript with version for cache-busting -->
+    <script src="/static/themes/light/js/config.js?v={{ deployment.version }}"></script>
+    <script src="/static/themes/light/js/main.js?v={{ deployment.version }}"></script>
+</body>
+</html>

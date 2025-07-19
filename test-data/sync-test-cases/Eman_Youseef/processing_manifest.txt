@@ -1,0 +1,8 @@
+Barclays_Applicaiton_Denial_1.docx|processing|2025-07-17T13:19:15.934700|null|15546|null|null
+Adverse_Action_Letter_Cap_One.pdf|processing|2025-07-17T13:19:15.934700|null|156132|null|null
+Atty_Notes.docx|processing|2025-07-17T13:19:15.934700|null|14785|null|null
+Barclays_Applicaiton_Denial_2.docx|processing|2025-07-17T13:19:15.934700|null|15388|null|null
+Barclays_Applicaiton_Denial_1.docx|success|2025-07-17T13:19:15.934700|2025-07-17T13:19:35.048776|15546|19110|null
+Adverse_Action_Letter_Cap_One.pdf|success|2025-07-17T13:19:15.934700|2025-07-17T13:19:35.048776|156132|19110|null
+Atty_Notes.docx|success|2025-07-17T13:19:15.934700|2025-07-17T13:19:35.048776|14785|19110|null
+Barclays_Applicaiton_Denial_2.docx|success|2025-07-17T13:19:15.934700|2025-07-17T13:19:35.048776|15388|19110|null

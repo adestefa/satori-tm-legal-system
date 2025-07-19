@@ -1,0 +1,8 @@
+{
+  "icloud_parent_folder": "CASES",
+  "api_endpoint": "http://127.0.0.1:8000/api/icloud/upload",
+  "api_key": "test-key-123",
+  "sync_interval": 30,
+  "log_level": "info",
+  "backup_enabled": false
+}

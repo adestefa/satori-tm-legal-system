@@ -1,0 +1,69 @@
+{
+  "deployment": {
+    "instance_id": "tm-{{CLIENT_ID}}-001",
+    "deployment_date": "{{DEPLOYMENT_DATE}}",
+    "version": "v1.9.2",
+    "environment": "production"
+  },
+  
+  "firm": {
+    "name": "{{FIRM_NAME}}",
+    "legal_name": "{{FIRM_LEGAL_NAME}}",
+    "address": {
+      "street": "{{FIRM_STREET}}",
+      "city": "{{FIRM_CITY}}",
+      "state": "{{FIRM_STATE}}",
+      "zip_code": "{{FIRM_ZIP}}",
+      "country": "USA"
+    },
+    "contact": {
+      "phone": "{{FIRM_PHONE}}",
+      "email": "{{FIRM_EMAIL}}",
+      "website": "{{FIRM_WEBSITE}}"
+    },
+    "bar_admission": "{{BAR_ADMISSION_TEXT}}"
+  },
+  
+  "branding": {
+    "dashboard": {
+      "title": "{{DASHBOARD_TITLE}}",
+      "subtitle": "{{DASHBOARD_SUBTITLE}}",
+      "logo_url": "/static/branding/{{CLIENT_ID}}/logo.png",
+      "favicon_url": "/static/branding/{{CLIENT_ID}}/favicon.ico",
+      "theme_default": "{{DEFAULT_THEME}}"
+    },
+    "login": {
+      "title": "{{LOGIN_TITLE}}",
+      "subtitle": "{{LOGIN_SUBTITLE}}",
+      "welcome_message": "{{LOGIN_WELCOME}}",
+      "background_image": "/static/branding/{{CLIENT_ID}}/login-bg.jpg"
+    },
+    "documents": {
+      "letterhead_logo": "/static/branding/{{CLIENT_ID}}/letterhead.png",
+      "signature_block_template": "{{SIGNATURE_TEMPLATE}}"
+    }
+  },
+  
+  "application": {
+    "name": "{{APP_NAME}}",
+    "support_email": "{{SUPPORT_EMAIL}}",
+    "support_phone": "{{SUPPORT_PHONE}}",
+    "instance_url": "https://{{DOMAIN_NAME}}",
+    "session_timeout_hours": 8
+  },
+  
+  "legal_practice": {
+    "practice_areas": ["{{PRACTICE_AREAS}}"],
+    "court_jurisdictions": ["{{JURISDICTIONS}}"],
+    "default_court_district": "{{DEFAULT_COURT}}",
+    "case_numbering_prefix": "{{CASE_PREFIX}}"
+  },
+
+  "templates": {
+    "complaint": {
+      "fcra_template": "{{FCRA_TEMPLATE_NAME}}",
+      "ny_fcra_template": "{{NY_FCRA_TEMPLATE_NAME}}"
+    },
+    "custom_templates": []
+  }
+}

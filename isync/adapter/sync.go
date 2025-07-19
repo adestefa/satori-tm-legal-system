@@ -7,6 +7,7 @@ import (
 	"io"
 	"mime/multipart"
 	"net/http"
+	"net/url"
 	"os"
 	"path/filepath"
 	"strings"
@@ -162,15 +163,14 @@ func (sm *SyncManager) uploadFile(filePath, relativePath string) error {
 		return fmt.Errorf("could not copy file to buffer: %w", err)
 	}
 
-	// Add relative path so the server knows where to save it
-	_ = writer.WriteField("relative_path", relativePath)
-
 	err = writer.Close()
 	if err != nil {
 		return fmt.Errorf("could not close multipart writer: %w", err)
 	}
 
-	req, err := http.NewRequest("POST", sm.config.ApiEndpoint, body)
+	// Add relative_path as query parameter (URL encoded)
+	apiURL := fmt.Sprintf("%s?relative_path=%s", sm.config.ApiEndpoint, url.QueryEscape(relativePath))
+	req, err := http.NewRequest("POST", apiURL, body)
 	if err != nil {
 		return fmt.Errorf("could not create request: %w", err)
 	}

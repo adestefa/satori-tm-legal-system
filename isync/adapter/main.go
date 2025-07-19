@@ -12,8 +12,8 @@ import (
 )
 
 const (
-	AppName    = "TM iSync Adapter"
-	AppVersion = "1.0.0"
+	AppName    = "Satori Secure File Sync"
+	AppVersion = "1.1.0"
 )
 
 // Application represents the main application
@@ -57,7 +57,7 @@ func NewApplication(configPath string) (*Application, error) {
 
 // Start starts the application
 func (app *Application) Start() error {
-	logger.Info("Starting TM iSync Adapter", "version", AppVersion)
+	logger.Info("Starting Satori Secure File Sync", "version", AppVersion)
 	
 	// Log configuration
 	logger.Info("Configuration loaded",
@@ -79,7 +79,7 @@ func (app *Application) Start() error {
 		return fmt.Errorf("failed to start sync manager: %w", err)
 	}
 
-	logger.Info("TM iSync Adapter started successfully")
+	logger.Info("Satori Secure File Sync started successfully")
 	return nil
 }
 
@@ -115,7 +115,7 @@ func (app *Application) validatePaths() error {
 
 // Stop stops the application gracefully
 func (app *Application) Stop() error {
-	logger.Info("Stopping TM iSync Adapter")
+	logger.Info("Stopping Satori Secure File Sync")
 	
 	// Cancel context to stop all goroutines
 	app.cancel()
@@ -127,7 +127,7 @@ func (app *Application) Stop() error {
 		return err
 	}
 
-	logger.Info("TM iSync Adapter stopped successfully")
+	logger.Info("Satori Secure File Sync stopped successfully")
 	return nil
 }
 
@@ -198,7 +198,7 @@ func printUsage() {
 func printVersion() {
 	fmt.Printf("%s v%s\n", AppName, AppVersion)
 	fmt.Println("Built with Go")
-	fmt.Println("Copyright © 2025 Tiger-Monkey Legal Document Processing System")
+	fmt.Println("Copyright © 2025 Satori AI Tech Solutions Agency")
 }
 
 // main is the application entry point
