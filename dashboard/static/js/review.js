@@ -758,12 +758,13 @@ async function generateComplaint(caseId) {
         });
         
         // Wait for the complaint to be ready
+        let htmlResponse;
         try {
             await complaintReadyPromise;
             generateBtn.textContent = 'Fetching complaint...';
             
             // Now fetch the generated complaint
-            const htmlResponse = await fetch(`/api/cases/${caseId}/complaint-html`);
+            htmlResponse = await fetch(`/api/cases/${caseId}/complaint-html`);
             if (!htmlResponse.ok) {
                 throw new Error(`Failed to fetch complaint HTML: ${htmlResponse.status}`);
             }
@@ -771,7 +772,6 @@ async function generateComplaint(caseId) {
             // Clean up resolver
             delete window.complaintGenerationResolvers[caseId];
             
-            // Continue with the response - htmlContent will be used below
         } catch (error) {
             // Clean up resolver on error
             if (window.complaintGenerationResolvers) {
