@@ -1,6 +1,8 @@
-Adverse_Action_Citibank.pdf|processing|2025-07-16T12:11:34.196911|null|134917|null|null
-Atty_Notes.txt|processing|2025-07-16T12:11:34.196911|null|3883|null|null
-Adverse Action - Wells Fargo.pdf|processing|2025-07-16T12:11:34.196911|null|160645|null|null
-Adverse_Action_Citibank.pdf|success|2025-07-16T12:11:34.196911|2025-07-16T12:11:56.232026|134917|22033|null
-Atty_Notes.txt|success|2025-07-16T12:11:34.196911|2025-07-16T12:11:56.232026|3883|22033|null
-Adverse Action - Wells Fargo.pdf|success|2025-07-16T12:11:34.196911|2025-07-16T12:11:56.232026|160645|22033|null
+rodriguez_complaint.pdf|processing|2025-07-19T23:40:32.763926|null|27284|null|null
+Adverse_Action_Citibank.pdf|processing|2025-07-19T23:40:32.763926|null|134917|null|null
+Atty_Notes.txt|processing|2025-07-19T23:40:32.763926|null|3883|null|null
+Adverse Action - Wells Fargo.pdf|processing|2025-07-19T23:40:32.763926|null|160645|null|null
+rodriguez_complaint.pdf|success|2025-07-19T23:40:32.763926|2025-07-19T23:41:02.874095|27284|30109|null
+Adverse_Action_Citibank.pdf|success|2025-07-19T23:40:32.763926|2025-07-19T23:41:02.874095|134917|30109|null
+Atty_Notes.txt|success|2025-07-19T23:40:32.763926|2025-07-19T23:41:02.874095|3883|30109|null
+Adverse Action - Wells Fargo.pdf|success|2025-07-19T23:40:32.763926|2025-07-19T23:41:02.874095|160645|30109|null

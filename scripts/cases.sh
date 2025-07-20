@@ -5,10 +5,32 @@
 # Simple CLI for case operations and reporting
 # ##################################################
 
-VERSION="2.1.1"
+VERSION="2.1.2"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TM_ROOT="$(dirname "$SCRIPT_DIR")"
 CASES_DIR="$TM_ROOT/test-data/sync-test-cases"
+
+# Cross-platform compatibility: Auto-detect OS and set appropriate stat commands
+detect_os_and_set_stat_commands() {
+    if [[ "$OSTYPE" == "darwin"* ]] || stat -f "%m" /dev/null >/dev/null 2>&1; then
+        # macOS/BSD system
+        STAT_MTIME="stat -f \"%m\""
+        STAT_DATE="stat -f \"%Sm\" -t \"%Y-%m-%d %H:%M\""
+        STAT_DATETIME="stat -f \"%Sm\" -t \"%Y-%m-%d %H:%M:%S\""
+        STAT_SIZE="stat -f \"%z\""
+        OS_TYPE="darwin"
+    else
+        # Linux/GNU system  
+        STAT_MTIME="stat -c \"%Y\""
+        STAT_DATE="stat -c \"%y\" | cut -d'.' -f1"
+        STAT_DATETIME="stat -c \"%y\" | cut -d'.' -f1"
+        STAT_SIZE="stat -c \"%s\""
+        OS_TYPE="linux"
+    fi
+}
+
+# Initialize cross-platform commands
+detect_os_and_set_stat_commands
 
 # Color codes for output (borrowed from dash.sh pattern)
 RED='\033[0;31m'
@@ -51,7 +73,7 @@ get_case_list() {
     find "$CASES_DIR" -maxdepth 1 -type d -not -name "sync-test-cases" -not -name "outputs" -not -name ".*" 2>/dev/null | \
     while read -r dir; do
         if [[ -n "$dir" && -d "$dir" ]]; then
-            local mtime=$(stat -f "%m" "$dir" 2>/dev/null || echo "0")
+            local mtime=$(eval $STAT_MTIME "$dir" 2>/dev/null || echo "0")
             local basename=$(basename "$dir")
             echo "$mtime|$basename|$dir"
         fi
@@ -112,7 +134,7 @@ list_cases() {
         local file_count=$(find "$case_path" -type f -not -name "processing_manifest.txt" -not -name ".*" 2>/dev/null | wc -l | tr -d ' ')
         
         # Get last modified time
-        local mod_time=$(stat -f "%Sm" -t "%Y-%m-%d %H:%M" "$case_path" 2>/dev/null || echo "unknown")
+        local mod_time=$(eval $STAT_DATE "$case_path" 2>/dev/null || echo "unknown")
         
         # Check if case has generated files
         local has_generated_files=false
@@ -174,7 +196,7 @@ inspect_case() {
     printf "${BLUE}═══════════════════════════════════════════════════════${NC}\n\n"
     
     printf "${GREEN}Source Directory:${NC} $case_path\n"
-    printf "${GREEN}Last Modified:${NC} $(stat -f "%Sm" -t "%Y-%m-%d %H:%M:%S" "$case_path" 2>/dev/null || echo "unknown")\n\n"
+    printf "${GREEN}Last Modified:${NC} $(eval $STAT_DATETIME "$case_path" 2>/dev/null || echo "unknown")\n\n"
     
     # Source files
     printf "${CYAN}Source Files:${NC}\n"
@@ -183,7 +205,7 @@ inspect_case() {
     
     # Process actual source files (exclude processing_manifest.txt)
     while IFS= read -r -d '' file; do
-        local size=$(stat -f "%z" "$file" 2>/dev/null || echo "0")
+        local size=$(eval $STAT_SIZE "$file" 2>/dev/null || echo "0")
         local size_human=$(numfmt --to=iec --suffix=B $size 2>/dev/null || echo "${size}B")
         printf "  ${PURPLE}%d.${NC} ${YELLOW}$(basename "$file")${NC} (${size_human})\n" "$file_counter"
         total_bytes=$((total_bytes + size))
@@ -192,7 +214,7 @@ inspect_case() {
     
     # Show processing manifest separately if it exists
     if [[ -f "$case_path/processing_manifest.txt" ]]; then
-        local manifest_size=$(stat -f "%z" "$case_path/processing_manifest.txt" 2>/dev/null || echo "0")
+        local manifest_size=$(eval $STAT_SIZE "$case_path/processing_manifest.txt" 2>/dev/null || echo "0")
         local manifest_size_human=$(numfmt --to=iec --suffix=B $manifest_size 2>/dev/null || echo "${manifest_size}B")
         printf "\n${CYAN}Processing Metadata:${NC}\n"
         printf "  ${BLUE}•${NC} ${YELLOW}processing_manifest.txt${NC} (${manifest_size_human})\n"
@@ -212,7 +234,7 @@ inspect_case() {
     if [[ -d "$tiger_output" ]]; then
         printf "  ${GREEN}Tiger Outputs:${NC}\n"
         while IFS= read -r -d '' file; do
-            local size=$(stat -f "%z" "$file" 2>/dev/null || echo "0")
+            local size=$(eval $STAT_SIZE "$file" 2>/dev/null || echo "0")
             local size_human=$(numfmt --to=iec --suffix=B $size 2>/dev/null || echo "${size}B")
             printf "    ${YELLOW}$(basename "$file")${NC} (${size_human})\n"
             generated_total_bytes=$((generated_total_bytes + size))
@@ -225,7 +247,7 @@ inspect_case() {
     if [[ -d "$dashboard_output" ]]; then
         printf "  ${GREEN}Dashboard Outputs:${NC}\n"
         while IFS= read -r -d '' file; do
-            local size=$(stat -f "%z" "$file" 2>/dev/null || echo "0")
+            local size=$(eval $STAT_SIZE "$file" 2>/dev/null || echo "0")
             local size_human=$(numfmt --to=iec --suffix=B $size 2>/dev/null || echo "${size}B")
             printf "    ${YELLOW}$(basename "$file")${NC} (${size_human})\n"
             generated_total_bytes=$((generated_total_bytes + size))
@@ -241,7 +263,7 @@ inspect_case() {
                 printf "  ${GREEN}Browser PDFs:${NC}\n"
                 browser_files_found=true
             fi
-            local size=$(stat -f "%z" "$file" 2>/dev/null || echo "0")
+            local size=$(eval $STAT_SIZE "$file" 2>/dev/null || echo "0")
             local size_human=$(numfmt --to=iec --suffix=B $size 2>/dev/null || echo "${size}B")
             printf "    ${YELLOW}$(basename "$file")${NC} (${size_human})\n"
             generated_total_bytes=$((generated_total_bytes + size))
@@ -322,7 +344,7 @@ generate_report() {
     
     if [[ -f "$report_file" ]]; then
         printf "${GREEN}Report generated: $report_file${NC}\n"
-        printf "${CYAN}$(wc -l < "$report_file") lines, $(stat -f "%z" "$report_file" | numfmt --to=iec --suffix=B)${NC}\n"
+        printf "${CYAN}$(wc -l < "$report_file") lines, $(eval $STAT_SIZE "$report_file" | numfmt --to=iec --suffix=B)${NC}\n"
     else
         printf "${RED}Error: Failed to generate report${NC}\n"
         return 1
@@ -343,7 +365,7 @@ zip_cases() {
     
     if [[ -f "$zip_file" ]]; then
         printf "${GREEN}Backup created: $zip_file${NC}\n"
-        printf "${CYAN}Size: $(stat -f "%z" "$zip_file" | numfmt --to=iec --suffix=B)${NC}\n"
+        printf "${CYAN}Size: $(eval $STAT_SIZE "$zip_file" | numfmt --to=iec --suffix=B)${NC}\n"
     else
         printf "${RED}Error: Failed to create backup${NC}\n"
         return 1

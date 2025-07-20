@@ -793,27 +793,6 @@ async def get_case_review_data(case_id: str):
     return JSONResponse(content=format_data(data))
 
 
-@app.post("/api/cases/{case_id}/legal-claims")
-async def save_legal_claims(case_id: str, data: dict):
-    case = data_manager.get_case_by_id(case_id)
-    if not case or not case.hydrated_json_path:
-        raise HTTPException(status_code=404, detail="Data still processing please try again in a few mins")
-    
-    if not os.path.exists(case.hydrated_json_path):
-        raise HTTPException(status_code=404, detail="Hydrated JSON file not found at path.")
-
-    with open(case.hydrated_json_path, 'r') as f:
-        hydrated_data = json.load(f)
-
-    hydrated_data['causes_of_action'] = data.get('causes_of_action', [])
-
-    with open(case.hydrated_json_path, 'w') as f:
-        json.dump(hydrated_data, f, indent=2)
-
-    # Mark case as reviewed when legal claims are saved
-    case.progress.reviewed = True
-
-    return {"message": "Legal selections saved successfully."}
 
 @app.get("/api/cases/{case_id}/file-status")
 async def get_case_file_status(case_id: str):

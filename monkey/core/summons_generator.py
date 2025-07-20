@@ -155,7 +155,7 @@ class SummonsGenerator:
             with open(creditor_file_path, 'r', encoding='utf-8') as f:
                 creditor_data = json.load(f)
             
-            logger.info(f"Loaded {len(creditor_data.get('creditors', []))} creditor addresses")
+            logger.info(f"Loaded {len(creditor_data.get('creditor_addresses', {}))} creditor addresses")
             return creditor_data
             
         except Exception as e:
@@ -172,19 +172,22 @@ class SummonsGenerator:
         Returns:
             Creditor address data if found, None otherwise
         """
-        if not self.creditor_addresses or 'creditors' not in self.creditor_addresses:
+        if not self.creditor_addresses or 'creditor_addresses' not in self.creditor_addresses:
             return None
         
         # Normalize defendant name for matching
         defendant_normalized = defendant_name.upper().strip()
         
         # Check each creditor for potential matches
-        for creditor in self.creditor_addresses['creditors']:
-            creditor_name = creditor.get('name', '').upper().strip()
+        for creditor_key, creditor in self.creditor_addresses['creditor_addresses'].items():
+            creditor_name = creditor.get('legal_name', '').upper().strip()
+            creditor_short = creditor.get('short_name', '').upper().strip()
             
-            # Direct name match
-            if creditor_name in defendant_normalized:
-                logger.info(f"Found creditor match for '{defendant_name}': {creditor.get('name')}")
+            # Direct name match (check both legal name and short name)
+            if (creditor_name in defendant_normalized or 
+                defendant_normalized in creditor_name or
+                creditor_short in defendant_normalized):
+                logger.info(f"Found creditor match for '{defendant_name}': {creditor.get('legal_name')}")
                 return creditor
             
             # Check for key company identifiers

@@ -1,0 +1,80 @@
+{
+  "report_metadata": {
+    "generated_at": "2025-07-20T00:42:46Z",
+    "hostname": "CoreLogacStudio",
+    "ip_address": "",
+    "tm_version": "2.1.1",
+    "cases_directory": "/Users/corelogic/satori-dev/TM/test-data/sync-test-cases"
+  },
+  "summary": {
+    "total_cases": 3,
+    "total_source_files": 14,
+    "total_size_bytes": 610304
+  },
+  "cases": [
+    {
+      "name": "Rodriguez",
+      "path": "/Users/corelogic/satori-dev/TM/test-data/sync-test-cases/Rodriguez",
+      "last_modified": "2025-07-19T11:16:06Z",
+      "source_files": {
+        "count": 5,
+        "size_bytes": 335872,
+        "files": [
+          {"name": "Adverse Action - Wells Fargo.pdf", "size_bytes": 160645},
+          {"name": "Adverse_Action_Citibank.pdf", "size_bytes": 134917},
+          {"name": "Atty_Notes.txt", "size_bytes": 3883},
+          {"name": "processing_manifest.txt", "size_bytes": 568},
+          {"name": "rodriguez_complaint.pdf", "size_bytes": 27284}
+        ]
+      },
+      "generated_outputs": {
+        "tiger_outputs": 0,
+        "dashboard_outputs": 0,
+        "browser_pdfs": 0
+      }
+    }
+    ,
+    {
+      "name": "Eman_Youseef",
+      "path": "/Users/corelogic/satori-dev/TM/test-data/sync-test-cases/Eman_Youseef",
+      "last_modified": "2025-07-19T11:16:06Z",
+      "source_files": {
+        "count": 5,
+        "size_bytes": 212992,
+        "files": [
+          {"name": "Adverse_Action_Letter_Cap_One.pdf", "size_bytes": 156132},
+          {"name": "Atty_Notes.docx", "size_bytes": 14785},
+          {"name": "Barclays_Applicaiton_Denial_1.docx", "size_bytes": 15546},
+          {"name": "Barclays_Applicaiton_Denial_2.docx", "size_bytes": 15388},
+          {"name": "processing_manifest.txt", "size_bytes": 794}
+        ]
+      },
+      "generated_outputs": {
+        "tiger_outputs": 0,
+        "dashboard_outputs": 0,
+        "browser_pdfs": 0
+      }
+    }
+    ,
+    {
+      "name": "johnson",
+      "path": "/Users/corelogic/satori-dev/TM/test-data/sync-test-cases/johnson",
+      "last_modified": "2025-07-19T20:38:41Z",
+      "source_files": {
+        "count": 4,
+        "size_bytes": 53248,
+        "files": [
+          {"name": "Atty_Notes.docx", "size_bytes": 15388},
+          {"name": "Barclays_Applicaiton_Denial_1.docx", "size_bytes": 15439},
+          {"name": "Barclays_Applicaiton_Denial_2.docx", "size_bytes": 15388},
+          {"name": "processing_manifest.txt", "size_bytes": 580}
+        ]
+      },
+      "generated_outputs": {
+        "tiger_outputs": 0,
+        "dashboard_outputs": 1,
+        "browser_pdfs": 0
+      }
+    }
+  ]
+}
