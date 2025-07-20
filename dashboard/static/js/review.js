@@ -33,8 +33,28 @@ function initializeWebSocket() {
                         resolver();
                     }
                 }
+                
+                // Handle file system events (single or batched)
+                if (data.type === 'file_system_change') {
+                    console.log('File system change:', data.event_type, data.path);
+                } else if (data.type === 'file_system_batch') {
+                    console.log(`File system batch: ${data.event_count} events at ${data.timestamp}`);
+                    // Process individual events in the batch if needed
+                    if (data.events && Array.isArray(data.events)) {
+                        data.events.forEach(event => {
+                            console.log('Batched event:', event.event_type, event.path);
+                        });
+                    }
+                }
             } catch (error) {
                 console.error('Error processing WebSocket message:', error);
+                console.error('Raw message data:', event.data);
+                // Log the problematic JSON for debugging
+                if (event.data.length > 1000) {
+                    console.error('Message appears to be corrupted (too long):', event.data.substring(0, 500) + '...');
+                } else {
+                    console.error('Full problematic message:', event.data);
+                }
             }
         };
         

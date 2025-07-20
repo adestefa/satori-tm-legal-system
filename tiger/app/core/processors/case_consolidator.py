@@ -343,6 +343,37 @@ class CaseConsolidator:
         else:
             return cra_name.upper()
     
+    def _normalize_defendant_name(self, name: str) -> str:
+        """Normalize defendant names for deduplication purposes."""
+        # Remove common variations and standardize format
+        normalized = name.upper().strip()
+        
+        # Remove incorporation details from name for comparison
+        normalized = re.sub(r'\s*\([^)]*corporation[^)]*\)', '', normalized)
+        normalized = re.sub(r'\s*\([^)]*authorized[^)]*\)', '', normalized)
+        
+        # Standardize common variations
+        replacements = {
+            'TRANS UNION': 'TRANSUNION',
+            'EXPERIAN INFORMATION SOLUTIONS, INC.': 'EXPERIAN',
+            'EQUIFAX INFORMATION SERVICES, LLC': 'EQUIFAX',
+            'TD BANK, N.A.': 'TD BANK',
+            'CAPITAL ONE, N.A.': 'CAPITAL ONE',
+            'BARCLAYS BANK DELAWARE': 'BARCLAYS',
+            'DALSTD TRANS UNION': 'TRANSUNION'  # Handle the concatenated form
+        }
+        
+        for original, replacement in replacements.items():
+            if original in normalized:
+                normalized = replacement
+                break
+        
+        # Remove extra whitespace and punctuation
+        normalized = re.sub(r'[,\.]+$', '', normalized)
+        normalized = re.sub(r'\s+', ' ', normalized).strip()
+        
+        return normalized
+    
     def _extract_defendants_from_denial_letters(self, extraction_results: List[ExtractionResult]) -> List[str]:
         """Extract defendants from denial letters by identifying creditors and issuers."""
         defendants = set()
@@ -369,18 +400,26 @@ class CaseConsolidator:
                     r'(Capital One(?:\s+N\.A\.)?)',
                     r'issued by\s+([^,\n]+)',
                     r'Sincerely,\s*([^\n]+)',
-                    r'^([A-Z][A-Za-z\s&]+)(?:\s+P\.O\.|\s+\d+)'  # Company name at start of line
+                    # Removed overly broad company pattern that was matching dates
                 ]
                 
                 for pattern in issuer_patterns:
                     matches = re.findall(pattern, text, re.IGNORECASE | re.MULTILINE)
                     for match in matches:
                         if match.strip() and len(match.strip()) > 3:
-                            # Filter out generic terms
-                            if not any(generic in match.lower() for generic in ['customer', 'care', 'team', 'services', 'box']):
-                                normalized_issuer = self._normalize_bank_name(match.strip())
-                                defendants.add(normalized_issuer)
-                                self.logger.info(f"Found issuer in denial letter: {normalized_issuer}")
+                            # Enhanced filtering to exclude dates, scores, and non-companies
+                            excluded_terms = [
+                                'customer', 'care', 'team', 'services', 'box', 'february', 'january', 
+                                'march', 'april', 'may', 'june', 'july', 'august', 'september', 
+                                'october', 'november', 'december', 'scores', 'range', 'from', 'low',
+                                'high', 'score', 'date', 'eman', 'youssef'
+                            ]
+                            if not any(generic in match.lower() for generic in excluded_terms):
+                                # Additional check: skip if it contains numbers (likely dates or scores)
+                                if not re.search(r'\b\d{1,2}[,\s]\d{4}\b', match):  # Skip date patterns
+                                    normalized_issuer = self._normalize_bank_name(match.strip())
+                                    defendants.add(normalized_issuer)
+                                    self.logger.info(f"Found issuer in denial letter: {normalized_issuer}")
         
         defendants_list = list(defendants)
         self.logger.info(f"Extracted {len(defendants_list)} defendants from denial letters: {defendants_list}")
@@ -440,11 +479,48 @@ class CaseConsolidator:
                 'consumer_status': "Individual 'consumer' within the meaning of both the FCRA and applicable state FCRA"
             }
         
-        # Consolidate defendants
+        # Consolidate defendants with deduplication
+        plaintiff_name = consolidated.plaintiff.get('name', '').upper() if consolidated.plaintiff else ''
+        added_defendants = set()  # Track normalized names to prevent duplicates
+        
         for name in defendant_names:
-            if name not in ["LLC", "LLC NA,"]:
-                defendant_info = self._build_defendant_info(name, consolidated)
-                consolidated.defendants.append(defendant_info)
+            # Enhanced filtering to exclude invalid defendants
+            name_upper = name.upper().strip()
+            
+            # Skip generic terms and empty names
+            if name_upper in ["LLC", "LLC NA,"]:
+                continue
+                
+            # Skip plaintiff name (prevent plaintiff from being added as defendant)
+            if plaintiff_name and name_upper == plaintiff_name:
+                self.logger.info(f"Skipping defendant '{name}' - matches plaintiff name")
+                continue
+                
+            # Skip dates, scores, and other non-entity terms
+            excluded_patterns = [
+                r'^(JANUARY|FEBRUARY|MARCH|APRIL|MAY|JUNE|JULY|AUGUST|SEPTEMBER|OCTOBER|NOVEMBER|DECEMBER)',
+                r'^SCORES?\s+RANGE',
+                r'^FROM\s+A\s+LOW',
+                r'^\d{1,2}[,\s]\d{4}',  # Date patterns
+                r'^(HIGH|LOW|RANGE|FROM|SCORE|DATE)$'
+            ]
+            
+            if any(re.match(pattern, name_upper) for pattern in excluded_patterns):
+                self.logger.info(f"Skipping invalid defendant '{name}' - matches excluded pattern")
+                continue
+            
+            # Normalize name for deduplication
+            normalized_name = self._normalize_defendant_name(name)
+            
+            # Skip if we already have this defendant (deduplication)
+            if normalized_name in added_defendants:
+                self.logger.info(f"Skipping duplicate defendant '{name}' - already added as '{normalized_name}'")
+                continue
+                
+            # Build valid defendant
+            defendant_info = self._build_defendant_info(name, consolidated)
+            consolidated.defendants.append(defendant_info)
+            added_defendants.add(normalized_name)
 
     def _suggest_legal_claims(self, case_facts, defendant_types):
         """Suggest ALL possible legal claims for human review - NO FILTERING."""
