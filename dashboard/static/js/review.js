@@ -758,16 +758,19 @@ async function generateComplaint(caseId) {
         });
         
         // Wait for the complaint to be ready
-        let htmlResponse;
+        let htmlContent;
         try {
             await complaintReadyPromise;
             generateBtn.textContent = 'Fetching complaint...';
             
             // Now fetch the generated complaint
-            htmlResponse = await fetch(`/api/cases/${caseId}/complaint-html`);
+            const htmlResponse = await fetch(`/api/cases/${caseId}/complaint-html`);
             if (!htmlResponse.ok) {
                 throw new Error(`Failed to fetch complaint HTML: ${htmlResponse.status}`);
             }
+            
+            // Get the HTML content within the try block
+            htmlContent = await htmlResponse.text();
             
             // Clean up resolver
             delete window.complaintGenerationResolvers[caseId];
@@ -779,8 +782,6 @@ async function generateComplaint(caseId) {
             }
             throw error;
         }
-
-        const htmlContent = await htmlResponse.text();
 
         // Display the HTML in an iframe
         contentDiv.innerHTML = `
