@@ -151,7 +151,7 @@ def require_auth(user: dict = Depends(get_current_user)) -> dict:
     return user
 
 # --- Configuration ---
-APP_VERSION = "2.1.6"  # JSONP Version Management: Automated frontend version synchronization system
+APP_VERSION = "2.1.8"  # JSONP Version Management: Automated frontend version synchronization system
 
 def get_git_commit():
     """Get current git commit hash for version tracking"""

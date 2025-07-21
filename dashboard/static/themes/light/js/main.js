@@ -84,21 +84,27 @@ function initializeUserMenu() {
 function parseManifest(manifestContent) {
     const fileStatus = {};
     const lines = manifestContent.trim().split('\n');
-    let overallCaseStatus = 'processing'; // Default to processing unless specified otherwise
+    let overallCaseStatus = 'PROCESSING'; // Default to processing unless specified otherwise
 
-    lines.forEach(line => {
+    // Read case status from first line only (O(1) efficiency)
+    if (lines.length > 0) {
+        const firstLine = lines[0];
+        const parts = firstLine.split('|');
+        if (parts.length >= 2 && parts[0] === 'CASE_STATUS') {
+            overallCaseStatus = parts[1];
+        }
+    }
+
+    // Process file entries from lines 2+ only
+    for (let i = 1; i < lines.length; i++) {
+        const line = lines[i];
         const parts = line.split('|');
         if (parts.length >= 2) {
-            const itemName = parts[0];
+            const filename = parts[0];
             const status = parts[1];
-
-            if (itemName === 'CASE_STATUS') {
-                overallCaseStatus = status;
-            } else {
-                fileStatus[itemName] = { status: status };
-            }
+            fileStatus[filename] = { status: status };
         }
-    });
+    }
 
     return { fileStatus, overallCaseStatus };
 }
@@ -154,8 +160,10 @@ function startManifestPolling(caseId) {
             const isProcessingFinished = !Object.values(fileStatus).some(f => f.status === 'processing');
             
             // Stop polling if the case is no longer processing or all files are done
-            if (overallCaseStatus !== 'processing' && isProcessingFinished) {
-                console.log(`✅ Processing finished for case ${caseId}. Stopping poller.`);
+            // Check for terminal states: PENDING_REVIEW, COMPLETE, ERROR (anything except PROCESSING)
+            const isTerminalState = overallCaseStatus !== 'PROCESSING';
+            if (isTerminalState && isProcessingFinished) {
+                console.log(`✅ Processing finished for case ${caseId}. Final status: ${overallCaseStatus}. Stopping poller.`);
                 clearInterval(activePollers[caseId]);
                 delete activePollers[caseId];
                 // Once polling stops, refresh the entire case grid to get the final state
@@ -191,8 +199,8 @@ async function loadCases() {
         // After rendering, check for any cases that are currently processing and start polling them.
         // This handles cases that were already processing when the page was loaded/refreshed.
         cases.forEach(caseData => {
-            if (caseData.status === 'processing') {
-                console.log(`🔄 Case ${caseData.id} is in 'processing' state. Initiating manifest polling.`);
+            if (caseData.status === 'Processing') {
+                console.log(`🔄 Case ${caseData.id} is in 'Processing' state. Initiating manifest polling.`);
                 startManifestPolling(caseData.id);
             }
         });

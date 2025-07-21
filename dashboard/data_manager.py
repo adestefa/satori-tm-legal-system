@@ -56,40 +56,47 @@ class DataManager:
         if os.path.exists(manifest_path):
             try:
                 with open(manifest_path, 'r') as f:
-                    for line in f:
+                    lines = f.readlines()
+                    
+                    # Read case status from first line only (O(1) efficiency)
+                    if lines:
+                        first_line = lines[0].strip()
+                        if first_line and first_line.startswith('CASE_STATUS|'):
+                            parts = first_line.split('|')
+                            if len(parts) >= 2:
+                                try:
+                                    status_str = parts[1].strip()
+                                    # Map manifest status values to enum values
+                                    status_map = {
+                                        'PENDING_REVIEW': CaseStatus.PENDING_REVIEW,
+                                        'COMPLETE': CaseStatus.COMPLETE,
+                                        'PROCESSING': CaseStatus.PROCESSING,
+                                        'ERROR': CaseStatus.ERROR,
+                                        'NEW': CaseStatus.NEW
+                                    }
+                                    status = status_map.get(status_str, CaseStatus.NEW)
+                                    if status_str not in status_map:
+                                        print(f"CRITICAL: Unknown status '{status_str}' in manifest. Defaulting to NEW.")
+                                except Exception as e:
+                                    print(f"CRITICAL: Failed to parse status '{parts[1]}': {e}. Defaulting to NEW.")
+                                    pass # Keep default status if invalid
+                    
+                    # Process file entries from lines 2+ only
+                    for line in lines[1:]:  # Skip first line (case status)
                         parts = line.strip().split('|')
-                        if not parts:
+                        if not parts or len(parts) < 2:
                             continue
                         
-                        # Check for overall case status
-                        if parts[0] == 'CASE_STATUS' and len(parts) > 1:
-                            try:
-                                status_str = parts[1].strip()
-                                # Map manifest status values to enum values
-                                status_map = {
-                                    'PENDING_REVIEW': CaseStatus.PENDING_REVIEW,
-                                    'COMPLETE': CaseStatus.COMPLETE,
-                                    'PROCESSING': CaseStatus.PROCESSING,
-                                    'ERROR': CaseStatus.ERROR,
-                                    'NEW': CaseStatus.NEW
-                                }
-                                status = status_map.get(status_str, CaseStatus.NEW)
-                                if status_str not in status_map:
-                                    print(f"CRITICAL: Unknown status '{status_str}' in manifest. Defaulting to NEW.")
-                            except Exception as e:
-                                print(f"CRITICAL: Failed to parse status '{parts[1]}': {e}. Defaulting to NEW.")
-                                pass # Keep default status if invalid
-                        # Check for per-file status
-                        elif len(parts) >= 2:
-                            filename, file_status_str = parts[0], parts[1]
-                            status_map = {
-                                'success': FileProcessingStatus.SUCCESS,
-                                'error': FileProcessingStatus.ERROR,
-                                'processing': FileProcessingStatus.PROCESSING
-                            }
-                            file_status = status_map.get(file_status_str, FileProcessingStatus.PENDING)
-                            # Keep only the latest status for each file
-                            file_status_dict[filename] = FileProcessingResult(name=filename, status=file_status)
+                        # Process per-file status entries
+                        filename, file_status_str = parts[0], parts[1]
+                        status_map = {
+                            'success': FileProcessingStatus.SUCCESS,
+                            'error': FileProcessingStatus.ERROR,
+                            'processing': FileProcessingStatus.PROCESSING
+                        }
+                        file_status = status_map.get(file_status_str, FileProcessingStatus.PENDING)
+                        # Keep only the latest status for each file
+                        file_status_dict[filename] = FileProcessingResult(name=filename, status=file_status)
                 
                 # Convert file status dictionary to list with latest status only
                 file_processing_results = list(file_status_dict.values())

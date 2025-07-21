@@ -43,6 +43,57 @@ def get_file_size(file_path: str) -> int:
     except:
         return 0
 
+def update_case_status(case_path: str, status: str):
+    """Update case status on first line of manifest file with O(1) efficiency"""
+    manifest_path = os.path.join(case_path, 'processing_manifest.txt')
+    timestamp = datetime.now().isoformat()
+    
+    # Format: CASE_STATUS|status|timestamp|null|null|null|null
+    status_line = f"CASE_STATUS|{status}|{timestamp}|null|null|null|null\n"
+    
+    print(f"📝 MANIFEST: Updating case status to {status}")
+    
+    try:
+        # If file doesn't exist, create with status line only
+        if not os.path.exists(manifest_path):
+            with open(manifest_path, 'w') as f:
+                f.write(status_line)
+            return
+        
+        # Read all lines, replace first line, write back
+        with open(manifest_path, 'r') as f:
+            lines = f.readlines()
+        
+        # Replace first line or create if empty
+        if not lines:
+            lines = [status_line]
+        else:
+            lines[0] = status_line
+        
+        with open(manifest_path, 'w') as f:
+            f.writelines(lines)
+            
+    except Exception as e:
+        print(f"❌ MANIFEST: Error updating case status: {e}")
+
+def read_case_status(case_path: str) -> str:
+    """Read case status from first line of manifest file with O(1) efficiency"""
+    manifest_path = os.path.join(case_path, 'processing_manifest.txt')
+    
+    try:
+        with open(manifest_path, 'r') as f:
+            first_line = f.readline().strip()
+            if first_line and first_line.startswith('CASE_STATUS|'):
+                parts = first_line.split('|')
+                if len(parts) >= 2:
+                    return parts[1]
+        return 'NEW'  # Default status if no valid status found
+    except FileNotFoundError:
+        return 'NEW'  # Default status if file doesn't exist
+    except Exception as e:
+        print(f"❌ MANIFEST: Error reading case status: {e}")
+        return 'NEW'
+
 def clear_manifest(case_path: str):
     """Clear the manifest file at the start of processing"""
     manifest_path = os.path.join(case_path, 'processing_manifest.txt')
@@ -97,6 +148,9 @@ def run_tiger_extraction(case_path: str, output_dir: str, data_manager=None, cas
 
     # Clear any existing manifest
     clear_manifest(case_path)
+    
+    # Initialize case status as PROCESSING (first line)
+    update_case_status(case_path, 'PROCESSING')
 
     # Get list of files to process and write initial manifest entries
     files_to_process = []
@@ -154,8 +208,8 @@ def run_tiger_extraction(case_path: str, output_dir: str, data_manager=None, cas
         write_manifest_entry(case_path, file_name, 'success', start_time, end_time,
                            file_size=file_size, processing_time=overall_processing_time)
 
-    # Write the overall case status to the manifest
-    write_manifest_entry(case_path, 'CASE_STATUS', 'PENDING_REVIEW')
+    # Write the overall case status to the manifest (first line)
+    update_case_status(case_path, 'PENDING_REVIEW')
 
     # Find the generated JSON file in the output directory
     for file in os.listdir(output_dir):
@@ -196,9 +250,9 @@ def run_monkey_generation(json_path: str, output_dir: str, data_manager=None, ca
 
     print(result.stdout)
 
-    # Write the final case status to the manifest
+    # Write the final case status to the manifest (first line)
     case_path = os.path.join(PROJECT_ROOT, 'test-data', 'sync-test-cases', case_id)
-    write_manifest_entry(case_path, 'CASE_STATUS', 'COMPLETE')
+    update_case_status(case_path, 'COMPLETE')
 
     if os.path.exists(complaint_output_path):
         return complaint_output_path
