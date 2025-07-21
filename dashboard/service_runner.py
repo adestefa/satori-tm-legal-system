@@ -197,7 +197,7 @@ def run_monkey_generation(json_path: str, output_dir: str, data_manager=None, ca
     print(result.stdout)
 
     # Write the final case status to the manifest
-    case_path = os.path.dirname(json_path) # Infer case path from json path
+    case_path = os.path.join(PROJECT_ROOT, 'test-data', 'sync-test-cases', case_id)
     write_manifest_entry(case_path, 'CASE_STATUS', 'COMPLETE')
 
     if os.path.exists(complaint_output_path):
