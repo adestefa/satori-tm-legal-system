@@ -151,7 +151,7 @@ def require_auth(user: dict = Depends(get_current_user)) -> dict:
     return user
 
 # --- Configuration ---
-APP_VERSION = "2.1.1"  # JSONP Version Management: Automated frontend version synchronization system
+APP_VERSION = "2.1.2"  # JSONP Version Management: Automated frontend version synchronization system
 
 def get_git_commit():
     """Get current git commit hash for version tracking"""
@@ -698,6 +698,7 @@ async def process_case(case_id: str):
     print(f"🐅 BACKEND: Case {case_id} found, current status: {case.status}")
     
     # Simple processing flow - Tiger handles all validation and document processing
+    # Set status to PROCESSING immediately
     data_manager.update_case_status(case_id, CaseStatus.PROCESSING)
     print(f"🐅 BACKEND: Updated case {case_id} status to PROCESSING")
 
@@ -726,6 +727,22 @@ async def process_case(case_id: str):
             case.progress.extracted = True
             data_manager.update_case_status(case_id, CaseStatus.PENDING_REVIEW)
             print(f"🐅 BACKEND: Case {case_id} processing completed successfully - status: PENDING_REVIEW")
+
+            # Broadcast the completion event
+            try:
+                event_data = {
+                    "type": "case_processing_complete",
+                    "case_id": case_id,
+                    "timestamp": datetime.now().isoformat(),
+                    "message": f"Processing complete for {case_id}"
+                }
+                loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(loop)
+                loop.run_until_complete(connection_manager.broadcast_event(event_data))
+                loop.close()
+            except Exception as e:
+                print(f"Error broadcasting processing completion event: {e}")
+
         except Exception as e:
             print(f"🐅 BACKEND: Error processing case {case_id}: {e}")
             data_manager.update_case_status(case_id, CaseStatus.ERROR)

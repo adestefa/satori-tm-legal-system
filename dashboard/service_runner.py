@@ -154,6 +154,9 @@ def run_tiger_extraction(case_path: str, output_dir: str, data_manager=None, cas
         write_manifest_entry(case_path, file_name, 'success', start_time, end_time,
                            file_size=file_size, processing_time=overall_processing_time)
 
+    # Write the overall case status to the manifest
+    write_manifest_entry(case_path, 'CASE_STATUS', 'PENDING_REVIEW')
+
     # Find the generated JSON file in the output directory
     for file in os.listdir(output_dir):
         if file.endswith('.json'):
@@ -192,6 +195,10 @@ def run_monkey_generation(json_path: str, output_dir: str, data_manager=None, ca
         raise RuntimeError(f"Monkey service failed: {result.stderr}")
 
     print(result.stdout)
+
+    # Write the final case status to the manifest
+    case_path = os.path.dirname(json_path) # Infer case path from json path
+    write_manifest_entry(case_path, 'CASE_STATUS', 'COMPLETE')
 
     if os.path.exists(complaint_output_path):
         return complaint_output_path
