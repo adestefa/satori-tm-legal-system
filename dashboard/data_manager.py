@@ -63,8 +63,10 @@ class DataManager:
                         # Check for overall case status
                         if parts[0] == 'CASE_STATUS' and len(parts) > 1:
                             try:
-                                status = CaseStatus(parts[1].lower().replace(' ', '_'))
+                                status_str = parts[1].strip().lower().replace(' ', '_')
+                                status = CaseStatus(status_str)
                             except ValueError:
+                                print(f"CRITICAL: Failed to parse status '{parts[1]}'. Defaulting to NEW.")
                                 pass # Keep default status if invalid
                         # Check for per-file status
                         elif len(parts) >= 2:
