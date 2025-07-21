@@ -19,9 +19,12 @@ class CaseChangeHandler(FileSystemEventHandler):
         self.batch_timer = None
 
     def on_any_event(self, event):
+        # Ignore events for our internal status file to prevent noise
+        if '.case_status.json' in event.src_path:
+            return
+
         # This is a simple approach. A more robust solution would handle
-        # specific events (on_created, on_deleted, on_modified) to avoid
-        # full re-scans on every minor change. For now, this is sufficient.
+        # different event types (created, modified, deleted) more specifically.
         print(f"Detected file system event: {event.event_type} on {event.src_path}")
         self.data_manager.scan_cases()
         

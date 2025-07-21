@@ -54,9 +54,10 @@ confirm_deletion() {
     fi
 }
 
-if [[ $# -ne 1 ]]; then
-    echo "Usage: $0 <case_name>"
+if [[ $# -eq 0 ]] || [[ "$1" == "--help" ]]; then
+    echo "Usage: $0 <case_name> [--force]"
     echo "Example: $0 youssef"
+    echo "  --force   Bypass interactive confirmation for automated use"
     echo ""
     echo "⚠️  WARNING: This script PERMANENTLY DELETES a case from the system"
     echo "This includes all source documents, outputs, and processing history"
@@ -76,95 +77,38 @@ TM_ROOT="$(dirname "$SCRIPT_DIR")"
 echo "🗑️  PERMANENT CASE DELETION: $CASE_NAME"
 echo "Environment: $(hostname) ($(hostname -I 2>/dev/null | awk '{print $1}' || echo 'unknown'))"
 
-# Security confirmation
-confirm_deletion "$CASE_NAME"
+# If --force is not provided, ask for confirmation
+if [[ "$2" != "--force" ]]; then
+    confirm_deletion "$1"
+fi
+
+# Define all directories to be cleaned. This array can be easily extended in the future.
+CLEANUP_DIRS=(
+    "$TM_ROOT/test-data/sync-test-cases"
+    "$TM_ROOT/outputs"
+    "$TM_ROOT/dashboard/outputs"
+    "$TM_ROOT/tiger/outputs"
+    "$TM_ROOT/monkey/outputs"
+    "$TM_ROOT/project_memories"
+    "$TM_ROOT/test-data/ground-truth"
+)
 
 echo ""
 echo "🔥 Beginning permanent deletion of case '$CASE_NAME'..."
 
-# 1. Delete source case directory (test-data/sync-test-cases/<case_name>)
-SOURCE_CASE_DIR="$TM_ROOT/test-data/sync-test-cases/$CASE_NAME"
-if [[ -d "$SOURCE_CASE_DIR" ]]; then
-    echo "Removing source case directory: $SOURCE_CASE_DIR"
-    rm -rf "$SOURCE_CASE_DIR"
-    echo "✅ Source documents deleted"
-else
-    echo "ℹ️  No source case directory found: $CASE_NAME"
-fi
-
-# 2. Delete main case output directory (outputs/tests/<case_name>)
-OUTPUTS_DIR="$TM_ROOT/outputs/tests"
-CASE_OUTPUT_DIR="$OUTPUTS_DIR/$CASE_NAME"
-if [[ -d "$CASE_OUTPUT_DIR" ]]; then
-    echo "Removing case output directory: $CASE_OUTPUT_DIR"
-    rm -rf "$CASE_OUTPUT_DIR"
-    echo "✅ Case outputs deleted"
-fi
-
-# 3. Delete dashboard output directory (dashboard/outputs/<case_name>)
-DASHBOARD_OUTPUT_DIR="$TM_ROOT/dashboard/outputs/$CASE_NAME"
-if [[ -d "$DASHBOARD_OUTPUT_DIR" ]]; then
-    echo "Removing dashboard output directory: $DASHBOARD_OUTPUT_DIR"
-    rm -rf "$DASHBOARD_OUTPUT_DIR"
-    echo "✅ Dashboard outputs deleted"
-fi
-
-# 4. Delete browser service PDF outputs
-BROWSER_OUTPUT_DIR="$TM_ROOT/outputs/browser"
-if [[ -d "$BROWSER_OUTPUT_DIR" ]]; then
-    BROWSER_PDFS=$(find "$BROWSER_OUTPUT_DIR" -name "*${CASE_NAME}*" -type f 2>/dev/null || true)
-    if [[ -n "$BROWSER_PDFS" ]]; then
-        echo "Removing browser service PDFs:"
-        echo "$BROWSER_PDFS" | while read -r file; do
-            if [[ -f "$file" ]]; then
-                rm "$file"
-                echo "  ✅ Deleted: $(basename "$file")"
-            fi
-        done
+# Loop through the array and clean each directory
+for dir in "${CLEANUP_DIRS[@]}"; do
+    if [[ -d "$dir" ]]; then
+        # Find and delete files/dirs matching the case name (case-insensitive)
+        # The -depth option ensures we delete contents before the directory itself.
+        find "$dir" -depth -iname "*${CASE_NAME}*" -exec rm -rf {} +
     fi
-fi
+done
 
-# 5. Delete any standalone JSON files
-STANDALONE_JSON=$(find "$OUTPUTS_DIR" -maxdepth 1 -iname "*${CASE_NAME}*.json" 2>/dev/null || true)
-if [[ -n "$STANDALONE_JSON" ]]; then
-    echo "Removing standalone JSON files:"
-    echo "$STANDALONE_JSON" | while read -r file; do
-        if [[ -f "$file" ]]; then
-            rm "$file"
-            echo "  ✅ Deleted: $(basename "$file")"
-        fi
-    done
-fi
+# A final check for any remaining empty directories that might have matched
+find "${CLEANUP_DIRS[@]}" -type d -iname "*${CASE_NAME}*" -empty -delete 2>/dev/null || true
 
-# 6. Clean any Tiger service outputs
-TIGER_OUTPUT_DIR="$TM_ROOT/tiger/outputs"
-if [[ -d "$TIGER_OUTPUT_DIR" ]]; then
-    TIGER_FILES=$(find "$TIGER_OUTPUT_DIR" -name "*${CASE_NAME}*" -type f 2>/dev/null || true)
-    if [[ -n "$TIGER_FILES" ]]; then
-        echo "Removing Tiger service outputs:"
-        echo "$TIGER_FILES" | while read -r file; do
-            if [[ -f "$file" ]]; then
-                rm "$file"
-                echo "  ✅ Deleted: $(basename "$file")"
-            fi
-        done
-    fi
-fi
-
-# 7. Clean any Monkey service outputs
-MONKEY_OUTPUT_DIR="$TM_ROOT/monkey/outputs"
-if [[ -d "$MONKEY_OUTPUT_DIR" ]]; then
-    MONKEY_FILES=$(find "$MONKEY_OUTPUT_DIR" -name "*${CASE_NAME}*" -type f 2>/dev/null || true)
-    if [[ -n "$MONKEY_FILES" ]]; then
-        echo "Removing Monkey service outputs:"
-        echo "$MONKEY_FILES" | while read -r file; do
-            if [[ -f "$file" ]]; then
-                rm "$file"
-                echo "  ✅ Deleted: $(basename "$file")"
-            fi
-        done
-    fi
-fi
+echo "✅ All associated files and directories for '$CASE_NAME' have been removed."
 
 echo ""
 echo "🔥 PERMANENT DELETION COMPLETE"

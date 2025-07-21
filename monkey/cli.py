@@ -322,11 +322,10 @@ For more information, visit: https://github.com/satori-dev/beaver-builder
                     # Generate case-specific PDF path in the case folder for standardized access
                     case_id = self._extract_case_id_from_json(complaint_json)
                     if case_id:
-                        # Save to test-data/sync-test-cases/<case_id>/<case_id>_complaint.pdf
-                        case_folder = Path(__file__).parent.parent / "test-data" / "sync-test-cases" / case_id
-                        case_folder.mkdir(parents=True, exist_ok=True)
+                        # Save PDF in the same directory as the HTML output file
+                        html_output_dir = Path(actual_html_path).parent
                         pdf_filename = f"{case_id}_complaint.pdf"
-                        pdf_file_path = case_folder / pdf_filename
+                        pdf_file_path = html_output_dir / pdf_filename
                     else:
                         # Fallback: same directory as HTML
                         pdf_file_path = Path(actual_html_path).parent / "complaint.pdf"

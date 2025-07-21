@@ -85,9 +85,33 @@ scripts/backup.sh "<VERSION>, <DESC OF PHASE AND CHECKPOINT>"
 4. Dashboard Service: `/Users/corelogic/satori-dev/TM/dashboard/CLAUDE.md`
 5. Browser Service: `/Users/corelogic/satori-dev/TM/browser/CLAUDE.md`
 6. Testing `/Users/corelogic/satori-dev/TM/0_how_to_test.md`
+7. Isync Adapter Service: `/Users/corelogic/satori-dev/TM/isync/adapter/README.md`
+8. Upload Service: `/Users/corelogic/satori-dev/TM/.claude/upload_service_doc.md`
+
+
+** APPLICATION INSTANCES**
+1. local host: /Users/corelogic/satori-dev/TM
+2. linode: ssh legal-agent-vps /opt/tm
+  - read server-info.txt in the server home directory
 
 
 **CURRENT BLOCKER PRIORITY**
+1. [ ] Dashboard processing Animiation and state defects:
+  - last agent attempt to fix failed: `/Users/corelogic/satori-dev/TM/.claude/GEMINI_mess.md`
+  - we want a simple system that has tiger write to manifest txt file for each case and the dashboard reads this file to display the cases in the UI and update the state of the case as it processes.
+  - the only time we want rapid polling is during processing state to update each file state as it is done processing checking off the file. 
+  - we want to use the same manifest file to update the state of the case as it processes.
+  - such that while processing, Dashboard is allowed rapid polling to drive the hourglass animations acrosss all files and accuratly show when they are done.
+  - after files are processed the manifest will refect this as file done and the updated state to review. first the js will tell the dashboard to stop polling and then it will update the state of the case to review. after that the dahboard wil simply read the manifest to draw the card state on any hard reresh by user. in this way once done we render green checkmarks for done files and button in correct state.
+  - After user generates the files we put the card state into done and have the button turn white and View Packet. the icons should all be checked
+  - the progress bar should always represent the current state along with badging. 
+  - there should be no polling when user is on review tab or any other views other than Dashboard. 
+
+
+<Low_priority>
 we failed at implementing icloud sync service using python and icloudpd. We are scrapping that idea for a new plan using golang adapter to use the OS to connect to the filesystem directly and read from icloud local folder. Then use REST APIS and webworkers to sync the files to the Linode server. We need to create a plan to implement a adapter service to sync with icloud: `/Users/corelogic/satori-dev/TM/isync/new_plan/go_adapter.md`
+</Low_priority>
 
 </PROJECT_MEMORIES>>
+
+
