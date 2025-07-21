@@ -4,9 +4,9 @@
 // Auto-generated on server startup
 
 window.satoriVersion = {
-    version: "2.1.3",
-    buildDate: "2025-07-20",
-    gitCommit: "93fffa7",
+    version: "2.1.6",
+    buildDate: "2025-07-21",
+    gitCommit: "20b2b3b",
     environment: "development",
     features: {
         deployment_infrastructure: true,
@@ -15,7 +15,7 @@ window.satoriVersion = {
         client_data_protection: true
     },
     // Cache busting parameter for asset loading
-    cacheBuster: "2025072023"
+    cacheBuster: "2025072101"
 };
 
 // Auto-update DOM elements with version class
