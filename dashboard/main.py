@@ -747,6 +747,21 @@ async def process_case(case_id: str):
             print(f"🐅 BACKEND: Error processing case {case_id}: {e}")
             data_manager.update_case_status(case_id, CaseStatus.ERROR)
 
+            # Broadcast the error event
+            try:
+                event_data = {
+                    "type": "case_processing_error",
+                    "case_id": case_id,
+                    "timestamp": datetime.now().isoformat(),
+                    "error": str(e)
+                }
+                loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(loop)
+                loop.run_until_complete(connection_manager.broadcast_event(event_data))
+                loop.close()
+            except Exception as broadcast_error:
+                print(f"Error broadcasting processing error event: {broadcast_error}")
+
     threading.Thread(target=background_task).start()
     return {"message": f"Processing started for case {case_id}"}
 
