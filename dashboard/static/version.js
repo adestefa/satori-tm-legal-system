@@ -4,9 +4,9 @@
 // Auto-generated on server startup
 
 window.satoriVersion = {
-    version: "2.1.2",
+    version: "2.1.3",
     buildDate: "2025-07-20",
-    gitCommit: "3dd6ad9",
+    gitCommit: "93fffa7",
     environment: "development",
     features: {
         deployment_infrastructure: true,
